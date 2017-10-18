@@ -1,0 +1,80 @@
+{
+  "db": {
+    "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo"
+  },
+  "polling": {
+    "scheduler": {
+      "interval": {
+        "minutes": 10
+      }
+    },
+    "providers": [
+      {
+        "name": "Ingatlan.com",
+        "baseUrl": "https://ingatlan.com",
+        "parser": "ingatlan.com",
+        "parserOpts": {
+          "indexPage": "https://ingatlan.com/szukites/elado+lakas+budapest+30-mFt-ig",
+          "interval": {
+            "milliseconds": 500
+          }
+        }
+      },
+      {
+        "name": "Otthontérkép",
+        "baseUrl": "https://otthonterkep.hu",
+        "parser": "otthonterkep.hu",
+        "parserOpts": {
+          "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest/-30-m?ex=1&sort=rd",
+          "interval": {
+            "milliseconds": 500
+          }
+        }
+      }
+//      {
+//        "name": "Jófogás",
+//        "baseUrl": "https://ingatlan.jofogas.hu",
+//        "parser": "jofogas.hu",
+//        "parserOpts": {
+//          "indexPage": "https://ingatlan.jofogas.hu/budapest/ingatlan?max_price=30000000&st=s",
+//          "interval": {
+//            "milliseconds": 500
+//          }
+//        }
+//      },
+//      {
+//        "name": "Ingatlannet",
+//        "baseUrl": "https://www.ingatlannet.hu",
+//        "parser": "ingatlannet.hu",
+//        "parserOpts": {
+//          "indexPage": "https://www.ingatlannet.hu/elad%C3%B3/lak%C3%A1s/Budapest?ar_max=30",
+//          "interval": {
+//            "milliseconds": 500
+//          }
+//        }
+//      },
+//      {
+//        "name": "Ingatlanbazar",
+//        "baseUrl": "https://www.ingatlanbazar.hu",
+//        "parser": "ingatlanbazar.hu",
+//        "parserOpts": {
+//          "indexPage": "https://www.ingatlanbazar.hu/ingatlan-Budapest-Elado-Lakas-30-millio-Ft-ig?property__2=3&property_location%5B0%5D=1050&price_min=&price_max=30&property_build_date=&searchtext=&list-order=0&page=1",
+//          "interval": {
+//            "milliseconds": 500
+//          }
+//        }
+//      },
+//      {
+//        "name": "Ingatlanok",
+//        "baseUrl": "https://ingatlanok.hu",
+//        "parser": "ingatlanok.hu",
+//        "parserOpts": {
+//          "indexPage": "https://ingatlanok.hu/elado/lakas/budapest:30Mft-ig",
+//          "interval": {
+//            "milliseconds": 500
+//          }
+//        }
+//      }
+    ]
+  }
+}
