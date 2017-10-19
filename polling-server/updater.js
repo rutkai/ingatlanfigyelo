@@ -1,7 +1,7 @@
 const {URL} = require('url');
 const got = require('got');
 
-const manager = require('./estateManager');
+const manager = require('../db/estateManager');
 
 class Updater {
     constructor(provider) {

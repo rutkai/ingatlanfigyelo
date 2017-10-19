@@ -34,7 +34,7 @@ function start() {
 function createUpdater(provider) {
     const updater = new Updater(provider);
     updater.update(() => {
-        console.log('rdy');
+        console.log(`${provider.name} just got updated!`);
 
         const interval = moment.duration(config.get('polling.scheduler.interval')).asMilliseconds();
         setTimeout(() => {
