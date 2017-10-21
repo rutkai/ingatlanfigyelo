@@ -18,12 +18,12 @@ export class EstatesStore {
   constructor(private estatesRepository: EstatesRepository) {
   }
 
-  public fetchMore() {
+  public fetchMore(): Promise<void> {
     if (this.exhaustedData) {
       return;
     }
 
-    this.estatesRepository.getEstates(this.estateData.length)
+    return this.estatesRepository.getEstates(this.estateData.length)
       .then((estates: Estate[]) => {
         if (estates.length) {
           this.estateData = this.estateData.concat(estates);

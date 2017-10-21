@@ -10,6 +10,8 @@ export class AppComponent implements OnInit {
   public estates: Estate[] = [];
   public exhausted = true;
 
+  private loadingInProgress = false;
+
   constructor(private estatesStore: EstatesStore) {
     this.estatesStore.estates$.subscribe(estates => {
       this.estates = estates;
@@ -20,6 +22,17 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.estatesStore.fetchMore();
+    this.loadMoreEstates({value: true});
+  }
+
+  public loadMoreEstates(event) {
+    if (this.loadingInProgress || !event.value) {
+      return;
+    }
+
+    this.loadingInProgress = true;
+    this.estatesStore.fetchMore().then(() => {
+      this.loadingInProgress = false;
+    });
   }
 }

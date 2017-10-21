@@ -2,6 +2,21 @@
   margin: 15px;
 }
 
+.estate-data {
+  -moz-column-width: 11.5em; /* Firefox */
+  -webkit-column-width: 11.5em; /* webkit, Safari, Chrome */
+  column-width: 11.5em;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
 .action-buttons {
   text-align: right;
 }
