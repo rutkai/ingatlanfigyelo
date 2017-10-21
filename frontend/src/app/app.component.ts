@@ -4,8 +4,7 @@ import {EstatesStore} from "../store/estates.store";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   public estates: Estate[] = [];
@@ -18,10 +17,9 @@ export class AppComponent implements OnInit {
     this.estatesStore.exhausted$.subscribe(exhausted => {
       this.exhausted = exhausted;
     });
-    this.estatesStore.fetchMore();
   }
 
   ngOnInit(): void {
-
+    this.estatesStore.fetchMore();
   }
 }

@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title><h1>{{ estate.district }}. kerület, {{ estate.region }}</h1></mat-card-title>
+    <mat-card-subtitle>{{ estate.source }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <ngx-gallery *ngIf="estate.images.length" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+    <h3>Részletek</h3>
+
+    <app-estate-map [estate]="estate"></app-estate-map>
+  </mat-card-content>
+  <mat-card-actions class="action-buttons">
+    <a mat-button href="{{ estate.url }}" target="_blank">Open</a>
+    <button mat-button>Favourite</button>
+    <button mat-button>Show map</button>
+  </mat-card-actions>
+</mat-card>
