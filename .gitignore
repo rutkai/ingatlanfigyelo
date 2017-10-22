@@ -112,3 +112,7 @@ typings/
 ### Application
 /public/*
 !/public/.gitkeep
+
+/var/*
+/var/db/*
+!/var/db/.gitkeep

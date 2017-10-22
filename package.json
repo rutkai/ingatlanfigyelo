@@ -16,10 +16,8 @@
     "moment": "^2.19.1",
     "mongodb": "^2.2.33",
     "morgan": "~1.9.0",
-    "node-sass-middleware": "0.9.8",
     "roman-numerals": "^0.3.2",
     "rxjs": "^5.3.0",
-    "serve-favicon": "~2.4.5",
-    "twig": "~0.10.3"
+    "serve-favicon": "~2.4.5"
   }
 }

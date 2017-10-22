@@ -6,8 +6,10 @@ Parsers:
 * Ingatlan.com
 * Otthonterkep.hu
 
-Installation
-------------
+Development
+-----------
+
+### Installation
 
 In both project root and `frontend` directories:
 
@@ -19,9 +21,15 @@ Build the frontend using
 
 in `frontend` directory.
 
-Running
--------
+###Running
 
 Execute in the project root:
 
      npm start
+     
+Production
+----------
+
+Running in docker:
+
+    docker-compose run --publish 3000:3000 web

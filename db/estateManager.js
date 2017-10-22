@@ -1,6 +1,7 @@
 const db = require('./db');
 
-const estateVersion = '1.0.0';
+const version = '1.0.0';
+exports.version = version;
 
 exports.checkIndices = checkIndices;
 function checkIndices() {
@@ -22,7 +23,7 @@ function save(estate) {
     }
 
     record.created = new Date();
-    record.version = estateVersion;
+    record.version = version;
     return db.getCollection('estates').insertOne(record);
 }
 
