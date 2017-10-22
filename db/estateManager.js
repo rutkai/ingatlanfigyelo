@@ -2,9 +2,14 @@ const db = require('./db');
 
 const estateVersion = '1.0.0';
 
+exports.checkIndices = checkIndices;
+function checkIndices() {
+    return db.getCollection('estates').createIndex({updated: -1});
+}
+
 exports.getMany = getMany;
-function getMany(filter = {}, from = 0, number = 5) {
-    return db.getCollection('estates').find(filter).skip(from).limit(number).toArray();
+function getMany(filter = {}, from = 0, number = 3) {
+    return db.getCollection('estates').find(filter).sort({updated: -1}).skip(from).limit(number).toArray();
 }
 
 exports.save = save;
