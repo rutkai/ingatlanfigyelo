@@ -1,6 +1,6 @@
-<mat-card in-viewport (inViewportAction)="loadLazyContent($event)">
+<mat-card in-viewport (inViewportAction)="loadLazyContent($event)" class="card">
   <mat-card-header>
-    <mat-card-title><h1>{{ estate.district }}. kerület, {{ estate.region }}</h1></mat-card-title>
+    <mat-card-title><h1>{{ estate.district }}. kerület, {{ estate.address }}</h1></mat-card-title>
     <mat-card-subtitle>{{ estate.source }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -27,7 +27,7 @@
     <app-estate-map [estate]="estate" *ngIf="loadContent"></app-estate-map>
   </mat-card-content>
   <mat-card-actions class="action-buttons">
-    <a mat-button href="{{ estate.url }}" target="_blank">Open</a>
+    <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Open</a>
     <button mat-button>Favourite</button>
   </mat-card-actions>
 </mat-card>

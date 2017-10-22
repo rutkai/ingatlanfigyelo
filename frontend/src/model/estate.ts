@@ -6,7 +6,7 @@ export class Estate {
   public heating?: number;
   public images: string[];
   public price: number;
-  public region: string;
+  public address: string;
   public rooms: string;
   public size: number;
   public source: string;

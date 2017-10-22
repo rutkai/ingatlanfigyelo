@@ -19,7 +19,7 @@ export class EstatesRepository {
           estate.heating = rawEstate.heating;
           estate.images = rawEstate.images;
           estate.price = rawEstate.price;
-          estate.region = rawEstate.region;
+          estate.address = rawEstate.address;
           estate.rooms = rawEstate.rooms;
           estate.size = rawEstate.size;
           estate.source = rawEstate.source;

@@ -12,7 +12,7 @@ router.get('/:start(\\d+)?', function(req, res) {
                   rooms: doc.rooms,
                   size: doc.size,
                   district: doc.district,
-                  region: doc.region,
+                  address: doc.address,
                   floor: doc.floor,
                   elevator: doc.elevator,
                   heating: doc.heating,

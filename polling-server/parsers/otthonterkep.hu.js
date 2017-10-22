@@ -27,7 +27,7 @@ function parseProfile(html) {
 
     const price = parseInt($(".container .prop-price").data('price'));
     let district = null;
-    let region = null;
+    let address = null;
     let rooms = null;
     let size = null;
     let floor = null;
@@ -43,7 +43,7 @@ function parseProfile(html) {
         if ($link.text().includes('Kerület')) {
             district = toArabic($link.text().substring(0, $link.text().indexOf('.')));
         } else if (index === locationDataListLength - 1) {
-            region = $link.text();
+            address = $link.text();
         }
     });
 
@@ -90,7 +90,7 @@ function parseProfile(html) {
                 rooms,
                 size,
                 district,
-                region,
+                address,
                 floor,
                 elevator,
                 heating,

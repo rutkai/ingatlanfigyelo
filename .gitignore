@@ -111,3 +111,4 @@ typings/
 
 ### Application
 /public/*
+!/public/.gitkeep

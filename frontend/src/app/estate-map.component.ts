@@ -24,7 +24,7 @@ export class EstateMapComponent implements OnInit {
     this.mapsLoader.load().then(() => {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({
-        address: `Budapest ${this.estate.district} kerület, ${this.estate.region}`
+        address: `Budapest ${this.estate.district} kerület, ${this.estate.address}`
       }, (result, status) => {
         if (status === 'OK' && result.length > 0) {
           this.lat = result[0].geometry.location.lat();

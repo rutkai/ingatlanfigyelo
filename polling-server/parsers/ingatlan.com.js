@@ -28,7 +28,10 @@ function parseProfile(html) {
     const rooms = $(".listing .parameter-room .parameter-value").text().replace('fél', '').trim();
     const size = parseInt($(".listing .parameter-area-size .parameter-value").text());
     const district = parseInt($(".listing .listing-header h1").text());
-    const region = $(".listing .listing-header h1").text().replace(`${district}. kerület,`, '').trim();
+    let address = getAddress(html);
+    if (!address) {
+        address = $(".listing .listing-header h1").text().replace(`${district}. kerület,`, '').trim();
+    }
     let floor = null;
     let elevator = null;
     let heating = null;
@@ -67,7 +70,7 @@ function parseProfile(html) {
             rooms,
             size,
             district,
-            region,
+            address,
             floor,
             elevator,
             heating,
@@ -94,4 +97,17 @@ function getImages(html) {
     }
 
     return [];
+}
+
+function getAddress(html) {
+    let title = /<title>.+<\/title>/ig.exec(html);
+    if (title) {
+        title = /kerület.+#/i.exec(title[0]);
+    }
+    if (title) {
+        return title[0].replace('kerület,', '').replace('#', '').trim();
+    }
+
+    return null;
+
 }
