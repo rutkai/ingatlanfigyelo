@@ -6,16 +6,23 @@ import {HttpClientModule} from "@angular/common/http";
 import {EstatesRepository} from "../repository/estates.repository";
 import {EstatesStore} from "../store/estates.store";
 import {EstateComponent} from "./estate.component";
-import {MatButtonModule, MatCardModule, MatExpansionModule, MatProgressSpinnerModule} from "@angular/material";
+import {
+  MatButtonModule, MatCardModule, MatExpansionModule, MatIconModule,
+  MatProgressSpinnerModule, MatSidenavModule
+} from "@angular/material";
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./estate-map.component";
 import {AgmCoreModule} from '@agm/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InViewportModule} from 'ng-in-viewport';
+import {NavbarComponent} from "./navbar.component";
+import {SidenavComponent} from "./sidenav.component";
 
 @NgModule({
   declarations: [
     AppComponent,
+    NavbarComponent,
+    SidenavComponent,
     EstateComponent,
     EstateMapComponent
   ],
@@ -28,10 +35,12 @@ import {InViewportModule} from 'ng-in-viewport';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCXsZ6qiAjyUOOY6S46qy9-R7qk1W6grGY'
     }),
+    MatIconModule,
     MatCardModule,
     MatButtonModule,
     MatExpansionModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSidenavModule
   ],
   providers: [
     EstatesRepository,

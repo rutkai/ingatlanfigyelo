@@ -1,8 +1,15 @@
-<h1>Ingatlan feed</h1>
-<div>
-  <app-estate *ngFor="let estate of estates" [estate]="estate"></app-estate>
-  <mat-spinner *ngIf="!exhausted"
-               in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">
-  </mat-spinner>
-  <p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>
+<app-navbar (showSidenav)="sidenav.open()"></app-navbar>
+<div class="container">
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav [mode]="'over'">
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+    <div class="page-content">
+      <app-estate *ngFor="let estate of estates" [estate]="estate"></app-estate>
+      <mat-spinner *ngIf="!exhausted" class="loading-spinner"
+                   in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">
+      </mat-spinner>
+      <p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>
+    </div>
+  </mat-sidenav-container>
 </div>

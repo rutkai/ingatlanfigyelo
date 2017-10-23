@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Estate} from "../model/estate";
 import {EstatesStore} from "../store/estates.store";
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public estates: Estate[] = [];
   public exhausted = true;
 
@@ -21,18 +22,16 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.loadMoreEstates({value: true});
-  }
-
-  public loadMoreEstates(event) {
-    if (this.loadingInProgress || !event.value) {
+  public loadMoreEstates() {
+    if (this.loadingInProgress) {
       return;
     }
 
     this.loadingInProgress = true;
     this.estatesStore.fetchMore().then(() => {
-      this.loadingInProgress = false;
+      setTimeout(() => {
+        this.loadingInProgress = false;
+      }, 100);
     });
   }
 }
