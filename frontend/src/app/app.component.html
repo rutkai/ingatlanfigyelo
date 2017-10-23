@@ -1,8 +1,8 @@
 <h1>Ingatlan feed</h1>
 <div>
   <app-estate *ngFor="let estate of estates" [estate]="estate"></app-estate>
-  <p *ngIf="!exhausted" in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">
-    További ingatlanok betöltése...
-  </p>
+  <mat-spinner *ngIf="!exhausted"
+               in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">
+  </mat-spinner>
   <p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>
 </div>

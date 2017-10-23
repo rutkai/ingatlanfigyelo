@@ -6,7 +6,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {EstatesRepository} from "../repository/estates.repository";
 import {EstatesStore} from "../store/estates.store";
 import {EstateComponent} from "./estate.component";
-import {MatButtonModule, MatCardModule, MatExpansionModule} from "@angular/material";
+import {MatButtonModule, MatCardModule, MatExpansionModule, MatProgressSpinnerModule} from "@angular/material";
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./estate-map.component";
 import {AgmCoreModule} from '@agm/core';
@@ -30,7 +30,8 @@ import {InViewportModule} from 'ng-in-viewport';
     }),
     MatCardModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     EstatesRepository,

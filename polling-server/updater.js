@@ -85,8 +85,10 @@ class Updater {
     doUpdateEstate(profile) {
         // No update for now
         const normUrl = this.normalizeUrl(profile.url);
-        return manager.has(normUrl)
-            .then(exist => !exist);
+        return manager.get({url: normUrl})
+            .then(estate => {
+                return !estate || estate.version !== manager.version;
+            });
     }
 }
 

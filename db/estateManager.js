@@ -8,6 +8,11 @@ function checkIndices() {
     return db.getCollection('estates').createIndex({updated: -1});
 }
 
+exports.get = get;
+function get(filter = {}) {
+    return db.getCollection('estates').findOne(filter);
+}
+
 exports.getMany = getMany;
 function getMany(filter = {}, from = 0, number = 3) {
     return db.getCollection('estates').find(filter).sort({updated: -1}).skip(from).limit(number).toArray();
