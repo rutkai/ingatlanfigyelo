@@ -6,18 +6,24 @@ const config = require('config');
 
 const users = require('../db/user');
 
-router.get('/is-logged-in', function (req, res) {
+router.get('/profile', function (req, res) {
     if (req.isAuthenticated()) {
         res.json({
-            username: req.user.username
+            user: getUserProfile(req.user)
         });
-    } else {
-        res.json({});
+        return;
     }
+
+    res.status(403).json({
+        error: 'Unauthorized!',
+        code: 403
+    });
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    res.json({});
+    res.json({
+        user: getUserProfile(req.user)
+    });
 });
 
 router.get('/logout', function (req, res) {
@@ -66,4 +72,10 @@ function isEmailAddress(string) {
 function calculatePasswordHash(password) {
     const salt = bcrypt.genSaltSync(config.get('express.authentication.rounds'));
     return bcrypt.hashSync(password, salt);
+}
+
+function getUserProfile(user) {
+    return {
+        username: user.username
+    };
 }

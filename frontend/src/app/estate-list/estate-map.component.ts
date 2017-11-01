@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Estate} from "../model/estate";
+import {Estate} from "../../model/estate";
 import {MapsAPILoader} from "@agm/core";
 
 declare const google: any;

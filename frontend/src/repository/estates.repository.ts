@@ -4,10 +4,11 @@ import {Estate} from "../model/estate";
 
 @Injectable()
 export class EstatesRepository {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public getEstates(start: number = 0): Promise<Estate[]> {
-    return this.http.get(`/load-estates/${start}`).toPromise()
+    return this.http.get(`/load-estates/${start}`, {withCredentials: true}).toPromise()
       .then((response: any) => response.estates)
       .then((rawEstates: any[]) => {
         return rawEstates.map(rawEstate => {

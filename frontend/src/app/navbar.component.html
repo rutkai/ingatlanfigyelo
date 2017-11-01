@@ -4,4 +4,10 @@
   </button>
   <h1>Ingatlan feed</h1>
   <div class="flex-spacer"></div>
+  <button mat-button (click)="login()" *ngIf="!user">
+    Login
+  </button>
+  <button mat-button (click)="logout()" *ngIf="user">
+    Logout ({{ user.username }})
+  </button>
 </nav>

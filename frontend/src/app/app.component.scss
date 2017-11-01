@@ -20,10 +20,6 @@ mat-sidenav-container {
   height: 100%;
   overflow: auto;
   display: block;
-
-  app-estate {
-    display: block;
-  }
 }
 
 app-navbar {
@@ -31,8 +27,4 @@ app-navbar {
   position: relative;
   width: 100%;
   z-index: 10000;
-}
-
-.loading-spinner {
-  margin: 10px auto;
 }

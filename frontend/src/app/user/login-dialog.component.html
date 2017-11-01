@@ -1,0 +1,13 @@
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="E-mail cím" type="email" required [(ngModel)]="data.username" (keyup.enter)="onSubmit()"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Jelszó" type="password" required [(ngModel)]="data.password" (keyup.enter)="onSubmit()"/>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <div class="flex-spacer"></div>
+  <button mat-button (click)="onCancel()">Mégsem</button>
+  <button mat-button mat-raised-button color="primary" (click)="onSubmit()">Bejelentkezés</button>
+</div>

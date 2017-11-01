@@ -2,7 +2,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 
-const authenticationMiddleware = require('./middleware');
 const users = require('../db/user');
 
 passport.serializeUser(function (user, cb) {
@@ -45,6 +44,5 @@ function init() {
         }
     ));
 
-    passport.authenticationMiddleware = authenticationMiddleware;
     users.checkIndices();
 }

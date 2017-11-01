@@ -1,0 +1,5 @@
+<app-estate *ngFor="let estate of estates" [estate]="estate"></app-estate>
+<mat-spinner *ngIf="!exhausted" class="loading-spinner"
+             in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">
+</mat-spinner>
+<p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>
