@@ -3,6 +3,8 @@ import {UserStore} from "../store/user.store";
 import {User} from "../model/user";
 import {MatDialog, MatSnackBar} from "@angular/material";
 import {LoginDialogComponent} from "./user/login-dialog.component";
+import {RegisterDialogComponent} from "./user/register-dialog.component";
+import {UserService} from "../service/user.service";
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +16,8 @@ export class NavbarComponent {
 
   public user: User;
 
-  constructor(private snackBar: MatSnackBar, private dialog: MatDialog, private userStore: UserStore) {
+  constructor(private snackBar: MatSnackBar, private dialog: MatDialog,
+              private userStore: UserStore, private userService: UserService) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });
@@ -24,6 +27,27 @@ export class NavbarComponent {
     this.toggleSidenav.emit();
   }
 
+  public register(): void {
+    let data = {};
+    const dialogRef = this.dialog.open(RegisterDialogComponent, {
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (!data) {
+        return;
+      }
+
+      this.userService.register(data.username, data.password)
+        .then(() => {
+          this.snackBar.open('Sikeres regisztráció', 'OK', {duration: 2000});
+        })
+        .catch(() => {
+          this.snackBar.open('Ez a felhasználónév már foglalt!', 'OK', {duration: 2000});
+        });
+    });
+  }
+
   public login(): void {
     let data = {};
     const dialogRef = this.dialog.open(LoginDialogComponent, {
@@ -31,6 +55,10 @@ export class NavbarComponent {
     });
 
     dialogRef.afterClosed().subscribe(data => {
+      if (!data) {
+        return;
+      }
+
       this.userStore.login(data.username, data.password)
         .then(() => {
           this.snackBar.open('Sikeres bejelentkezés', 'OK', {duration: 2000});

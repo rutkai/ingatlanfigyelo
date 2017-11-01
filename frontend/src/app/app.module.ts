@@ -23,13 +23,15 @@ import {UserStore} from "../store/user.store";
 import {UserService} from "../service/user.service";
 import {EstatesComponent} from "./estate-list/estates.component";
 import {LoginDialogComponent} from "./user/login-dialog.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {RegisterDialogComponent} from "./user/register-dialog.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     LoginDialogComponent,
+    RegisterDialogComponent,
     SidenavComponent,
     EstatesComponent,
     EstateComponent,
@@ -45,6 +47,7 @@ import {FormsModule} from "@angular/forms";
       apiKey: environment.mapsApiKey
     }),
     FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatCardModule,
     MatButtonModule,
@@ -63,7 +66,8 @@ import {FormsModule} from "@angular/forms";
     UserService
   ],
   entryComponents: [
-    LoginDialogComponent
+    LoginDialogComponent,
+    RegisterDialogComponent
   ],
   bootstrap: [AppComponent]
 })
