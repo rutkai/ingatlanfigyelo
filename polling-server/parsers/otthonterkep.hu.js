@@ -29,6 +29,7 @@ function parseProfile(html) {
     let district = null;
     let address = null;
     let rooms = null;
+    let halfrooms = null;
     let size = null;
     let floor = null;
     let elevator = null;
@@ -53,7 +54,9 @@ function parseProfile(html) {
         if ($row.text().includes('alapterület')) {
             size = parseInt($row.find('strong').text());
         } else if ($row.text().includes('szoba')) {
-            rooms = $row.find('strong').text().replace('és fél', '+ 1').replace('és', '+').replace('fél', '').trim();
+            const roomsData = $row.find('strong').text().replace('és fél', '+ 1').replace('és', '+');
+            rooms = parseInt(roomsData);
+            halfrooms = roomsData.includes('fél') ? parseInt(/\d+\W*fél/i.exec(roomsData)[0]) : 0;
         } else if ($row.text().includes('fűtéssel')) {
             heating = $row.find('strong').text().trim();
         }
@@ -88,6 +91,7 @@ function parseProfile(html) {
                 images,
                 price,
                 rooms,
+                halfrooms,
                 size,
                 district,
                 address,

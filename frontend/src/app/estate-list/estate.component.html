@@ -11,7 +11,9 @@
       </div>
       <div class="data-box">
         <p>{{ estate.size }} m<sup>2</sup></p>
-        <p>{{ estate.rooms }} szoba/félszoba</p>
+        <p>
+          {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
+        </p>
       </div>
     </div>
     <ngx-gallery *ngIf="estate.images.length" [options]="galleryOptions" [images]="loadContent ? galleryImages : []"></ngx-gallery>

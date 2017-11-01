@@ -10,6 +10,7 @@ router.get('/:start(\\d+)?', function(req, res) {
                   images: doc.images,
                   price: doc.price,
                   rooms: doc.rooms,
+                  halfrooms: doc.halfrooms,
                   size: doc.size,
                   district: doc.district,
                   address: doc.address,

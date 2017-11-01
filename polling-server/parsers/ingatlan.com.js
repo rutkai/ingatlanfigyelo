@@ -25,7 +25,9 @@ function parseProfile(html) {
 
     const images = getImages(html);
     const price = parseFloat($(".listing .parameter-price .parameter-value").text().replace(',', '.')) * 1000000;
-    const rooms = $(".listing .parameter-room .parameter-value").text().replace('fél', '').trim();
+    const roomsData = $(".listing .parameter-room .parameter-value").text();
+    const rooms = parseInt(roomsData);
+    const halfrooms = roomsData.includes('fél') ? parseInt(/\d+\W*fél/i.exec(roomsData)[0]) : 0;
     const size = parseInt($(".listing .parameter-area-size .parameter-value").text());
     const district = parseInt($(".listing .listing-header h1").text());
     let address = getAddress(html);
@@ -76,6 +78,7 @@ function parseProfile(html) {
             images,
             price,
             rooms,
+            halfrooms,
             size,
             district,
             address,
@@ -117,5 +120,4 @@ function getAddress(html) {
     }
 
     return null;
-
 }

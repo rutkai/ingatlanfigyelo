@@ -7,7 +7,8 @@ export class Estate {
   public images: string[];
   public price: number;
   public address: string;
-  public rooms: string;
+  public rooms: number;
+  public halfrooms: number;
   public size: number;
   public source: string;
   public url: string;
