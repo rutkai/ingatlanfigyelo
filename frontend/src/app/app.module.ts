@@ -16,7 +16,8 @@ import {AgmCoreModule} from '@agm/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InViewportModule} from 'ng-in-viewport';
 import {NavbarComponent} from "./navbar.component";
-import {SidenavComponent} from "./sidenav.component";
+import {SidenavComponent} from "./sidenav/sidenav.component";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import {SidenavComponent} from "./sidenav.component";
     InViewportModule.forRoot(),
     NgxGalleryModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCXsZ6qiAjyUOOY6S46qy9-R7qk1W6grGY'
+      apiKey: environment.mapsApiKey
     }),
     MatIconModule,
     MatCardModule,

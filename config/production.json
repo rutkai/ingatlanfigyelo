@@ -1,5 +1,8 @@
 {
   "db": {
     "connectionStr": "mongodb://mongo:27017/ingatlanfigyelo"
+  },
+  "express": {
+    "session-secret": "9a82fa855b2bdcaa3bc9a72d497baa41"
   }
 }

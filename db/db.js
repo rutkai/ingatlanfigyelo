@@ -11,6 +11,11 @@ function init() {
         });
 }
 
+exports.getConnection = getConnection
+function getConnection() {
+    return dbconn;
+}
+
 exports.getCollection = getCollection;
 function getCollection(name) {
     return dbconn.collection(name);

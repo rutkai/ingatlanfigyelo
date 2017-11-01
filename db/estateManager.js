@@ -5,7 +5,9 @@ exports.version = version;
 
 exports.checkIndices = checkIndices;
 function checkIndices() {
-    return db.getCollection('estates').createIndex({updated: -1});
+    return db.getCollection('estates').createIndex({
+        updated: -1
+    });
 }
 
 exports.get = get;

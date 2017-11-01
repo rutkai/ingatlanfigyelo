@@ -4,49 +4,69 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('passport');
+const config = require('config');
 
 const db = require('./db/db');
+const passportAuth = require('./auth/init');
 const pollingServer = require('./polling-server/server');
 
+const authEndpoints = require('./routes/auth');
 const loadEstates = require('./routes/load-estates');
 
 const app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+exports.start = start;
+function start() {
+    return db.init()
+        .then(() => {
+            // uncomment after placing your favicon in /public
+            //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+            app.use(logger('dev'));
+            app.use(bodyParser.json());
+            app.use(bodyParser.urlencoded({extended: false}));
+            app.use(cookieParser());
+            app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/load-estates', loadEstates);
+            passportAuth.init();
+            app.use(session({
+                store: new MongoStore({
+                    db: db.getConnection()
+                }),
+                secret: config.get('express.session-secret'),
+                resave: false,
+                saveUninitialized: false
+            }));
+            app.use(passport.initialize());
+            app.use(passport.session());
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-    const err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
+            app.use('/user', authEndpoints);
+            app.use('/load-estates', loadEstates);
 
-// error handler
-app.use(function (err, req, res) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
+            // catch 404 and forward to error handler
+            app.use(function (req, res, next) {
+                const err = new Error('Not Found');
+                err.status = 404;
+                next(err);
+            });
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render('error');
-});
+            // error handler
+            app.use(function (err, req, res) {
+                // set locals, only providing error in development
+                res.locals.message = err.message;
+                res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-module.exports = app;
+                // render the error page
+                res.status(err.status || 500);
+                res.render('error');
+            });
 
-db.init()
-    .then(() => {
-        return pollingServer.init();
-    })
-    .then(() => {
-        pollingServer.start();
-    });
-
+            return pollingServer.init();
+        })
+        .then(() => {
+            pollingServer.start();
+            return app;
+        });
+}

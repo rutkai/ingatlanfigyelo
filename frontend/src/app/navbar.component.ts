@@ -6,9 +6,9 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  @Output() public showSidenav = new EventEmitter();
+  @Output() public toggleSidenav = new EventEmitter();
 
   public sidenavButtonPressed(): void {
-    this.showSidenav.emit();
+    this.toggleSidenav.emit();
   }
 }

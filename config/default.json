@@ -2,6 +2,12 @@
   "db": {
     "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo"
   },
+  "express": {
+    "session-secret": "development-secret",
+    "authentication": {
+      "rounds": 10
+    }
+  },
   "polling": {
     "scheduler": {
       "interval": {

@@ -1,4 +1,4 @@
-<app-navbar (showSidenav)="sidenav.open()"></app-navbar>
+<app-navbar (toggleSidenav)="sidenav.toggle()"></app-navbar>
 <div class="container">
   <mat-sidenav-container>
     <mat-sidenav #sidenav [mode]="'over'">

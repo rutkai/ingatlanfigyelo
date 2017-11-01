@@ -47,10 +47,14 @@ function parseProfile(html) {
 
         switch ($row.find('td').first().text().trim()) {
             case 'Emelet':
-                if (value.includes('föld')) {
-                    floor = 0;
+                if (value !== null) {
+                    if (value.includes('föld')) {
+                        floor = 0;
+                    } else {
+                        floor = parseInt(value);
+                    }
                 } else {
-                    floor = value !== null ? parseInt(value) : null;
+                    floor = null;
                 }
                 break;
             case 'Lift':
