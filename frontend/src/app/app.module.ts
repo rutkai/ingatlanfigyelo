@@ -8,7 +8,7 @@ import {EstatesStore} from "../store/estates.store";
 import {EstateComponent} from "./estate-list/estate.component";
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
-  MatProgressSpinnerModule, MatSidenavModule, MatSnackBarModule
+  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSnackBarModule
 } from "@angular/material";
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./estate-list/estate-map.component";
@@ -25,6 +25,9 @@ import {EstatesComponent} from "./estate-list/estates.component";
 import {LoginDialogComponent} from "./user/login-dialog.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RegisterDialogComponent} from "./user/register-dialog.component";
+import {FiltersComponent} from "./filters/filters.component";
+import {FilterComponent} from "./filters/filter.component";
+import {FilterGroupsComponent} from "./filters/filter-groups.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import {RegisterDialogComponent} from "./user/register-dialog.component";
     LoginDialogComponent,
     RegisterDialogComponent,
     SidenavComponent,
+    FilterGroupsComponent,
+    FiltersComponent,
+    FilterComponent,
     EstatesComponent,
     EstateComponent,
     EstateMapComponent
@@ -52,6 +58,7 @@ import {RegisterDialogComponent} from "./user/register-dialog.component";
     MatCardModule,
     MatButtonModule,
     MatInputModule,
+    MatSelectModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatSidenavModule,

@@ -1,6 +1,9 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../model/user";
+import {Filters} from "../model/filters/filters";
+import {Filter} from "../model/filters/types/filter";
+import {FilterFactory} from "../factory/filter.factory";
 
 @Injectable()
 export class UserRepository {
@@ -10,11 +13,7 @@ export class UserRepository {
   public getProfile(): Promise<User> {
     return this.http.get(`/user/profile`, {withCredentials: true}).toPromise()
       .then((response: any) => response.user)
-      .then((userData: any) => {
-        const user = new User();
-        user.username = userData.username;
-        return user;
-      });
+      .then((userData: any) => this.unserializeUser(userData));
   }
 
   public login(username: string, password: string): Promise<User> {
@@ -25,11 +24,7 @@ export class UserRepository {
 
     return this.http.post(`/user/login`, payload, {withCredentials: true}).toPromise()
       .then((response: any) => response.user)
-      .then((userData: any) => {
-        const user = new User();
-        user.username = userData.username;
-        return user;
-      });
+      .then((userData: any) => this.unserializeUser(userData));
   }
 
   public logout(): Promise<void> {
@@ -47,5 +42,22 @@ export class UserRepository {
     return this.http.post(`/user/register`, payload, {withCredentials: true}).toPromise()
       .then(() => {
       });
+  }
+
+  private unserializeUser(userData: any): User {
+    const user = new User();
+    user.username = userData.username;
+    user.filterGroups = userData.filterGroups ? this.unserializeFilterGroups(userData.filterGroups) : [];
+    return user;
+  }
+
+  private unserializeFilterGroups(filterGroups: any): Filters[] {
+    return filterGroups.map((filters: any): Filters => {
+      return filters.map((filterData: any): Filter => {
+        const filter = FilterFactory.createFilterFor(filterData.field);
+        filter.unserialize(filterData);
+        return filter;
+      });
+    });
   }
 }

@@ -1,0 +1,6 @@
+<div class="filter-list">
+  <app-filters *ngFor="let filters of user.filterGroups" [filters]="filters" (remove)="removeFilterGroup($event)"></app-filters>
+</div>
+<button mat-icon-button color="primary" (click)="addFilterGroup()">
+  <mat-icon aria-label="Add">add</mat-icon>
+</button>

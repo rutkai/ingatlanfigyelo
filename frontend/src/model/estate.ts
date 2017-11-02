@@ -3,7 +3,7 @@ export class Estate {
   public district: number;
   public elevator?: boolean;
   public floor?: number;
-  public heating?: number;
+  public heating?: string;
   public images: string[];
   public price: number;
   public address: string;

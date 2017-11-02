@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const RateLimit = require('express-rate-limit');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const config = require('config');
@@ -42,8 +43,20 @@ function start() {
             app.use(passport.initialize());
             app.use(passport.session());
 
-            app.use('/user', authEndpoints);
-            app.use('/load-estates', loadEstates);
+            const userLimiter = new RateLimit({
+                windowMs: 120000,
+                delayAfter: 0,
+                max: 8,
+            });
+            const apiLimiter = new RateLimit({
+                windowMs: 60000,
+                delayAfter: 3,
+                delayMs: 3000,
+                max: 0,
+            });
+
+            app.use('/user', userLimiter, authEndpoints);
+            app.use('/load-estates', apiLimiter, loadEstates);
 
             // catch 404 and forward to error handler
             app.use(function (req, res, next) {

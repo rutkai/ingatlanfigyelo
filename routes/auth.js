@@ -52,7 +52,8 @@ router.post('/register', function (req, res) {
 
             return users.save({
                 username: req.body.username,
-                passwordHash: calculatePasswordHash(req.body.password)
+                passwordHash: calculatePasswordHash(req.body.password),
+                filterGroups: []
             });
         })
         .then(() => {
