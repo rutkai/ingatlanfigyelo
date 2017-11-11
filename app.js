@@ -15,6 +15,7 @@ const passportAuth = require('./auth/init');
 const pollingServer = require('./polling-server/server');
 
 const authEndpoints = require('./routes/auth');
+const filtersEndpoints = require('./routes/filters');
 const loadEstates = require('./routes/load-estates');
 
 const app = express();
@@ -48,6 +49,11 @@ function start() {
                 delayAfter: 0,
                 max: 8,
             });
+            const filterLimiter = new RateLimit({
+                windowMs: 60000,
+                delayAfter: 0,
+                max: 30,
+            });
             const apiLimiter = new RateLimit({
                 windowMs: 60000,
                 delayAfter: 3,
@@ -56,6 +62,7 @@ function start() {
             });
 
             app.use('/user', userLimiter, authEndpoints);
+            app.use('/filters', filterLimiter, filtersEndpoints);
             app.use('/load-estates', apiLimiter, loadEstates);
 
             // catch 404 and forward to error handler

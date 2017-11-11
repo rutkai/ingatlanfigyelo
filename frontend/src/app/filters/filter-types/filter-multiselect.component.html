@@ -1,0 +1,7 @@
+<mat-form-field>
+  <mat-select (change)="changed()" multiple [(ngModel)]="filter.selected">
+    <mat-option *ngFor="let opt of filter.availableList" [value]="opt">
+      {{ opt }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

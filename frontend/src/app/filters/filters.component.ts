@@ -12,20 +12,31 @@ import {FilterFactory} from "../../factory/filter.factory";
 export class FiltersComponent {
   @Input() public filters: Filters;
   @Output() public remove = new EventEmitter<Filters>();
+  @Output() public change = new EventEmitter<Filters>();
 
-  public attributes = EstateAttributes;
+  public attributes: string[];
   public selected = EstateAttributes.PRICE;
+
+  constructor() {
+    this.attributes = Object.keys(EstateAttributes).map(key => EstateAttributes[key]);
+  }
 
   public addFilter() {
     const filter = FilterFactory.createFilterFor(this.selected);
     this.filters.addFilter(filter);
+    this.change.emit(this.filters);
   }
 
   public removeFilter(filter: Filter) {
     this.filters.removeFilter(filter);
+    this.change.emit(this.filters);
   }
 
   public removeGroup() {
     this.remove.emit(this.filters);
+  }
+
+  public changed() {
+    this.change.emit(this.filters);
   }
 }

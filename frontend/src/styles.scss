@@ -3,6 +3,7 @@
 
 body {
   text-align: center;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
 app-root {
@@ -23,4 +24,18 @@ app-root {
 
 .mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
   transform: none !important;
+}
+
+.cdk-overlay-container {
+  z-index: 10000;
+}
+
+tag-input {
+  tag-input-form {
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
+  }
 }

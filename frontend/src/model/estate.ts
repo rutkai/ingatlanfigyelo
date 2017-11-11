@@ -12,6 +12,7 @@ export class Estate {
   public size: number;
   public source: string;
   public url: string;
+  public updated: object;
 
   public get pricePerSquareMeters(): number {
     return Math.ceil(this.price / this.size);

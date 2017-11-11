@@ -8,7 +8,7 @@ import {EstatesStore} from "../store/estates.store";
 import {EstateComponent} from "./estate-list/estate.component";
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
-  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSnackBarModule
+  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./estate-list/estate-map.component";
@@ -28,6 +28,13 @@ import {RegisterDialogComponent} from "./user/register-dialog.component";
 import {FiltersComponent} from "./filters/filters.component";
 import {FilterComponent} from "./filters/filter.component";
 import {FilterGroupsComponent} from "./filters/filter-groups.component";
+import {NotificationService} from "../service/notification.service";
+import {FilterBooleanComponent} from "./filters/filter-types/filter-boolean.component";
+import {FilterIntervalComponent} from "./filters/filter-types/filter-interval.component";
+import {FilterMultiselectComponent} from "./filters/filter-types/filter-multiselect.component";
+import {FilterStringComponent} from "./filters/filter-types/filter-string.component";
+import {EstateAttributeDisplayPipe} from "../pipes/estate-attribute-display.pipe";
+import {TagInputModule} from "ngx-chips";
 
 @NgModule({
   declarations: [
@@ -39,9 +46,14 @@ import {FilterGroupsComponent} from "./filters/filter-groups.component";
     FilterGroupsComponent,
     FiltersComponent,
     FilterComponent,
+    FilterBooleanComponent,
+    FilterIntervalComponent,
+    FilterMultiselectComponent,
+    FilterStringComponent,
     EstatesComponent,
     EstateComponent,
-    EstateMapComponent
+    EstateMapComponent,
+    EstateAttributeDisplayPipe
   ],
   imports: [
     BrowserModule,
@@ -59,18 +71,22 @@ import {FilterGroupsComponent} from "./filters/filter-groups.component";
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    TagInputModule
   ],
   providers: [
     EstatesRepository,
     EstatesStore,
     UserRepository,
     UserStore,
-    UserService
+    UserService,
+    NotificationService
   ],
   entryComponents: [
     LoginDialogComponent,

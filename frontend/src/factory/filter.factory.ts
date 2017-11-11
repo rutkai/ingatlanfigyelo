@@ -10,25 +10,26 @@ export class FilterFactory {
   public static createFilterFor(attribute: EstateAttributes): Filter {
     switch (attribute) {
       case EstateAttributes.BALCONY:
-        return new IntervalFilter();
+        return new IntervalFilter(attribute);
       case EstateAttributes.DISTRICT:
-        return new MultiselectFilter(this.generateDistricts());
+        return new MultiselectFilter(attribute, this.generateDistricts());
       case EstateAttributes.ELEVATOR:
-        return new BooleanFilter();
+        return new BooleanFilter(attribute);
       case EstateAttributes.FLOOR:
-        return new IntervalFilter();
+        return new IntervalFilter(attribute);
       case EstateAttributes.HEATING:
-        return new StringFilter();
+        return new StringFilter(attribute);
       case EstateAttributes.PRICE:
-        return new IntervalFilter();
+        return new IntervalFilter(attribute);
       case EstateAttributes.ROOMS:
-        return new IntervalFilter();
+        return new IntervalFilter(attribute);
       case EstateAttributes.HALF_ROOMS:
-        return new IntervalFilter();
+        return new IntervalFilter(attribute);
       case EstateAttributes.SIZE:
-        return new IntervalFilter();
+        return new IntervalFilter(attribute);
       case EstateAttributes.SOURCE:
-        return new MultiselectFilter(Object.values(EstateSources));
+        const sources = Object.keys(EstateSources).map(key => EstateSources[key]);
+        return new MultiselectFilter(attribute, sources);
     }
     throw new Error('Unknown estate attribute');
   }

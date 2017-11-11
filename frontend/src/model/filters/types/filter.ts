@@ -5,4 +5,8 @@ export abstract class Filter {
 
   public abstract unserialize(data: any);
   public abstract serialize(): any;
+
+  constructor(field: EstateAttributes) {
+    this.field = field;
+  }
 }

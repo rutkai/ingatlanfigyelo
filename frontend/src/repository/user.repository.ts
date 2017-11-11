@@ -44,6 +44,22 @@ export class UserRepository {
       });
   }
 
+  public saveFilters(filterGroups: Filters[]): Promise<void> {
+    const payload = [];
+
+    filterGroups.map((filters: Filters) => {
+      const group = [];
+      filters.filters.map((filter: Filter) => {
+        group.push(filter.serialize());
+      });
+      payload.push(group);
+    });
+
+    return this.http.put(`/filters/save`, payload, {withCredentials: true}).toPromise()
+      .then(() => {
+      });
+  }
+
   private unserializeUser(userData: any): User {
     const user = new User();
     user.username = userData.username;

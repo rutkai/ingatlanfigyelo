@@ -1,0 +1,6 @@
+<mat-slide-toggle [(ngModel)]="filter.nullable" (change)="changed()">
+  {{ filter.nullable ? 'Hiányzó érték esetén kihagyás' : 'Mindig ellenőriz' }}
+</mat-slide-toggle>
+<mat-slide-toggle [(ngModel)]="filter.value" (change)="changed()">
+  {{ filter.value ? 'Igen/Van' : 'Nem/Nincs' }}
+</mat-slide-toggle>

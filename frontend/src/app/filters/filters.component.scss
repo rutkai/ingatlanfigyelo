@@ -1,0 +1,19 @@
+.mat-card {
+  margin-top: 5px;
+}
+
+.card-remove {
+  display: flex;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+
+  app-filter {
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

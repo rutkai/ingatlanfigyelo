@@ -7,6 +7,7 @@ export class IntervalFilter extends Filter {
 
   public unserialize(data: any) {
     this.field = data.field;
+    this.nullable = data.nullable;
     this.min = data.min;
     this.max = data.max;
   }
@@ -14,6 +15,7 @@ export class IntervalFilter extends Filter {
   public serialize(): any {
     return {
       field: this.field,
+      nullable: this.nullable,
       min: this.min,
       max: this.max
     };

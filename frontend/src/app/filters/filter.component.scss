@@ -1,0 +1,23 @@
+.filter-type {
+  display: flex;
+  flex-basis: 100%;
+}
+
+app-filter-boolean {
+  flex-direction: column;
+}
+
+app-filter-interval {
+  flex-direction: column;
+}
+
+app-filter-string.filter-type {
+  display: block;
+}
+
+.filter-name {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-left: 20px;
+}

@@ -1,5 +1,5 @@
 <div *ngIf="user">
-  <h2>Szűrők</h2>
-  <app-filter-groups></app-filter-groups>
+  <h2>Szűrők <mat-icon aria-label="Saved" *ngIf="showSaved">done</mat-icon></h2>
+  <app-filter-groups (change)="saveFilters()"></app-filter-groups>
 </div>
 <p *ngIf="!user">A szűrő és értesítések használatához bejelentkezés szükséges!</p>

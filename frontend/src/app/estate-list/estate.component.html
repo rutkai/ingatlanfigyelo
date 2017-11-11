@@ -1,7 +1,7 @@
 <mat-card in-viewport (inViewportAction)="loadLazyContent($event)" class="card">
   <mat-card-header>
     <mat-card-title><h2>{{ estate.district }}. kerület, {{ estate.address }}</h2></mat-card-title>
-    <mat-card-subtitle>{{ estate.source }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ estate.source }}, frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div class="estate-primary-data">

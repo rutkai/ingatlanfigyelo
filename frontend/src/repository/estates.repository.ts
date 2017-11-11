@@ -26,6 +26,7 @@ export class EstatesRepository {
           estate.size = rawEstate.size;
           estate.source = rawEstate.source;
           estate.url = rawEstate.url;
+          estate.updated = new Date(rawEstate.updated);
 
           return estate;
         });

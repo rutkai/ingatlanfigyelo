@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, EventEmitter, Output} from "@angular/core";
 import {UserStore} from "../../store/user.store";
 import {User} from "../../model/user";
 import {Filters} from "../../model/filters/filters";
@@ -9,6 +9,7 @@ import {Filters} from "../../model/filters/filters";
   styleUrls: ['./filter-groups.component.scss']
 })
 export class FilterGroupsComponent {
+  @Output() public change = new EventEmitter<Filters[]>();
 
   public user: User;
 
@@ -20,10 +21,16 @@ export class FilterGroupsComponent {
 
   public addFilterGroup() {
     this.user.addFilterGroup(new Filters());
+    this.change.emit(this.user.filterGroups);
   }
 
   public removeFilterGroup(group: Filters) {
     this.user.removeFilterGroup(group);
+    this.change.emit(this.user.filterGroups);
+  }
+
+  public changed() {
+    this.change.emit(this.user.filterGroups);
   }
 
 }

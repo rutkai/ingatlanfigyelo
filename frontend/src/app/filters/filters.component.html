@@ -1,25 +1,19 @@
 <mat-card>
-  <button mat-icon-button color="secondary" (click)="removeGroup()">
-    <mat-icon aria-label="Remove">remove</mat-icon>
-  </button>
-  <mat-card-content>
-    <app-filter *ngFor="let filter of filters.filters" [filter]="filter" (remove)="removeFilter($event)"></app-filter>
+  <div class="card-remove">
+    <div class="flex-spacer"></div>
+    <button mat-icon-button color="secondary" (click)="removeGroup()" matTooltip="Csoport törlése">
+      <mat-icon aria-label="Remove">remove</mat-icon>
+    </button>
+  </div>
+  <mat-card-content class="filters">
+    <app-filter *ngFor="let filter of filters.filters" [filter]="filter" (remove)="removeFilter($event)" (change)="changed()"></app-filter>
   </mat-card-content>
   <mat-form-field>
     <mat-select placeholder="Mező" [(ngModel)]="selected">
-      <mat-option [value]="attributes.BALCONY">Erkély</mat-option>
-      <mat-option [value]="attributes.DISTRICT">Kerület</mat-option>
-      <mat-option [value]="attributes.ELEVATOR">Lift</mat-option>
-      <mat-option [value]="attributes.FLOOR">Emelet</mat-option>
-      <mat-option [value]="attributes.HEATING">Fűtés</mat-option>
-      <mat-option [value]="attributes.PRICE">Ár</mat-option>
-      <mat-option [value]="attributes.ROOMS">Szobák</mat-option>
-      <mat-option [value]="attributes.HALF_ROOMS">Félszobák</mat-option>
-      <mat-option [value]="attributes.SIZE">Méret</mat-option>
-      <mat-option [value]="attributes.SOURCE">Forrás</mat-option>
+      <mat-option *ngFor="let attribute of attributes" [value]="attribute">{{ attribute | estateAttributeDisplay }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-icon-button color="secondary" (click)="addFilter()">
+  <button mat-icon-button color="secondary" (click)="addFilter()" matTooltip="Szűrő hozzáadása">
     <mat-icon aria-label="Add">add</mat-icon>
   </button>
 </mat-card>

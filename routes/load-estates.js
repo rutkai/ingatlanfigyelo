@@ -19,7 +19,8 @@ router.get('/:start(\\d+)?', function(req, res) {
                   heating: doc.heating,
                   balcony: doc.balcony,
                   url: doc.url,
-                  source: doc.source
+                  source: doc.source,
+                  updated: doc.updated
               };
           });
       })
