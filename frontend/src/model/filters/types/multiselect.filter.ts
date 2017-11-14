@@ -12,13 +12,13 @@ export class MultiselectFilter extends Filter {
 
   public unserialize(data: any) {
     this.field = data.field;
-    this.selected = data.sources;
+    this.selected = data.selected;
   }
 
   public serialize(): any {
     return {
       field: this.field,
-      selected: this.selected
+      selected: this.selected ? this.selected : []
     };
   }
 }

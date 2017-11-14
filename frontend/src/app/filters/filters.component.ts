@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {Filters} from "../../model/filters/filters";
 import {Filter} from "../../model/filters/types/filter";
 import {EstateAttributes} from "../../model/filters/estate-attributes";

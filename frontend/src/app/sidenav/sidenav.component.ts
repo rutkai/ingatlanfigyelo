@@ -5,6 +5,7 @@ import {Subject} from "rxjs/Subject";
 import {Subscription} from "rxjs/Subscription";
 import {debounceTime} from "rxjs/operators";
 import {UserService} from "../../service/user.service";
+import {EstatesStore} from "../../store/estates.store";
 
 @Component({
   selector: 'app-sidenav',
@@ -19,7 +20,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   private changes = new Subject();
   private subscription: Subscription;
 
-  constructor(private userStore: UserStore, private userService: UserService) {
+  constructor(private estatesStore: EstatesStore, private userStore: UserStore, private userService: UserService) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });
@@ -32,6 +33,9 @@ export class SidenavComponent implements OnInit, OnDestroy {
       this.userService.saveFilters(this.user.filterGroups)
         .then(() => {
           this.showSaved = true;
+        })
+        .then(() => {
+          this.estatesStore.reset();
         });
     });
   }

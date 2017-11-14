@@ -30,8 +30,16 @@ export class EstatesStore {
           this.estates.next(this.estateData);
         } else {
           this.exhaustedData = true;
+          this.exhausted.next(this.exhaustedData);
         }
       });
+  }
+
+  public reset(): void {
+    this.estateData = [];
+    this.estates.next(this.estateData);
+    this.exhaustedData = false;
+    this.exhausted.next(this.exhaustedData);
   }
 
 }

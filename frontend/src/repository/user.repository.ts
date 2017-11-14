@@ -69,11 +69,13 @@ export class UserRepository {
 
   private unserializeFilterGroups(filterGroups: any): Filters[] {
     return filterGroups.map((filters: any): Filters => {
-      return filters.map((filterData: any): Filter => {
+      const filtersObj = new Filters();
+      filtersObj.filters = filters.map((filterData: any): Filter => {
         const filter = FilterFactory.createFilterFor(filterData.field);
         filter.unserialize(filterData);
         return filter;
       });
+      return filtersObj;
     });
   }
 }

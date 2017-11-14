@@ -77,6 +77,7 @@ function calculatePasswordHash(password) {
 
 function getUserProfile(user) {
     return {
-        username: user.username
+        username: user.username,
+        filterGroups: user.filterGroups
     };
 }
