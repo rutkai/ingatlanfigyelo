@@ -1,9 +1,30 @@
 .card {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 15px auto;
 }
 
+.estate-details {
+  display: flex;
+  flex-flow: row wrap;
+}
+
 .estate-data {
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+
+.estate-primary-data {
+  display: flex;
+  flex-direction: row;
+
+  .data-box {
+    width: 50%;
+    margin: 10px;
+  }
+}
+
+.estate-other-data {
   -moz-column-width: 11.5em; /* Firefox */
   -webkit-column-width: 11.5em; /* webkit, Safari, Chrome */
   column-width: 11.5em;
@@ -11,13 +32,37 @@
   ul {
     margin: 0;
     padding: 0;
+    list-style-type: none;
 
-    li:first-child {
-      margin-top: 0;
+    li {
+      margin-bottom: 10px;
+
+      &:first-child {
+        margin-top: 0;
+      }
     }
   }
 }
 
+.estate-map {
+  margin: 20px 10px 10px;
+}
+
 .action-buttons {
   text-align: right;
+}
+
+.estate-gallery {
+  display: flex;
+  flex-basis: 100%;
+}
+
+@media (min-width: 640px) {
+  .estate-data {
+    flex-basis: 45%;
+  }
+
+  .estate-gallery {
+    flex-basis: 55%;
+  }
 }

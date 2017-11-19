@@ -1,5 +1,6 @@
 const {URL} = require('url');
 const got = require('got');
+const env = require('../env/env');
 
 const manager = require('../db/estateManager');
 
@@ -19,7 +20,7 @@ class Updater {
             .then(response => {
                 const listData = this.provider.parser.parseList(response.body);
                 setTimeout(() => {
-                    if (listData.nextList) {
+                    if (listData.nextList && env.isProd()) {
                         this.updateNextIndexPage(listData.nextList);
                     } else {
                         this.dequeueEstate();

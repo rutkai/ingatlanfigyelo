@@ -3,30 +3,33 @@
     <mat-card-title><h2>{{ estate.district }}. kerület, {{ estate.address }}</h2></mat-card-title>
     <mat-card-subtitle>{{ estate.source }}, frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <div class="estate-primary-data">
-      <div class="data-box">
-        <p>{{ estate.price | number:'.0-0' }} Ft</p>
-        <p>{{ estate.pricePerSquareMeters | number:'.0-0' }} Ft/m<sup>2</sup></p>
-      </div>
-      <div class="data-box">
-        <p>{{ estate.size }} m<sup>2</sup></p>
-        <p>
-          {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
-        </p>
-      </div>
-    </div>
-    <ngx-gallery *ngIf="estate.images.length" [options]="galleryOptions" [images]="loadContent ? galleryImages : []"></ngx-gallery>
+  <mat-card-content class="estate-details">
     <div class="estate-data">
-      <ul>
-        <li *ngIf="estate.balcony !== null">Erkély: {{ estate.balcony }} m<sup>2</sup></li>
-        <li *ngIf="estate.heating !== null">Fűtés: {{ estate.heating }}</li>
-        <li *ngIf="estate.floor !== null">Emelet: {{ estate.floor }}</li>
-        <li *ngIf="estate.elevator !== null">Lift: {{ estate.elevator ? 'van' : 'nincs' }}</li>
-      </ul>
+      <div class="estate-primary-data">
+        <div class="data-box">
+          <p>{{ estate.price | number:'.0-0' }} Ft</p>
+          <p>{{ estate.pricePerSquareMeters | number:'.0-0' }} Ft/m<sup>2</sup></p>
+        </div>
+        <div class="data-box">
+          <p>{{ estate.size }} m<sup>2</sup></p>
+          <p>
+            {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
+          </p>
+        </div>
+      </div>
+      <div class="estate-other-data">
+        <ul>
+          <li *ngIf="estate.balcony !== null">Erkély: {{ estate.balcony }} m<sup>2</sup></li>
+          <li *ngIf="estate.heating !== null">Fűtés: {{ estate.heating }}</li>
+          <li *ngIf="estate.floor !== null">Emelet: {{ estate.floor }}</li>
+          <li *ngIf="estate.elevator !== null">Lift: {{ estate.elevator ? 'van' : 'nincs' }}</li>
+        </ul>
+      </div>
+
+      <app-estate-map [estate]="estate" *ngIf="loadContent" class="estate-map"></app-estate-map>
     </div>
 
-    <app-estate-map [estate]="estate" *ngIf="loadContent"></app-estate-map>
+    <ngx-gallery *ngIf="estate.images.length" [options]="galleryOptions" [images]="loadContent ? galleryImages : []" class="estate-gallery"></ngx-gallery>
   </mat-card-content>
   <mat-card-actions class="action-buttons">
     <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Open</a>

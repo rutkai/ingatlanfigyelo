@@ -32,28 +32,17 @@ export class EstateComponent implements OnInit {
     this.galleryOptions = [
       // Full width
       {
-        width: '900px',
-        height: '600px',
+        width: '100%',
+        height: '460px',
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageInfinityMove: true
       },
-      // max-width 1000
+      // max-width 500
       {
-        breakpoint: 1000,
+        breakpoint: 500,
         width: '100%',
-        height: '600px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20,
-        imageInfinityMove: true
-      },
-      // max-width 600
-      {
-        breakpoint: 600,
-        width: '100%',
-        height: '400px',
+        height: '300px',
         imagePercent: 80,
         thumbnailsPercent: 20,
         thumbnailsMargin: 20,
@@ -63,6 +52,17 @@ export class EstateComponent implements OnInit {
       // max-width 400
       {
         breakpoint: 400,
+        width: '100%',
+        height: '250px',
+        imagePercent: 80,
+        thumbnailsPercent: 20,
+        thumbnailsMargin: 20,
+        thumbnailMargin: 20,
+        imageInfinityMove: true
+      },
+      // max-width 300
+      {
+        breakpoint: 300,
         preview: false,
         imageInfinityMove: true
       }
