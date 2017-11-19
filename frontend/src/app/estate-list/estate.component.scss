@@ -12,40 +12,37 @@
   display: flex;
   flex-basis: 100%;
   flex-direction: column;
-}
 
-.estate-primary-data {
-  display: flex;
-  flex-direction: row;
+  .header {
+    margin-right: 20px;
 
-  .data-box {
-    width: 50%;
-    margin: 10px;
+    p {
+      margin-top: -8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.54);
+    }
   }
-}
 
-.estate-other-data {
-  -moz-column-width: 11.5em; /* Firefox */
-  -webkit-column-width: 11.5em; /* webkit, Safari, Chrome */
-  column-width: 11.5em;
+  table {
+    width: 100%;
+    padding: 0 20px 0 10px;
+    margin: 5px 0;
+    border-spacing: 0;
 
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+    .main-data {
+      font-weight: 700;
+    }
 
-    li {
-      margin-bottom: 10px;
-
-      &:first-child {
-        margin-top: 0;
-      }
+    td {
+      padding: 10px 5px 6px;
+      border-bottom: 1px solid lightgray;
     }
   }
 }
 
 .estate-map {
-  margin: 20px 10px 10px;
+  margin: 20px 20px 10px 10px;
 }
 
 .action-buttons {
@@ -57,7 +54,7 @@
   flex-basis: 100%;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 700px) {
   .estate-data {
     flex-basis: 45%;
   }
