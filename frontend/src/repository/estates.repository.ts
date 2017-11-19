@@ -24,6 +24,7 @@ export class EstatesRepository {
           estate.rooms = rawEstate.rooms;
           estate.halfrooms = rawEstate.halfrooms;
           estate.size = rawEstate.size;
+          estate.squareMeterPrice = rawEstate.squareMeterPrice;
           estate.source = rawEstate.source;
           estate.url = rawEstate.url;
           estate.updated = new Date(rawEstate.updated);

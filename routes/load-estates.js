@@ -1,35 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const estateManager = require('../db/estateManager');
+const estateRepository = require('../repository/estate');
+const userRepository = require('../repository/user');
 const filterSerializer = require('../filter/serializer');
+const estateSerializer = require('../estate/serializer');
 
 router.get('/:start(\\d+)?', function (req, res) {
     let filter = {};
     if (req.user) {
         filter = filterSerializer.toMongoFilter(req.user.filterGroups);
+        userRepository.resetLastRefresh(req.user);
     }
 
-    estateManager.getMany(filter, req.params.start ? parseInt(req.params.start) : 0)
-        .then(result => {
-            return result.map(doc => {
-                return {
-                    images: doc.images,
-                    price: doc.price,
-                    rooms: doc.rooms,
-                    halfrooms: doc.halfrooms,
-                    size: doc.size,
-                    district: doc.district,
-                    address: doc.address,
-                    floor: doc.floor,
-                    elevator: doc.elevator,
-                    heating: doc.heating,
-                    balcony: doc.balcony,
-                    url: doc.url,
-                    source: doc.source,
-                    updated: doc.updated
-                };
-            });
-        })
+    estateRepository.getEstates(filter, req.params.start ? parseInt(req.params.start) : 0)
+        .then(estateSerializer.toResponse)
         .then(estates => {
             res.json({
                 estates

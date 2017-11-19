@@ -56,6 +56,7 @@ function isAllowedField(field) {
         "rooms",
         "halfrooms",
         "size",
+        "squareMeterPrice",
         "source"
     ];
 

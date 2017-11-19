@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('../filter/validator');
-const users = require('../db/user');
+const userRepository = require('../repository/user');
 
 router.put('/save', function (req, res) {
     const filterDefs = req.body;
@@ -13,9 +13,7 @@ router.put('/save', function (req, res) {
         return;
     }
 
-    const user = req.user;
-    user.filterGroups = filterDefs;
-    users.save(user)
+    userRepository.updateFilters(req.user, filterDefs)
         .then(() => {
             res.json({});
         });

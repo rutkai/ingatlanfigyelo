@@ -11,8 +11,8 @@ function checkIndices() {
 }
 
 exports.get = get;
-function get(username) {
-    return db.getCollection('users').findOne({username});
+function get(filter) {
+    return db.getCollection('users').findOne(filter);
 }
 
 exports.save = save;

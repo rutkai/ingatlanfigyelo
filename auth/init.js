@@ -3,13 +3,14 @@ const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 
 const users = require('../db/user');
+const userRepository = require('../repository/user');
 
 passport.serializeUser(function (user, cb) {
     cb(null, user.username)
 });
 
 passport.deserializeUser(function (username, cb) {
-    users.get(username)
+    userRepository.getByUsername(username)
         .then(user => {
             if (user) {
                 cb(null, user);
@@ -23,7 +24,7 @@ exports.init = init;
 function init() {
     passport.use(new LocalStrategy(
         (username, password, done) => {
-            users.get(username)
+            userRepository.getByUsername(username)
                 .then(user => {
                     // User not found
                     if (!user) {

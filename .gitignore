@@ -116,3 +116,5 @@ typings/
 /var/*
 /var/db/*
 !/var/db/.gitkeep
+/var/log/*
+!/var/log/.gitkeep

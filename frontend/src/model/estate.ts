@@ -6,6 +6,7 @@ export class Estate {
   public heating?: string;
   public images: string[];
   public price: number;
+  public squareMeterPrice: number;
   public address: string;
   public rooms: number;
   public halfrooms: number;
@@ -13,8 +14,4 @@ export class Estate {
   public source: string;
   public url: string;
   public updated: object;
-
-  public get pricePerSquareMeters(): number {
-    return Math.ceil(this.price / this.size);
-  }
 }

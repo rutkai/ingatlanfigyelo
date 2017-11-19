@@ -21,6 +21,8 @@ export class FilterFactory {
         return new StringFilter(attribute);
       case EstateAttributes.PRICE:
         return new IntervalFilter(attribute);
+      case EstateAttributes.SQUARE_METER_PRICE:
+        return new IntervalFilter(attribute);
       case EstateAttributes.ROOMS:
         return new IntervalFilter(attribute);
       case EstateAttributes.HALF_ROOMS:

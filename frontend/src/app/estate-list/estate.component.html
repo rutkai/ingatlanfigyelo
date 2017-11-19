@@ -8,7 +8,7 @@
       <table>
         <tr class="main-data">
           <td>{{ estate.price | number:'.0-0' }} Ft</td>
-          <td>{{ estate.pricePerSquareMeters | number:'.0-0' }} Ft/m<sup>2</sup></td>
+          <td>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></td>
         </tr>
         <tr class="main-data">
           <td>{{ estate.size }} m<sup>2</sup></td>
@@ -41,6 +41,5 @@
   </mat-card-content>
   <mat-card-actions class="action-buttons">
     <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>
-    <button mat-button>Kedvencnek jelöl</button>
   </mat-card-actions>
 </mat-card>

@@ -15,7 +15,8 @@ function isIntervalField(field) {
         "price",
         "rooms",
         "halfrooms",
-        "size"
+        "size",
+        "squareMeterPrice"
     ];
 
     return intervalFields.includes(field);

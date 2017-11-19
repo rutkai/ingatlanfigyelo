@@ -6,6 +6,8 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class EstatesStore {
+  private readonly FETCH_COUNT = 3;
+
   private estateData: Estate[] = [];
   private exhaustedData = false;
 
@@ -28,7 +30,8 @@ export class EstatesStore {
         if (estates.length) {
           this.estateData = this.estateData.concat(estates);
           this.estates.next(this.estateData);
-        } else {
+        }
+        if (estates.length < this.FETCH_COUNT) {
           this.exhaustedData = true;
           this.exhausted.next(this.exhaustedData);
         }

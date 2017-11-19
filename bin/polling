@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+const db = require('../db/db');
+const pollingServer = require('../polling-server/server');
+
+db.init()
+    .then(() => {
+        return pollingServer.init();
+    })
+    .then(() => {
+        pollingServer.start();
+    });
