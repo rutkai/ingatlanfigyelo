@@ -109,6 +109,9 @@ typings/
 # dotenv environment variables file
 .env
 
+### IDE stuff
+/.idea
+
 ### Application
 /public/*
 !/public/.gitkeep

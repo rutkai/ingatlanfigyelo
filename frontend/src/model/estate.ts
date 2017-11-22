@@ -13,5 +13,5 @@ export class Estate {
   public size: number;
   public source: string;
   public url: string;
-  public updated: object;
+  public updated: Date;
 }
