@@ -15,6 +15,6 @@ function getUpdatedEstateList(user) {
     };
 
     userRepository.resetLastRefresh(user);
-    return estateRepository.getEstates(filter, 50)
+    return estateRepository.getEstates(filter, 0, 50)
         .then(estateSerializer.toResponse);
 }

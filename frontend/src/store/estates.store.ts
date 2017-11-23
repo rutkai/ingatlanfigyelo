@@ -3,6 +3,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {EstatesRepository} from "../repository/estates.repository";
 import {Estate} from "../model/estate";
 import {Observable} from "rxjs/Observable";
+import {WebsocketEventsStore} from "./websocket-events.store";
 
 @Injectable()
 export class EstatesStore {
@@ -17,7 +18,11 @@ export class EstatesStore {
   private exhausted: BehaviorSubject<boolean> = new BehaviorSubject(this.exhaustedData);
   public exhausted$: Observable<boolean> = this.exhausted.asObservable();
 
-  constructor(private estatesRepository: EstatesRepository) {
+  constructor(private estatesRepository: EstatesRepository, private websocketEventsStore: WebsocketEventsStore) {
+    this.websocketEventsStore.newEstates$.subscribe((estates: Estate[]) => {
+      this.estateData = estates.concat(this.estateData);
+      this.estates.next(this.estateData);
+    });
   }
 
   public fetchMore(): Promise<void> {

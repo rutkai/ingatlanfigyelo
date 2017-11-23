@@ -1,8 +1,8 @@
 const estates = require('../db/estateManager');
 
 exports.getEstates = getEstates;
-function getEstates(filter, start) {
-    return estates.getMany(filter, start);
+function getEstates(filter, start = 0, limit = 3) {
+    return estates.getMany(filter, start, limit);
 }
 
 exports.get = get;

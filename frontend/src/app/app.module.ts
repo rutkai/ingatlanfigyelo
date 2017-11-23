@@ -35,6 +35,9 @@ import {FilterMultiselectComponent} from "./filters/filter-types/filter-multisel
 import {FilterStringComponent} from "./filters/filter-types/filter-string.component";
 import {EstateAttributeDisplayPipe} from "../pipes/estate-attribute-display.pipe";
 import {TagInputModule} from "ngx-chips";
+import {WebsocketRepository} from "../repository/websocket.repository";
+import {WebsocketEventsStore} from "../store/websocket-events.store";
+import {EstateParser} from "../parsers/estate.parser";
 
 @NgModule({
   declarations: [
@@ -81,12 +84,15 @@ import {TagInputModule} from "ngx-chips";
     TagInputModule
   ],
   providers: [
+    EstateParser,
     EstatesRepository,
     EstatesStore,
     UserRepository,
     UserStore,
     UserService,
-    NotificationService
+    NotificationService,
+    WebsocketRepository,
+    WebsocketEventsStore
   ],
   entryComponents: [
     LoginDialogComponent,

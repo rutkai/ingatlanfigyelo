@@ -72,6 +72,8 @@ exports.attachErrorHandlers = attachErrorHandlers;
 function attachErrorHandlers(app) {
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
+        console.error(req);
+
         const err = new Error('Not Found');
         err.status = 404;
         next(err);
@@ -125,7 +127,7 @@ function createHeartbeatCheck(wss) {
             ws.isAlive = false;
             ws.ping('', false, true);
         });
-    }, 30000);
+    }, 3 * 60 * 1000);
 }
 
 function createRefreshTimer(ws, user) {
@@ -135,6 +137,7 @@ function createRefreshTimer(ws, user) {
                 .then(estates => {
                     if (estates.length) {
                         ws.send(JSON.stringify({
+                            id: 'new-estates',
                             estates
                         }));
                     }
