@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "npm run start-polling & npm run start-web",
-    "start-web": "node ./bin/www >> ./var/log/web.log 2>> ./var/log/web.err",
-    "start-polling": "node ./bin/polling >> ./var/log/polling.log 2>> ./var/log/polling.err"
+    "start-web": "node ./bin/www",
+    "start-polling": "node ./bin/polling"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",

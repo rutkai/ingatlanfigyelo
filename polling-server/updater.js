@@ -1,3 +1,4 @@
+const Raven = require('raven');
 const {URL} = require('url');
 const got = require('got');
 const env = require('../env/env');
@@ -40,7 +41,8 @@ class Updater {
             .catch(error => {
                 console.error(`Error during fetching/parsing index page on ${this.provider.name}, URL: ${page}`);
                 console.error(error);
-                this.onReady();
+                Raven.captureException(error);
+                this.onReady(error);
             });
     }
 
@@ -72,6 +74,7 @@ class Updater {
             .catch(error => {
                 console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
                 console.error(error);
+                Raven.captureException(error);
                 this.dequeueEstate();
             });
     }

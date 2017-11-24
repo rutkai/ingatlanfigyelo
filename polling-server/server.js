@@ -38,12 +38,23 @@ function start() {
 
 function createUpdater(provider) {
     const updater = new Updater(provider);
-    updater.update(() => {
-        console.log(`${provider.name} just got updated!`);
+    const interval = moment.duration(config.get('polling.scheduler.interval')).asMilliseconds();
+    let isUpdating = false;
 
-        const interval = moment.duration(config.get('polling.scheduler.interval')).asMilliseconds();
-        setTimeout(() => {
-            createUpdater(provider);
-        }, interval);
-    });
+    const update = () => {
+        if (isUpdating) {
+            return;
+        }
+
+        isUpdating = true;
+        updater.update((err) => {
+            if (!err) {
+                console.log(`${provider.name} just got updated!`);
+            }
+            isUpdating = false;
+        });
+    };
+
+    setInterval(update, interval);
+    update();
 }
