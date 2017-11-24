@@ -1,0 +1,8 @@
+.estate-gallery {
+  display: flex;
+  flex-basis: 100%;
+
+  ngx-gallery-preview.ngx-gallery-active {
+    position: absolute;
+  }
+}

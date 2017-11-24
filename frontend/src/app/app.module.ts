@@ -39,6 +39,7 @@ import {WebsocketRepository} from "../repository/websocket.repository";
 import {WebsocketEventsStore} from "../store/websocket-events.store";
 import {EstateParser} from "../parsers/estate.parser";
 import {FooterComponent} from "./footer.component";
+import {EstateGalleryComponent} from "./estate-list/estate-gallery.component";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import {FooterComponent} from "./footer.component";
     EstatesComponent,
     EstateComponent,
     EstateMapComponent,
+    EstateGalleryComponent,
     EstateAttributeDisplayPipe
   ],
   imports: [

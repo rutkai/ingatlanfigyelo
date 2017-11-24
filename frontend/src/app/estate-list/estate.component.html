@@ -37,7 +37,7 @@
       <app-estate-map [estate]="estate" *ngIf="loadContent" class="estate-map"></app-estate-map>
     </div>
 
-    <ngx-gallery *ngIf="estate.images.length" [options]="galleryOptions" [images]="loadContent ? galleryImages : []" class="estate-gallery"></ngx-gallery>
+    <app-estate-gallery *ngIf="estate.images.length" [images]="estate.images" [loadContent]="loadContent"></app-estate-gallery>
   </mat-card-content>
   <mat-card-actions class="action-buttons">
     <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>

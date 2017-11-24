@@ -1,6 +1,7 @@
 .card {
   max-width: 1200px;
   margin: 15px auto;
+  position: static;
 }
 
 .estate-details {
@@ -49,7 +50,7 @@
   text-align: right;
 }
 
-.estate-gallery {
+app-estate-gallery {
   display: flex;
   flex-basis: 100%;
 }
@@ -59,7 +60,7 @@
     flex-basis: 45%;
   }
 
-  .estate-gallery {
+  app-estate-gallery {
     flex-basis: 55%;
   }
 }
