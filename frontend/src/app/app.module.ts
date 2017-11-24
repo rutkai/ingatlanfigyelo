@@ -38,11 +38,13 @@ import {TagInputModule} from "ngx-chips";
 import {WebsocketRepository} from "../repository/websocket.repository";
 import {WebsocketEventsStore} from "../store/websocket-events.store";
 import {EstateParser} from "../parsers/estate.parser";
+import {FooterComponent} from "./footer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    FooterComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
     SidenavComponent,

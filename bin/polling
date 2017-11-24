@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
+const config = require('config');
+const Raven = require('raven');
 const db = require('../db/db');
 const pollingServer = require('../polling-server/server');
+
+Raven.config(config.get('sentry.polling')).install();
 
 db.init()
     .then(() => {
@@ -9,4 +13,7 @@ db.init()
     })
     .then(() => {
         pollingServer.start();
+    })
+    .catch(e => {
+        Raven.captureException(e);
     });

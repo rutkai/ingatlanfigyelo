@@ -6,6 +6,11 @@ body {
   font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
+a {
+  color: #3f51b5;
+  text-decoration: none;
+}
+
 app-root {
   position: absolute;
   top: 0;
@@ -14,6 +19,7 @@ app-root {
   bottom: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .flex-spacer {

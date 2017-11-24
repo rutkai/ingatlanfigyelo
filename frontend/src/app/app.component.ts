@@ -6,4 +6,9 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public footerHidden = false;
+
+  public scrolled(event) {
+    this.footerHidden = event.srcElement.scrollTop !== 0;
+  }
 }

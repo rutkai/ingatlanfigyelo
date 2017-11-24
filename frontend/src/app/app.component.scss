@@ -28,3 +28,13 @@ app-navbar {
   width: 100%;
   z-index: 10000;
 }
+
+app-footer {
+  max-height: 40px;
+  transition: max-height 1s;
+
+  &.hidden {
+    max-height: 0;
+    transition: max-height 1s;
+  }
+}

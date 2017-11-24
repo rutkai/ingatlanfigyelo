@@ -4,8 +4,9 @@
     <mat-sidenav #sidenav [mode]="'over'">
       <app-sidenav></app-sidenav>
     </mat-sidenav>
-    <div class="page-content">
+    <div class="page-content" (scroll)="scrolled($event)">
       <app-estates></app-estates>
     </div>
   </mat-sidenav-container>
 </div>
+<app-footer [class.hidden]="footerHidden"></app-footer>

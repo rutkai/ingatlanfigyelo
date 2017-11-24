@@ -9,6 +9,7 @@ const RateLimit = require('express-rate-limit');
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const config = require('config');
+const Raven = require('raven');
 
 const db = require('./db/db');
 const passportAuth = require('./auth/init');
@@ -24,6 +25,9 @@ function getApp() {
     return db.init()
         .then(() => {
             const app = express();
+
+            Raven.config(config.get('sentry.web')).install();
+            app.use(Raven.requestHandler());
 
             app.use(logger('dev'));
             app.use(bodyParser.json());
@@ -63,6 +67,8 @@ function getApp() {
             app.use('/user', userLimiter, authEndpoints);
             app.use('/filters', filterLimiter, filtersEndpoints);
             app.use('/load-estates', apiLimiter, loadEstates);
+
+            app.use(Raven.errorHandler());
 
             return app;
         });
