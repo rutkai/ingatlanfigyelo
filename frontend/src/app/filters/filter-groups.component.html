@@ -1,6 +1,6 @@
 <div class="filter-list">
   <app-filters *ngFor="let filters of user.filterGroups" [filters]="filters" (remove)="removeFilterGroup($event)" (change)="changed()"></app-filters>
 </div>
-<button mat-icon-button color="primary" (click)="addFilterGroup()" matTooltip="Csoport hozzáadása">
+<button mat-icon-button *ngIf="user.filterGroups.length < 5" color="primary" (click)="addFilterGroup()" matTooltip="Csoport hozzáadása">
   <mat-icon aria-label="Add">add</mat-icon>
 </button>

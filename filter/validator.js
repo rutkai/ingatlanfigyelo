@@ -6,8 +6,16 @@ function validate(data) {
         return false;
     }
 
+    if (data.length > 5) {
+        return false;
+    }
+
     for (const filters of data) {
         if (!Array.isArray(filters)) {
+            return false;
+        }
+
+        if (filters.length > 10) {
             return false;
         }
 
@@ -81,15 +89,16 @@ function validateBooleanFilter(filter) {
 }
 
 function validateIntervalFilter(filter) {
-    if (Object.keys(filter).length !== 4) {
+    const length = Object.keys(filter).length;
+    if (length < 2 || length > 4) {
         return false;
     }
 
-    if (typeof filter.min !== 'number') {
+    if (filter.min && typeof filter.min !== 'number') {
         return false;
     }
 
-    if (typeof filter.max !== 'number') {
+    if (filter.max && typeof filter.max !== 'number') {
         return false;
     }
 

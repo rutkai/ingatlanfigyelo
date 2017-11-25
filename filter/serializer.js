@@ -12,12 +12,16 @@ function toMongoFilter(userFilterGroups) {
                     [filter.field]: {"$eq": filter.value}
                 }));
             } else if (common.isIntervalField(filter.field)) {
-                filterQuery.push(createMaybeNullableQuery(filter, {
-                    [filter.field]: {"$gte": filter.min}
-                }));
-                filterQuery.push(createMaybeNullableQuery(filter, {
-                    [filter.field]: {"$lte": filter.max}
-                }));
+                if (filter.min) {
+                    filterQuery.push(createMaybeNullableQuery(filter, {
+                        [filter.field]: {"$gte": filter.min}
+                    }));
+                }
+                if (filter.max) {
+                    filterQuery.push(createMaybeNullableQuery(filter, {
+                        [filter.field]: {"$lte": filter.max}
+                    }));
+                }
             } else if (common.isMultiselectField(filter.field)) {
                 filterQuery.push({
                     [filter.field]: {"$in": filter.selected}

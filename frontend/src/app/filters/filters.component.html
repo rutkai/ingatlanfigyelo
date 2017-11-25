@@ -8,12 +8,12 @@
   <mat-card-content class="filters">
     <app-filter *ngFor="let filter of filters.filters" [filter]="filter" (remove)="removeFilter($event)" (change)="changed()"></app-filter>
   </mat-card-content>
-  <mat-form-field>
+  <mat-form-field *ngIf="filters.filters.length < 10">
     <mat-select placeholder="Mező" [(ngModel)]="selected">
       <mat-option *ngFor="let attribute of attributes" [value]="attribute">{{ attribute | estateAttributeDisplay }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <button mat-icon-button color="secondary" (click)="addFilter()" matTooltip="Szűrő hozzáadása">
+  <button mat-icon-button *ngIf="filters.filters.length < 10" color="secondary" (click)="addFilter()" matTooltip="Szűrő hozzáadása">
     <mat-icon aria-label="Add">add</mat-icon>
   </button>
 </mat-card>
