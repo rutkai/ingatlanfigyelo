@@ -1,0 +1,22 @@
+<nav *ngIf="user">
+  <h3>Ingatlanok</h3>
+  <ul class="nav-list">
+    <li>
+      <a (click)="openFiltersSidenav()">Szűrők</a>
+    </li>
+  </ul>
+</nav>
+<nav>
+  <h3>Felhasználó</h3>
+  <ul class="nav-list">
+    <li>
+      <a (click)="register()" *ngIf="!user">Regisztráció</a>
+    </li>
+    <li>
+      <a (click)="login()" *ngIf="!user">Bejelentkezés</a>
+    </li>
+    <li>
+      <a (click)="logout()" *ngIf="user">Kijelentkezés ({{ user.username }})</a>
+    </li>
+  </ul>
+</nav>

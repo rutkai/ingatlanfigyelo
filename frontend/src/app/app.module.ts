@@ -16,7 +16,7 @@ import {AgmCoreModule} from '@agm/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InViewportModule} from 'ng-in-viewport';
 import {NavbarComponent} from "./navbar.component";
-import {SidenavComponent} from "./sidenav/sidenav.component";
+import {SidenavFilterComponent} from "./sidenav/sidenav-filter.component";
 import {environment} from "../environments/environment";
 import {UserRepository} from "../repository/user.repository";
 import {UserStore} from "../store/user.store";
@@ -40,6 +40,7 @@ import {WebsocketEventsStore} from "../store/websocket-events.store";
 import {EstateParser} from "../parsers/estate.parser";
 import {FooterComponent} from "./footer.component";
 import {EstateGalleryComponent} from "./estate-list/estate-gallery.component";
+import {SidenavMenuComponent} from "./sidenav/sidenav-menu.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {EstateGalleryComponent} from "./estate-list/estate-gallery.component";
     FooterComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
-    SidenavComponent,
+    SidenavFilterComponent,
+    SidenavMenuComponent,
     FilterGroupsComponent,
     FiltersComponent,
     FilterComponent,

@@ -1,0 +1,48 @@
+h3 {
+  border: none;
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 24px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0;
+  padding: 0 16px;
+  background: rgba(0,0,0,.32);
+  color: hsla(0,0%,100%,.87);
+  text-align: left;
+}
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+
+  li {
+    list-style-type: none;
+    border-bottom: 1px solid;
+    margin: 0;
+    padding: 0;
+    border-color: rgba(0, 0, 0, .06);
+    color: rgba(0, 0, 0, .54);
+
+    a {
+      box-sizing: border-box;
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 47px;
+      text-decoration: none;
+      transition: all .3s;
+      padding: 0 16px;
+      position: relative;
+      color: rgba(0, 0, 0, .54);
+      cursor: pointer;
+
+      &:hover {
+        background: #fafafa;
+        color: #3f51b5;
+      }
+    }
+  }
+}

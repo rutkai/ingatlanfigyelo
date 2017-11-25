@@ -1,4 +1,14 @@
 mat-sidenav {
+  max-width: 90%;
+}
+
+.sidenav-menu {
+  width: 300px;
+  z-index: 500;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+}
+
+.sidenav-filter {
   width: 400px;
   z-index: 999;
 }

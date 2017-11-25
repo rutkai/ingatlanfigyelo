@@ -8,11 +8,11 @@ import {UserService} from "../../service/user.service";
 import {EstatesStore} from "../../store/estates.store";
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  selector: 'app-sidenav-filter',
+  templateUrl: './sidenav-filter.component.html',
+  styleUrls: ['./sidenav-filter.component.scss']
 })
-export class SidenavComponent implements OnInit, OnDestroy {
+export class SidenavFilterComponent implements OnInit, OnDestroy {
   public user: User;
   public showSaved: boolean | null = null;
 

@@ -1,16 +1,7 @@
-<nav>
+<div class="navbar">
   <button mat-icon-button class="sidenav-button" (click)="sidenavButtonPressed()">
     <mat-icon aria-label="Menu">view_headline</mat-icon>
   </button>
   <h1>Property now</h1>
   <div class="flex-spacer"></div>
-  <button mat-button (click)="register()" *ngIf="!user">
-    Regisztráció
-  </button>
-  <button mat-button (click)="login()" *ngIf="!user">
-    Bejelentkezés
-  </button>
-  <button mat-button (click)="logout()" *ngIf="user">
-    Kijelentkezés ({{ user.username }})
-  </button>
-</nav>
+</div>
