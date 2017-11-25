@@ -1,4 +1,4 @@
-const estates = require('../db/estateManager');
+const estates = require('../db/estate');
 
 exports.getEstates = getEstates;
 function getEstates(filter, start = 0, limit = 3) {

@@ -59,7 +59,7 @@ function getApp() {
             });
             const apiLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 3,
+                delayAfter: 10,
                 delayMs: 3000,
                 max: 0,
             });

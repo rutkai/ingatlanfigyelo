@@ -3,14 +3,14 @@ const moment = require('moment');
 
 const parsers = require('./parsers/parser');
 const Updater = require('./updater').Updater;
-const estateManager = require('../db/estateManager');
+const estates = require('../db/estate');
 
 const polling = [];
 let isPolling = false;
 
 exports.init = init;
 function init() {
-    return estateManager.checkIndices()
+    return estates.checkIndices()
         .then(() => {
             for (const provider of config.get('polling.providers')) {
                 polling.push({

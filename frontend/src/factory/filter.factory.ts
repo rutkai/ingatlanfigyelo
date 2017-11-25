@@ -29,6 +29,8 @@ export class FilterFactory {
         return new IntervalFilter(attribute);
       case EstateAttributes.SIZE:
         return new IntervalFilter(attribute);
+      case EstateAttributes.DESCRIPTION:
+        return new StringFilter(attribute);
       case EstateAttributes.SOURCE:
         const sources = Object.keys(EstateSources).map(key => EstateSources[key]);
         return new MultiselectFilter(attribute, sources);

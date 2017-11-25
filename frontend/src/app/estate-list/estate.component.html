@@ -34,10 +34,19 @@
         </tr>
       </table>
 
+      <p class="description" [class.expand]="expandDescription" [innerHtml]="estate.descriptionHtml"
+         (click)="toggleDescription()"></p>
+      <div class="expand-button">
+        <button mat-raised-button color="primary" (click)="toggleDescription()">
+          {{ expandDescription ? 'Elrejt' : 'Mind megjelenít' }}
+        </button>
+      </div>
+
       <app-estate-map [estate]="estate" *ngIf="loadContent" class="estate-map"></app-estate-map>
     </div>
 
-    <app-estate-gallery *ngIf="estate.images.length" [images]="estate.images" [loadContent]="loadContent"></app-estate-gallery>
+    <app-estate-gallery *ngIf="estate.images.length" [images]="estate.images"
+                        [loadContent]="loadContent"></app-estate-gallery>
   </mat-card-content>
   <mat-card-actions class="action-buttons">
     <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>

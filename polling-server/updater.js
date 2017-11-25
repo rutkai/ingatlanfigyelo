@@ -3,7 +3,7 @@ const {URL} = require('url');
 const got = require('got');
 const env = require('../env/env');
 
-const manager = require('../db/estateManager');
+const estates = require('../db/estate');
 const estateRepository = require('../repository/estate');
 
 class Updater {
@@ -61,7 +61,20 @@ class Updater {
                 profileData.url = url;
                 profileData.source = this.provider.name;
                 profileData.squareMeterPrice = Math.round(profileData.price / profileData.size);
-                estateRepository.save(profileData);
+
+                return estateRepository.get({url})
+                    .then(estate => {
+                        if (estate) {
+                            estate.version = estates.version;
+                        } else {
+                            estate = {};
+                        }
+                        Object.assign(estate, profileData);
+                        return estate;
+                    });
+            })
+            .then(estate => {
+                estateRepository.save(estate);
 
                 if (this.estates.length) {
                     setTimeout(() => {
@@ -93,7 +106,7 @@ class Updater {
         const normUrl = this.normalizeUrl(profile.url);
         return estateRepository.get({url: normUrl})
             .then(estate => {
-                return !estate || estate.version !== manager.version;
+                return !estate || estate.version !== estates.version;
             });
     }
 }

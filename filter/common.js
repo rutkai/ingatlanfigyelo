@@ -35,7 +35,8 @@ function isMultiselectField(field) {
 exports.isStringField = isStringField;
 function isStringField(field) {
     const stringFields = [
-        "heating"
+        "heating",
+        "descriptionText"
     ];
 
     return stringFields.includes(field);

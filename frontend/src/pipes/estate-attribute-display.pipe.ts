@@ -23,6 +23,8 @@ export class EstateAttributeDisplayPipe implements PipeTransform {
         return 'Fűtés';
       case EstateAttributes.SIZE:
         return 'Méret';
+      case EstateAttributes.DESCRIPTION:
+        return 'Leírás';
       case EstateAttributes.SQUARE_METER_PRICE:
         return 'Négyzetméter ár';
       case EstateAttributes.SOURCE:

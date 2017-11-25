@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const striptags = require('striptags');
 
 exports.parseList = parseList;
 function parseList(html) {
@@ -30,6 +31,8 @@ function parseProfile(html) {
     const halfrooms = roomsData.includes('fél') ? parseInt(/\d+\W*fél/i.exec(roomsData)[0]) : 0;
     const size = parseInt($(".listing .parameter-area-size .parameter-value").text());
     const district = parseInt($(".listing .listing-header h1").text());
+    const descriptionHtml = striptags($('.details .long-description').html(), ['a', 'p', 'br', 'i', 'em', 'strong', 'ul', 'li']);
+    const descriptionText = $('.details .long-description').text().trim();
     let address = getAddress(html);
     if (!address) {
         address = $(".listing .listing-header h1").text().replace(`${district}. kerület,`, '').trim();
@@ -85,7 +88,9 @@ function parseProfile(html) {
             floor,
             elevator,
             heating,
-            balcony
+            balcony,
+            descriptionHtml,
+            descriptionText
         });
     });
 }

@@ -14,6 +14,7 @@ function toResponse(estateDocs) {
             elevator: doc.elevator,
             heating: doc.heating,
             balcony: doc.balcony,
+            descriptionHtml: doc.descriptionHtml,
             url: doc.url,
             source: doc.source,
             updated: doc.updated

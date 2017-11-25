@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const toArabic = require('roman-numerals').toArabic;
 const got = require('got');
+const striptags = require('striptags');
 
 exports.parseList = parseList;
 function parseList(html) {
@@ -38,6 +39,8 @@ function parseProfile(html) {
 
     const $locationDataList = $(".prop-stage .prop-bc li a");
     const locationDataListLength = $locationDataList.length;
+    const descriptionHtml = striptags($('.desc-text .full-text').html(), ['a', 'p', 'br', 'i', 'em', 'strong', 'ul', 'li']);
+    const descriptionText = $('.desc-text .full-text').text().trim();
     $locationDataList.each(function (index) {
         const $link = $(this);
 
@@ -98,7 +101,9 @@ function parseProfile(html) {
                 floor,
                 elevator,
                 heating,
-                balcony
+                balcony,
+                descriptionHtml,
+                descriptionText
             };
         });
 }

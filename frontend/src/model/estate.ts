@@ -11,6 +11,7 @@ export class Estate {
   public rooms: number;
   public halfrooms: number;
   public size: number;
+  public descriptionHtml: string;
   public source: string;
   public url: string;
   public updated: Date;

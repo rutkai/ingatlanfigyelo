@@ -16,12 +16,11 @@ function get(filter) {
 }
 
 exports.save = save;
-function save(user) {
-    const record = Object.assign({}, user);
+function save(record) {
     record.updated = new Date();
 
     if (record.created) {
-        return db.getCollection('users').updateOne({username: record.username}, record)
+        return db.getCollection('users').updateOne({username: record.username}, record);
     }
 
     record.created = new Date();

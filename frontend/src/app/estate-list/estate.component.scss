@@ -40,6 +40,29 @@
       border-bottom: 1px solid lightgray;
     }
   }
+
+  .description {
+    text-align: left;
+    margin: 10px 12px;
+    max-height: 75px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: max-height 1s;
+
+    &.expand {
+      max-height: none;
+      margin-bottom: 40px;
+      transition: max-height 1s;
+    }
+  }
+
+  .expand-button {
+    margin-top: -30px;
+
+    button {
+      border-radius: 20px;
+    }
+  }
 }
 
 .estate-map {

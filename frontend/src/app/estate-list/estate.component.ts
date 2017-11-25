@@ -10,10 +10,15 @@ export class EstateComponent {
   @Input() public estate: Estate;
 
   public loadContent = false;
+  public expandDescription = false;
 
   public loadLazyContent(event) {
     if (event.value) {
       this.loadContent = true;
     }
+  }
+
+  public toggleDescription() {
+    this.expandDescription = !this.expandDescription;
   }
 }
