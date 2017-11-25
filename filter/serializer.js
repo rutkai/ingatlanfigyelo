@@ -22,11 +22,11 @@ function toMongoFilter(userFilterGroups) {
                         [filter.field]: {"$lte": filter.max}
                     }));
                 }
-            } else if (common.isMultiselectField(filter.field)) {
+            } else if (common.isMultiselectField(filter.field) && filter.selected.length) {
                 filterQuery.push({
                     [filter.field]: {"$in": filter.selected}
                 });
-            } else if (common.isStringField(filter.field)) {
+            } else if (common.isStringField(filter.field) && filter.contains.length) {
                 const escapedFilter = filter.contains.join('|').replace(/[-[\]{}()*+?.,\\^$|#]/g, '');
                 filterQuery.push({
                     [filter.field]: {
