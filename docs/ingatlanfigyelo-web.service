@@ -1,0 +1,13 @@
+[Service]
+ExecStart=/usr/bin/npm run start-web
+WorkingDirectory=/srv/ingatlanfigyelo
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=ingatlanfigyelo-web
+User=ingatlanfigyelo
+Group=ingatlanfigyelo
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
