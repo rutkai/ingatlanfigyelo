@@ -12,7 +12,13 @@ function parseList(html) {
             url
         };
     });
-    const nextList = $(".resultspage__pagination .pagination__button").attr('href');
+    const pagingButtons = $(".resultspage__pagination .pagination__button");
+    let nextList;
+    if (pagingButtons.eq(0).text() === 'Következő oldal') {
+        nextList = pagingButtons.eq(0).attr('href');
+    } else if (pagingButtons.eq(1).text() === 'Következő oldal') {
+        nextList = pagingButtons.eq(1).attr('href');
+    }
 
     return {
         profiles,
