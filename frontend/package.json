@@ -36,6 +36,7 @@
     "ngx-chips": "^1.5.10",
     "ngx-gallery": "^2.4.1",
     "normalize.css": "^7.0.0",
+    "push.js": "^1.0.5",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },

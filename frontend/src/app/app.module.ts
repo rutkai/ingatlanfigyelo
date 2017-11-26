@@ -41,6 +41,7 @@ import {EstateParser} from "../parsers/estate.parser";
 import {FooterComponent} from "./footer.component";
 import {EstateGalleryComponent} from "./estate-list/estate-gallery.component";
 import {SidenavMenuComponent} from "./sidenav/sidenav-menu.component";
+import {PushNotificationService} from "../service/push-notification.service";
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import {SidenavMenuComponent} from "./sidenav/sidenav-menu.component";
     UserService,
     NotificationService,
     WebsocketRepository,
-    WebsocketEventsStore
+    WebsocketEventsStore,
+    PushNotificationService
   ],
   entryComponents: [
     LoginDialogComponent,
