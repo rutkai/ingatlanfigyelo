@@ -1,15 +1,26 @@
 const Raven = require('raven');
 const {URL} = require('url');
 const got = require('got');
+const fs = require('fs');
 const env = require('../env/env');
 
 const estates = require('../db/estate');
 const estateRepository = require('../repository/estate');
 
+const logPath = __dirname + '/../var/log/polling.log';
+
 class Updater {
     constructor(provider) {
         this.estates = [];
         this.provider = provider;
+        this.log = (entry) => {
+            let data = '[' + new Date().toISOString() + '] [' + this.provider.name + ']: ' + entry + '\n';
+            fs.appendFile(logPath, data, err => {
+                if (err) {
+                    Raven.captureException(err);
+                }
+            });
+        };
     }
 
     update(onReady) {
@@ -18,6 +29,7 @@ class Updater {
     }
 
     updateNextIndexPage(page) {
+        this.log('Reading index: ' + page);
         got(this.normalizeUrl(page))
             .then(response => {
                 const listData = this.provider.parser.parseList(response.body);
@@ -25,6 +37,7 @@ class Updater {
                     if (listData.nextList && env.isProd()) {
                         this.updateNextIndexPage(listData.nextList);
                     } else {
+                        console.log('Finished reading index on ' + this.provider.name);
                         this.dequeueEstate();
                     }
                 }, this.provider.interval);
@@ -53,6 +66,7 @@ class Updater {
         }
 
         const url = this.normalizeUrl(this.estates.pop().url);
+        this.log('Reading profile: ' + url);
         got(url)
             .then(response => {
                 return this.provider.parser.parseProfile(response.body);
