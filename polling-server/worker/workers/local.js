@@ -12,7 +12,6 @@ class LocalWorker {
     }
 
     fetchContent(url) {
-        console.log(url);
         return got(url, this.config.options)
             .then(response => {
                 return response.body;
