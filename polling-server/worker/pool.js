@@ -2,6 +2,7 @@ const config = require('config');
 
 const LocalWorker = require('./workers/local');
 const AwsLambdaWorker = require('./workers/aws-lambda');
+const NativePhpWorker = require('./workers/native-php');
 
 let workerPool = [];
 
@@ -39,6 +40,10 @@ async function createWorker(config) {
             break;
         case 'aws-lambda':
             worker = new AwsLambdaWorker(config);
+            await worker.init();
+            break;
+        case 'native-php':
+            worker = new NativePhpWorker(config);
             await worker.init();
             break;
     }

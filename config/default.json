@@ -24,7 +24,7 @@
         "performance": "auto",
         "options": {
           "headers": {
-            "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64)"
+            "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3250.0 Iron Safari/537.36"
           }
         }
       },
@@ -33,6 +33,13 @@
         "type": "aws-lambda",
         "performance": "auto",
         "endpoint": "https://kzga2yx064.execute-api.eu-west-1.amazonaws.com/prod/sample-curl-ip"
+      },
+
+      {
+        "type": "native-php",
+        "performance": "auto",
+        "endpoint": "http://rutkai.hu/worker.php",
+        "token": ""
       }
     ],
     "providers": [
