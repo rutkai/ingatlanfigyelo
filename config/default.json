@@ -18,6 +18,17 @@
         "minutes": 10
       }
     },
+    "workers": [
+      {
+        "type": "local",
+        "performance": "auto",
+        "options": {
+          "headers": {
+            "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64)"
+          }
+        }
+      }
+    ],
     "providers": [
       {
         "name": "Ingatlan.com",

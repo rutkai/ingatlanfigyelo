@@ -1,6 +1,6 @@
 const Raven = require('raven');
 const {URL} = require('url');
-const got = require('got');
+const worker = require('./worker/worker');
 const fs = require('fs');
 const env = require('../env/env');
 
@@ -30,9 +30,9 @@ class Updater {
 
     updateNextIndexPage(page) {
         this.log('Reading index: ' + page);
-        got(this.normalizeUrl(page))
+        worker.fetchContent(this.normalizeUrl(page))
             .then(response => {
-                const listData = this.provider.parser.parseList(response.body);
+                const listData = this.provider.parser.parseList(response);
                 setTimeout(() => {
                     if (listData.nextList && env.isProd()) {
                         this.updateNextIndexPage(listData.nextList);
@@ -67,9 +67,9 @@ class Updater {
 
         const url = this.normalizeUrl(this.estates.pop().url);
         this.log('Reading profile: ' + url);
-        got(url)
+        worker.fetchContent(url)
             .then(response => {
-                return this.provider.parser.parseProfile(response.body);
+                return this.provider.parser.parseProfile(response);
             })
             .then(profileData => {
                 profileData.url = url;

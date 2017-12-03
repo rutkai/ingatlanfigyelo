@@ -1,6 +1,8 @@
 const config = require('config');
 const moment = require('moment');
 
+const workerPool = require('./worker/pool');
+
 const parsers = require('./parsers/parser');
 const Updater = require('./updater').Updater;
 const estates = require('../db/estate');
@@ -11,6 +13,9 @@ let isPolling = false;
 exports.init = init;
 function init() {
     return estates.checkIndices()
+        .then(() => {
+            return workerPool.init();
+        })
         .then(() => {
             for (const provider of config.get('polling.providers')) {
                 polling.push({
