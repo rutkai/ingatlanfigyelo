@@ -12,6 +12,8 @@ class LocalWorker {
     }
 
     fetchContent(url) {
+        this._lastUsed = new Date();
+
         return got(url, this.config.options)
             .then(response => {
                 return response.body;

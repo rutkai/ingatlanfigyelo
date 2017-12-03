@@ -27,6 +27,12 @@
             "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64)"
           }
         }
+      },
+
+      {
+        "type": "aws-lambda",
+        "performance": "auto",
+        "endpoint": "https://kzga2yx064.execute-api.eu-west-1.amazonaws.com/prod/sample-curl-ip"
       }
     ],
     "providers": [
