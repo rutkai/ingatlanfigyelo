@@ -1,52 +1,54 @@
 <mat-card in-viewport (inViewportAction)="loadLazyContent($event)" class="card">
   <mat-card-content class="estate-details">
-    <div class="estate-data">
-      <div class="header">
-        <h2>{{ estate.district }}. kerület, {{ estate.address }}</h2>
-        <p>{{ estate.source }}, frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</p>
-      </div>
-      <table>
-        <tr class="main-data">
-          <td>{{ estate.price | number:'.0-0' }} Ft</td>
-          <td>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></td>
-        </tr>
-        <tr class="main-data">
-          <td>{{ estate.size }} m<sup>2</sup></td>
-          <td>
-            {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
-          </td>
-        </tr>
-        <tr *ngIf="estate.balcony !== null">
-          <td>Erkély:</td>
-          <td>{{ estate.balcony }} m<sup>2</sup></td>
-        </tr>
-        <tr *ngIf="estate.heating !== null">
-          <td>Fűtés:</td>
-          <td>{{ estate.heating }}</td>
-        </tr>
-        <tr *ngIf="estate.floor !== null">
-          <td>Emelet:</td>
-          <td>{{ estate.floor }}</td>
-        </tr>
-        <tr *ngIf="estate.elevator !== null">
-          <td>Lift:</td>
-          <td>{{ estate.elevator ? 'van' : 'nincs' }}</td>
-        </tr>
-      </table>
+    <div class="estate-details-content" [style.height]="estateCardContentHeight" #estateCardContent>
+      <div class="estate-data">
+        <div class="header">
+          <h2>{{ estate.district }}. kerület, {{ estate.address }}</h2>
+          <p>{{ estate.source }}, frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</p>
+        </div>
+        <table>
+          <tr class="main-data">
+            <td>{{ estate.price | number:'.0-0' }} Ft</td>
+            <td>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></td>
+          </tr>
+          <tr class="main-data">
+            <td>{{ estate.size }} m<sup>2</sup></td>
+            <td>
+              {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
+            </td>
+          </tr>
+          <tr *ngIf="estate.balcony !== null">
+            <td>Erkély:</td>
+            <td>{{ estate.balcony }} m<sup>2</sup></td>
+          </tr>
+          <tr *ngIf="estate.heating !== null">
+            <td>Fűtés:</td>
+            <td>{{ estate.heating }}</td>
+          </tr>
+          <tr *ngIf="estate.floor !== null">
+            <td>Emelet:</td>
+            <td>{{ estate.floor }}</td>
+          </tr>
+          <tr *ngIf="estate.elevator !== null">
+            <td>Lift:</td>
+            <td>{{ estate.elevator ? 'van' : 'nincs' }}</td>
+          </tr>
+        </table>
 
-      <p class="description" [class.expand]="expandDescription" [innerHtml]="estate.descriptionHtml"
-         (click)="toggleDescription()"></p>
-      <div class="expand-button">
-        <button mat-raised-button color="primary" (click)="toggleDescription()">
-          {{ expandDescription ? 'Elrejt' : 'Mind megjelenít' }}
-        </button>
+        <p class="description" [class.expand]="expandDescription" [innerHtml]="estate.descriptionHtml"
+           (click)="toggleDescription()"></p>
+        <div class="expand-button">
+          <button mat-raised-button color="primary" (click)="toggleDescription()">
+            {{ expandDescription ? 'Elrejt' : 'Mind megjelenít' }}
+          </button>
+        </div>
+
+        <app-estate-map [estate]="estate" *ngIf="loadContent && isVisible" class="estate-map"></app-estate-map>
       </div>
 
-      <app-estate-map [estate]="estate" *ngIf="loadContent" class="estate-map"></app-estate-map>
+      <app-estate-gallery *ngIf="estate.images.length && isVisible" [images]="estate.images"
+                          [loadContent]="loadContent"></app-estate-gallery>
     </div>
-
-    <app-estate-gallery *ngIf="estate.images.length" [images]="estate.images"
-                        [loadContent]="loadContent"></app-estate-gallery>
   </mat-card-content>
   <mat-card-actions class="action-buttons">
     <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>

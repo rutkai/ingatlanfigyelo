@@ -7,6 +7,10 @@
 .estate-details {
   display: flex;
   flex-flow: row wrap;
+
+  .estate-details-content {
+    display: flex;
+  }
 }
 
 .estate-data {
