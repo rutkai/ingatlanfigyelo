@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {EstatesRepository} from "../repository/estates.repository";
-import {Estate} from "../model/estate";
 import {Observable} from "rxjs/Observable";
+import {UserStore} from "./user.store";
+import {Estate} from "../model/estate";
 import {WebsocketEventsStore} from "./websocket-events.store";
 
 @Injectable()
@@ -18,10 +19,15 @@ export class EstatesStore {
   private exhausted: BehaviorSubject<boolean> = new BehaviorSubject(this.exhaustedData);
   public exhausted$: Observable<boolean> = this.exhausted.asObservable();
 
-  constructor(private estatesRepository: EstatesRepository, private websocketEventsStore: WebsocketEventsStore) {
+  constructor(private estatesRepository: EstatesRepository,
+              private websocketEventsStore: WebsocketEventsStore,
+              private userStore: UserStore) {
     this.websocketEventsStore.newEstates$.subscribe((estates: Estate[]) => {
       this.estateData = estates.concat(this.estateData);
       this.estates.next(this.estateData);
+    });
+    this.userStore.user$.subscribe(() => {
+      this.reset();
     });
   }
 
@@ -49,5 +55,4 @@ export class EstatesStore {
     this.exhaustedData = false;
     this.exhausted.next(this.exhaustedData);
   }
-
 }

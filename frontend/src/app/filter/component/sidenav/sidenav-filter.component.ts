@@ -1,11 +1,8 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {UserStore} from "../../store/user.store";
-import {User} from "../../model/user";
 import {Subject} from "rxjs/Subject";
 import {Subscription} from "rxjs/Subscription";
 import {debounceTime} from "rxjs/operators";
-import {UserService} from "../../service/user.service";
-import {EstatesStore} from "../../store/estates.store";
+import {EstatesStore, User, UserService, UserStore} from "../../../common";
 
 @Component({
   selector: 'app-sidenav-filter',

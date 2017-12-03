@@ -1,36 +1,42 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
+import {EstateComponent} from "./component/estate-list/estate.component";
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
+import {NgxGalleryModule} from "ngx-gallery";
+import {EstateMapComponent} from "./component/estate-list/estate-map.component";
+import {AgmCoreModule} from '@agm/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {NavbarComponent} from "./navbar.component";
-import {LoginDialogComponent} from "./user/login-dialog.component";
+import {InViewportModule} from 'ng-in-viewport';
+import {environment} from "../../environments/environment";
+import {EstatesComponent} from "./component/estate-list/estates.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RegisterDialogComponent} from "./user/register-dialog.component";
-import {FooterComponent} from "./footer.component";
-import {SidenavMenuComponent} from "./sidenav/sidenav-menu.component";
-import {CommonModule} from "./common/common.module";
-import {FilterModule} from "./filter/filter.module";
-import {EstateModule} from "./estate/estate.module";
+import {EstateGalleryComponent} from "./component/estate-list/estate-gallery.component";
+import {CommonModule} from "../common/common.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    LoginDialogComponent,
-    RegisterDialogComponent,
-    SidenavMenuComponent
+    EstatesComponent,
+    EstateComponent,
+    EstateMapComponent,
+    EstateGalleryComponent
+  ],
+  exports: [
+    EstatesComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    InViewportModule.forRoot(),
+    NgxGalleryModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.mapsApiKey
+    }),
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -45,17 +51,13 @@ import {EstateModule} from "./estate/estate.module";
     MatSnackBarModule,
     MatDialogModule,
     MatTooltipModule,
-    CommonModule,
-    FilterModule,
-    EstateModule
+    CommonModule
   ],
   providers: [
   ],
   entryComponents: [
-    LoginDialogComponent,
-    RegisterDialogComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
-export class AppModule {
+export class EstateModule {
 }

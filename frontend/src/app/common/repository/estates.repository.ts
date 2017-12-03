@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Estate} from "../model/estate";
 import {EstateParser} from "../parsers/estate.parser";
+import {Estate} from "../model/estate";
 
 @Injectable()
 export class EstatesRepository {

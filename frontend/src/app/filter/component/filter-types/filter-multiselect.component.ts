@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {MultiselectFilter} from "../../../model/filters/types/multiselect.filter";
-import {Filter} from "../../../model/filters/types/filter";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Filter, MultiselectFilter} from "../../../common";
 
 @Component({
   selector: 'app-filter-multiselect',

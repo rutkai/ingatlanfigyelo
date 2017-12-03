@@ -1,9 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {Filter} from "../../model/filters/types/filter";
-import {BooleanFilter} from "../../model/filters/types/boolean.filter";
-import {IntervalFilter} from "../../model/filters/types/interval.filter";
-import {MultiselectFilter} from "../../model/filters/types/multiselect.filter";
-import {StringFilter} from "../../model/filters/types/string.filter";
+import {BooleanFilter, Filter, IntervalFilter, MultiselectFilter, StringFilter} from "../../common";
 
 @Component({
   selector: 'app-filter',
@@ -38,5 +34,4 @@ export class FilterComponent {
   public isStringFilter(): boolean {
     return this.filter instanceof StringFilter;
   }
-
 }

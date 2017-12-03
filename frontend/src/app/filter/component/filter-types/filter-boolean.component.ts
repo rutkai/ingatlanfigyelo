@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {BooleanFilter} from "../../../model/filters/types/boolean.filter";
-import {Filter} from "../../../model/filters/types/filter";
+import {BooleanFilter, Filter} from "../../../common";
 
 @Component({
   selector: 'app-filter-boolean',

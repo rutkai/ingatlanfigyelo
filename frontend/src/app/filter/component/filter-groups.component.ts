@@ -1,7 +1,5 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {UserStore} from "../../store/user.store";
-import {User} from "../../model/user";
-import {Filters} from "../../model/filters/filters";
+import {Filters, User, UserStore} from "../../common";
 
 @Component({
   selector: 'app-filter-groups',

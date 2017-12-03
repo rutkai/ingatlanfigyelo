@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {IntervalFilter} from "../../../model/filters/types/interval.filter";
-import {Filter} from "../../../model/filters/types/filter";
+import {Filter, IntervalFilter} from "../../../common";
 
 @Component({
   selector: 'app-filter-interval',

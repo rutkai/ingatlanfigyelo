@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
-import {StringFilter} from "../../../model/filters/types/string.filter";
-import {Filter} from "../../../model/filters/types/filter";
+import {Filter, StringFilter} from "../../../common";
 
 @Component({
   selector: 'app-filter-string',

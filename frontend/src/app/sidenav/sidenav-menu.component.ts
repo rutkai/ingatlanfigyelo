@@ -1,11 +1,8 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {UserStore} from "../../store/user.store";
-import {User} from "../../model/user";
-import {UserService} from "../../service/user.service";
 import {MatDialog, MatDialogConfig} from "@angular/material";
-import {NotificationService} from "../../service/notification.service";
 import {RegisterDialogComponent} from "../user/register-dialog.component";
 import {LoginDialogComponent} from "../user/login-dialog.component";
+import {NotificationService, User, UserService, UserStore} from "../common";
 
 @Component({
   selector: 'app-sidenav-menu',

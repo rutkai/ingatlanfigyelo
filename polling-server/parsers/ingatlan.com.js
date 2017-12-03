@@ -14,10 +14,8 @@ function parseList(html) {
     });
     const pagingButtons = $(".resultspage__pagination .pagination__button");
     let nextList;
-    if (pagingButtons.eq(0).text() === 'Következő oldal') {
-        nextList = pagingButtons.eq(0).attr('href');
-    } else if (pagingButtons.eq(1).text() === 'Következő oldal') {
-        nextList = pagingButtons.eq(1).attr('href');
+    if (pagingButtons.last().text() === 'Következő oldal') {
+        nextList = pagingButtons.last().attr('href');
     }
 
     return {

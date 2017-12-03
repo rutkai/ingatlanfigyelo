@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Estate} from "../../model/estate";
+import {Estate} from "../../../common";
 
 @Component({
   selector: 'app-estate',
