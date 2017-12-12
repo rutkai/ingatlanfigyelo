@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = '1.0.0';
+const version = '1.1.0';
 exports.version = version;
 
 exports.checkIndices = checkIndices;
@@ -8,6 +8,17 @@ function checkIndices() {
     return db.getCollection('users').createIndex({
         username: 1
     });
+}
+
+exports.migrate = migrate;
+function migrate() {
+    return db.getCollection('users').updateMany({version: '1.0.0'}, {
+        $set: {
+            favouriteEstates: [],
+            seenEstates: [],
+            version: '1.1.0'
+        }
+    }, {multi: true});
 }
 
 exports.get = get;

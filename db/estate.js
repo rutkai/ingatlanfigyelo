@@ -10,6 +10,11 @@ function checkIndices() {
     });
 }
 
+exports.migrate = migrate;
+function migrate() {
+    return Promise.resolve();
+}
+
 exports.get = get;
 function get(filter = {}) {
     return db.getCollection('estates').findOne(filter);

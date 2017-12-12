@@ -17,13 +17,14 @@ const pushServer = require('./push-server/server');
 
 const authEndpoints = require('./routes/auth');
 const filtersEndpoints = require('./routes/filters');
-const loadEstates = require('./routes/load-estates');
+const estates = require('./routes/estates');
+const estate = require('./routes/estate');
 
 
 exports.getApp = getApp;
 function getApp() {
     return db.init()
-        .then(() => {
+        .then(async () => {
             const app = express();
 
             Raven.config(config.get('sentry.web')).install();
@@ -35,7 +36,7 @@ function getApp() {
             app.use(cookieParser());
             app.use(express.static(path.join(__dirname, 'public')));
 
-            passportAuth.init();
+            await passportAuth.init();
             app.use(session({
                 store: new MongoStore({
                     db: db.getConnection()
@@ -63,10 +64,16 @@ function getApp() {
                 delayMs: 3000,
                 max: 0,
             });
+            const estateLimiter = new RateLimit({
+                windowMs: 60000,
+                delayAfter: 0,
+                max: 100,
+            });
 
             app.use('/user', userLimiter, authEndpoints);
             app.use('/filters', filterLimiter, filtersEndpoints);
-            app.use('/load-estates', apiLimiter, loadEstates);
+            app.use('/estates', apiLimiter, estates);
+            app.use('/estate', estateLimiter, estate);
 
             app.use(Raven.errorHandler());
 

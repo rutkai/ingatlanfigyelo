@@ -13,6 +13,7 @@ export * from './model/user';
 
 export * from './parsers/estate.parser';
 
+export * from './service/estates.service';
 export * from './service/notification.service';
 export * from './service/push-notification.service';
 export * from './service/user.service';

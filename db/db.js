@@ -11,7 +11,7 @@ function init() {
         });
 }
 
-exports.getConnection = getConnection
+exports.getConnection = getConnection;
 function getConnection() {
     return dbconn;
 }

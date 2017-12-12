@@ -1,7 +1,8 @@
 exports.toResponse = toResponse;
-function toResponse(estateDocs) {
+function toResponse(estateDocs, user) {
     return estateDocs.map(doc => {
         return {
+            id: doc._id,
             images: doc.images,
             price: doc.price,
             rooms: doc.rooms,
@@ -17,7 +18,9 @@ function toResponse(estateDocs) {
             descriptionHtml: doc.descriptionHtml,
             url: doc.url,
             source: doc.source,
-            updated: doc.updated
+            updated: doc.updated,
+            favourite: user.favouriteEstates.includes(doc._id.toString()),
+            seen: user.seenEstates.includes(doc._id.toString())
         };
     });
 }

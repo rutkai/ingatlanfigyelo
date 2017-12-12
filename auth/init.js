@@ -45,5 +45,6 @@ function init() {
         }
     ));
 
-    users.checkIndices();
+    return users.checkIndices()
+        .then(() => users.migrate());
 }

@@ -8,9 +8,7 @@ const pollingServer = require('../polling-server/server');
 Raven.config(config.get('sentry.polling')).install();
 
 db.init()
-    .then(() => {
-        return pollingServer.init();
-    })
+    .then(() => pollingServer.init())
     .then(() => {
         pollingServer.start();
     })

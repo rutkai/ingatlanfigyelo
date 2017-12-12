@@ -2,20 +2,20 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {HttpClientModule} from "@angular/common/http";
-import {EstateComponent} from "./component/estate-list/estate.component";
+import {EstateComponent} from "./component/estate.component";
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
 import {NgxGalleryModule} from "ngx-gallery";
-import {EstateMapComponent} from "./component/estate-list/estate-map.component";
+import {EstateMapComponent} from "./component/estate-map.component";
 import {AgmCoreModule} from '@agm/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InViewportModule} from 'ng-in-viewport';
 import {environment} from "../../environments/environment";
-import {EstatesComponent} from "./component/estate-list/estates.component";
+import {EstatesComponent} from "./component/estates.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {EstateGalleryComponent} from "./component/estate-list/estate-gallery.component";
+import {EstateGalleryComponent} from "./component/estate-gallery.component";
 import {CommonModule} from "../common/common.module";
 
 @NgModule({

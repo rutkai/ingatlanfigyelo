@@ -113,6 +113,8 @@ typings/
 /.idea
 
 ### Application
+/config/production.json
+
 /public/*
 !/public/.gitkeep
 

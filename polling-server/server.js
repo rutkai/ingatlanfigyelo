@@ -13,9 +13,8 @@ let isPolling = false;
 exports.init = init;
 function init() {
     return estates.checkIndices()
-        .then(() => {
-            return workerPool.init();
-        })
+        .then(() => estates.migrate())
+        .then(() => workerPool.init())
         .then(() => {
             for (const provider of config.get('polling.providers')) {
                 polling.push({

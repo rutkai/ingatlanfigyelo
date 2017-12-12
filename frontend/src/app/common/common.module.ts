@@ -19,6 +19,7 @@ import {EstateParser} from "./parsers/estate.parser";
 import {EstatesRepository} from "./repository/estates.repository";
 import {EstatesStore} from "./store/estates.store";
 import {EstateAttributeDisplayPipe} from "./pipes/estate-attribute-display.pipe";
+import {EstatesService} from "./service/estates.service";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {EstateAttributeDisplayPipe} from "./pipes/estate-attribute-display.pipe"
   providers: [
     EstatesRepository,
     EstatesStore,
+    EstatesService,
     UserRepository,
     UserStore,
     UserService,

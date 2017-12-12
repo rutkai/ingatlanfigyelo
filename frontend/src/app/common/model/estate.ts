@@ -1,4 +1,6 @@
 export class Estate {
+  public id: string;
+
   public balcony?: number;
   public district: number;
   public elevator?: boolean;
@@ -15,4 +17,7 @@ export class Estate {
   public source: string;
   public url: string;
   public updated: Date;
+
+  public favourite: boolean;
+  public isSeen: boolean;
 }

@@ -6,6 +6,7 @@ export class EstateParser {
   public parse(rawEstates: any[]): Estate[] {
     return rawEstates.map(rawEstate => {
       const estate = new Estate();
+      estate.id = rawEstate.id;
       estate.balcony = rawEstate.balcony;
       estate.district = rawEstate.district;
       estate.elevator = rawEstate.elevator;
@@ -22,6 +23,8 @@ export class EstateParser {
       estate.source = rawEstate.source;
       estate.url = rawEstate.url;
       estate.updated = new Date(rawEstate.updated);
+      estate.favourite = rawEstate.favourite;
+      estate.isSeen = rawEstate.seen;
 
       return estate;
     });

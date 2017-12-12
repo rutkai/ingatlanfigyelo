@@ -51,6 +51,8 @@
     </div>
   </mat-card-content>
   <mat-card-actions class="action-buttons">
+    <button mat-button (click)="toggleFavourite()">{{ estate.favourite ? 'Kedvencnek jelölve' : 'Kedvencnek jelöl' }}</button>
+    <button mat-button (click)="toggleSeen()">{{ estate.isSeen ? 'Megnézve' : 'Megnézettnek jelöl' }}</button>
     <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>
   </mat-card-actions>
 </mat-card>

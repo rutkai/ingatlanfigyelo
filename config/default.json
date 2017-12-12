@@ -27,19 +27,6 @@
             "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3250.0 Iron Safari/537.36"
           }
         }
-      },
-
-      {
-        "type": "aws-lambda",
-        "performance": "auto",
-        "endpoint": "https://kzga2yx064.execute-api.eu-west-1.amazonaws.com/prod/sample-curl-ip"
-      },
-
-      {
-        "type": "native-php",
-        "performance": "auto",
-        "endpoint": "http://rutkai.hu/worker.php",
-        "token": ""
       }
     ],
     "providers": [
@@ -50,7 +37,7 @@
         "parserOpts": {
           "indexPage": "https://ingatlan.com/szukites/elado+lakas+budapest",
           "interval": {
-            "milliseconds": 500
+            "milliseconds": 2000
           }
         }
       },
@@ -61,7 +48,7 @@
         "parserOpts": {
           "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest",
           "interval": {
-            "milliseconds": 500
+            "milliseconds": 1000
           }
         }
       }

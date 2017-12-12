@@ -8,6 +8,8 @@ function create(username, password) {
         username: username,
         passwordHash: calculatePasswordHash(password),
         filterGroups: [],
+        favouriteEstates: [],
+        seenEstates: [],
         lastRefresh: new Date()
     });
 }
@@ -31,6 +33,33 @@ function resetLastRefresh(user) {
 exports.updateFilters = updateFilters;
 function updateFilters(user, filterGroups) {
     user.filterGroups = filterGroups;
+    return users.save(user);
+}
+
+exports.updateSeenAndFavourite = updateSeenAndFavourite;
+function updateSeenAndFavourite(user, estateId, favourite, seen) {
+    if (favourite) {
+        if (!user.favouriteEstates.includes(estateId)) {
+            user.favouriteEstates.push(estateId);
+        }
+    } else {
+        if (user.favouriteEstates.includes(estateId)) {
+            const index = user.favouriteEstates.indexOf(estateId);
+            user.favouriteEstates.splice(index, 1);
+        }
+    }
+
+    if (seen) {
+        if (!user.seenEstates.includes(estateId)) {
+            user.seenEstates.push(estateId);
+        }
+    } else {
+        if (user.seenEstates.includes(estateId)) {
+            const index = user.seenEstates.indexOf(estateId);
+            user.seenEstates.splice(index, 1);
+        }
+    }
+
     return users.save(user);
 }
 

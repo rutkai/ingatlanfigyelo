@@ -3,7 +3,7 @@
     "connectionStr": "mongodb://mongo:27017/ingatlanfigyelo"
   },
   "express": {
-    "session-secret": "9a82fa855b2bdcaa3bc9a72d497baa41"
+    "session-secret": "very-secret-string"
   },
   "polling": {
     "workers": [
@@ -20,14 +20,14 @@
       {
         "type": "aws-lambda",
         "performance": "auto",
-        "endpoint": "https://kzga2yx064.execute-api.eu-west-1.amazonaws.com/prod/sample-curl-ip"
+        "endpoint": "https://aws-lambda-endpoint"
       },
 
       {
         "type": "native-php",
         "performance": "auto",
-        "endpoint": "http://rutkai.hu/worker.php",
-        "token": "d52e1234-d858-11e7-9296-cec278b6b50a"
+        "endpoint": "http://example.com/worker.php",
+        "token": "random-token"
       }
     ]
   }
