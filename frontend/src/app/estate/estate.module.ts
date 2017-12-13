@@ -10,11 +10,9 @@ import {
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./component/estate-map.component";
 import {AgmCoreModule} from '@agm/core';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {InViewportModule} from 'ng-in-viewport';
 import {environment} from "../../environments/environment";
 import {EstatesComponent} from "./component/estates.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EstateGalleryComponent} from "./component/estate-gallery.component";
 import {CommonModule} from "../common/common.module";
 import {Routing} from "./estate.routing";
@@ -37,19 +35,13 @@ import {Routing} from "./estate.routing";
     AgmCoreModule.forRoot({
       apiKey: environment.mapsApiKey
     }),
-    FormsModule,
-    ReactiveFormsModule,
     MatIconModule,
     MatCardModule,
     MatButtonModule,
     MatInputModule,
-    MatSelectModule,
-    MatSlideToggleModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    MatSidenavModule,
     MatSnackBarModule,
-    MatDialogModule,
     MatTooltipModule,
   ],
 })

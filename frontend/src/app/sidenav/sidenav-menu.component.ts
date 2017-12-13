@@ -1,8 +1,5 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {MatDialog, MatDialogConfig} from "@angular/material";
-import {RegisterDialogComponent} from "../user/register-dialog.component";
-import {LoginDialogComponent} from "../user/login-dialog.component";
-import {NotificationService, User, UserService, UserStore} from "../common";
+import {NotificationService, User, UserStore} from "../common";
 
 @Component({
   selector: 'app-sidenav-menu',
@@ -14,8 +11,8 @@ export class SidenavMenuComponent {
 
   public user: User;
 
-  constructor(private notificationService: NotificationService, private dialog: MatDialog,
-              private userStore: UserStore, private userService: UserService) {
+  constructor(private notificationService: NotificationService,
+              private userStore: UserStore) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });
@@ -23,46 +20,6 @@ export class SidenavMenuComponent {
 
   public openFiltersSidenav() {
     this.openFilters.emit();
-  }
-
-  public register(): void {
-    const config = new MatDialogConfig();
-    config.data = {};
-    const dialogRef = this.dialog.open(RegisterDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe(data => {
-      if (!data) {
-        return;
-      }
-
-      this.userService.register(data.username, data.password)
-        .then(() => {
-          this.notificationService.showSnackbarNotification('Sikeres regisztráció');
-        })
-        .catch(() => {
-          this.notificationService.showSnackbarNotification('Ez a felhasználónév már foglalt!');
-        });
-    });
-  }
-
-  public login(): void {
-    const config = new MatDialogConfig();
-    config.data = {};
-    const dialogRef = this.dialog.open(LoginDialogComponent, config);
-
-    dialogRef.afterClosed().subscribe(data => {
-      if (!data) {
-        return;
-      }
-
-      this.userStore.login(data.username, data.password)
-        .then(() => {
-          this.notificationService.showSnackbarNotification('Sikeres bejelentkezés');
-        })
-        .catch(() => {
-          this.notificationService.showSnackbarNotification('Hibás felhasználónév/jelszó');
-        });
-    });
   }
 
   public logout(): void {

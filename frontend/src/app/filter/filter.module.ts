@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule as NgCommonModule} from '@angular/common';
 
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
+  MatButtonModule, MatCardModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
 import {SidenavFilterComponent} from "./component/sidenav/sidenav-filter.component";
@@ -45,16 +45,10 @@ import {CommonModule} from "../common/common.module";
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatSnackBarModule,
-    MatDialogModule,
     MatTooltipModule,
     TagInputModule,
     CommonModule
   ],
-  providers: [
-  ],
-  entryComponents: [
-  ],
-  bootstrap: []
 })
 export class FilterModule {
 }

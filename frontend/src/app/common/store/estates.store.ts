@@ -6,6 +6,7 @@ import {UserStore} from "./user.store";
 import {Estate} from "../model/estate";
 import {WebsocketEventsStore} from "./websocket-events.store";
 import {EstatePool} from "../model/estate-pool";
+import {User} from "../";
 
 @Injectable()
 export class EstatesStore {
@@ -19,6 +20,8 @@ export class EstatesStore {
   private unseenExhaustedData = false;
   private seenExhaustedData = false;
   private exhaustedData = false;
+
+  private user: User;
 
   private estates: BehaviorSubject<Estate[]> = new BehaviorSubject(this.estateData);
   public estates$: Observable<Estate[]> = this.estates.asObservable();
@@ -47,7 +50,7 @@ export class EstatesStore {
     });
 
     let exhaustedCheck = () => {
-      let status = this.favouriteExhaustedData && this.unseenExhaustedData && this.seenExhaustedData;
+      let status = this.unseenExhaustedData && ((this.favouriteExhaustedData && this.seenExhaustedData) || !this.user);
       if (status !== this.exhaustedData) {
         this.exhaustedData = status;
         this.exhausted.next(this.exhaustedData);
@@ -63,7 +66,7 @@ export class EstatesStore {
       return Promise.resolve();
     }
 
-    if (!this.favouriteExhaustedData) {
+    if (!this.favouriteExhaustedData && this.user) {
       return this.estatesRepository.getEstates(this.favouriteData.length, EstatePool.FAVOURITE)
         .then((estates: Estate[]) => {
           if (estates.length) {
@@ -95,7 +98,7 @@ export class EstatesStore {
         });
     }
 
-    if (!this.seenExhaustedData) {
+    if (!this.seenExhaustedData && this.user) {
       return this.estatesRepository.getEstates(this.seenData.length, EstatePool.SEEN)
         .then((estates: Estate[]) => {
           if (estates.length) {

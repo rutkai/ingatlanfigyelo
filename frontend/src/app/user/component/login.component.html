@@ -1,0 +1,16 @@
+<div class="login">
+  <h2>Belépés</h2>
+  <form #loginForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="E-mail cím" type="email" required [formControl]="username" (keyup.enter)="login()"/>
+      <mat-error *ngIf="username.invalid">E-mail cím megadása kötelező!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Jelszó" type="password" required [formControl]="password" (keyup.enter)="login()"/>
+      <mat-error *ngIf="password.invalid">Jelszó megadása kötelező!</mat-error>
+    </mat-form-field>
+  </form>
+  <button mat-button mat-raised-button color="primary" [disabled]="username.invalid || password.invalid" (click)="login()">
+    Bejelentkezés
+  </button>
+</div>

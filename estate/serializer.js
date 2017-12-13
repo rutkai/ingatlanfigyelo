@@ -19,8 +19,8 @@ function toResponse(estateDocs, user) {
             url: doc.url,
             source: doc.source,
             updated: doc.updated,
-            favourite: user.favouriteEstates.includes(doc._id.toString()),
-            seen: user.seenEstates.includes(doc._id.toString())
+            favourite: user ? user.favouriteEstates.includes(doc._id.toString()) : false,
+            seen: user ? user.seenEstates.includes(doc._id.toString()) : false
         };
     });
 }

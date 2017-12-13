@@ -1,0 +1,21 @@
+<div class="register">
+  <h2>Regisztráció</h2>
+  <form #loginForm="ngForm">
+    <mat-form-field>
+      <input matInput placeholder="E-mail cím" type="email" required [formControl]="username" (keyup.enter)="register()"/>
+      <mat-error *ngIf="username.invalid">E-mail cím megadása kötelező!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Jelszó" type="password" required [formControl]="password" (keyup.enter)="register()"/>
+      <mat-error *ngIf="password.invalid">Jelszó megadása kötelező!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Jelszó megerősítés" type="password" required [formControl]="password2" (keyup.enter)="register()"/>
+      <mat-error *ngIf="password2.invalid && password2.hasError('required')">Jelszó megerősítés megadása kötelező!</mat-error>
+      <mat-error *ngIf="password2.invalid && password2.hasError('match')">Jelszó megerősítés nem azonos a jelszóval!</mat-error>
+    </mat-form-field>
+  </form>
+  <button mat-button mat-raised-button color="primary" [disabled]="username.invalid || password.invalid || password2.invalid" (click)="register()">
+    Regisztráció
+  </button>
+</div>

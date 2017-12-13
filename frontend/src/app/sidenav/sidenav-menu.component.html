@@ -13,10 +13,10 @@
   <h3>Felhasználó</h3>
   <ul class="nav-list">
     <li>
-      <a (click)="register()" *ngIf="!user">Regisztráció</a>
+      <a routerLink="/user/register" *ngIf="!user">Regisztráció</a>
     </li>
     <li>
-      <a (click)="login()" *ngIf="!user">Bejelentkezés</a>
+      <a routerLink="/user/login" *ngIf="!user">Bejelentkezés</a>
     </li>
     <li>
       <a (click)="logout()" *ngIf="user">Kijelentkezés ({{ user.username }})</a>
