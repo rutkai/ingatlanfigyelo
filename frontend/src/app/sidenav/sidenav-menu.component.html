@@ -2,6 +2,9 @@
   <h3>Ingatlanok</h3>
   <ul class="nav-list">
     <li>
+      <a routerLink="/">Ingatlan lista</a>
+    </li>
+    <li>
       <a (click)="openFiltersSidenav()">Szűrők</a>
     </li>
   </ul>
@@ -17,6 +20,14 @@
     </li>
     <li>
       <a (click)="logout()" *ngIf="user">Kijelentkezés ({{ user.username }})</a>
+    </li>
+  </ul>
+</nav>
+<nav>
+  <h3>Segítség</h3>
+  <ul class="nav-list">
+    <li>
+      <a routerLink="about">Névjegy</a>
     </li>
   </ul>
 </nav>

@@ -1,5 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {CommonModule as NgCommonModule} from '@angular/common';
 
 import {HttpClientModule} from "@angular/common/http";
 import {EstateComponent} from "./component/estate.component";
@@ -17,6 +17,8 @@ import {EstatesComponent} from "./component/estates.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EstateGalleryComponent} from "./component/estate-gallery.component";
 import {CommonModule} from "../common/common.module";
+import {Routing} from "./estate.routing";
+
 
 @NgModule({
   declarations: [
@@ -25,13 +27,11 @@ import {CommonModule} from "../common/common.module";
     EstateMapComponent,
     EstateGalleryComponent
   ],
-  exports: [
-    EstatesComponent
-  ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    CommonModule,
+    NgCommonModule,
     HttpClientModule,
+    Routing,
     InViewportModule.forRoot(),
     NgxGalleryModule,
     AgmCoreModule.forRoot({
@@ -51,13 +51,7 @@ import {CommonModule} from "../common/common.module";
     MatSnackBarModule,
     MatDialogModule,
     MatTooltipModule,
-    CommonModule
   ],
-  providers: [
-  ],
-  entryComponents: [
-  ],
-  bootstrap: []
 })
 export class EstateModule {
 }

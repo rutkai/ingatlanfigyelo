@@ -17,6 +17,12 @@ import {SidenavMenuComponent} from "./sidenav/sidenav-menu.component";
 import {CommonModule} from "./common/common.module";
 import {FilterModule} from "./filter/filter.module";
 import {EstateModule} from "./estate/estate.module";
+import {RouterModule, Routes} from "@angular/router";
+
+const routes: Routes = [
+  { path: '', loadChildren: './estate/estate.module#EstateModule' },
+  { path: 'about', loadChildren: './about/about.module#AboutModule' },
+];
 
 @NgModule({
   declarations: [
@@ -31,6 +37,7 @@ import {EstateModule} from "./estate/estate.module";
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    RouterModule.forRoot(routes, {useHash: true}),
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,

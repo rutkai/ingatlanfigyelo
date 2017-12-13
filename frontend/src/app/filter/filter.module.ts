@@ -1,12 +1,10 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {CommonModule as NgCommonModule} from '@angular/common';
 
-import {HttpClientModule} from "@angular/common/http";
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SidenavFilterComponent} from "./component/sidenav/sidenav-filter.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FiltersComponent} from "./component/filters.component";
@@ -34,9 +32,7 @@ import {CommonModule} from "../common/common.module";
     SidenavFilterComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
+    NgCommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,

@@ -1,4 +1,3 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {HttpClientModule} from "@angular/common/http";
@@ -6,7 +5,6 @@ import {
   MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {UserRepository} from "./repository/user.repository";
 import {UserStore} from "./store/user.store";
 import {UserService} from "./service/user.service";
@@ -29,8 +27,6 @@ import {EstatesService} from "./service/estates.service";
     EstateAttributeDisplayPipe
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
