@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = '1.1.0';
+const version = '1.2.0';
 exports.version = version;
 
 exports.checkIndices = checkIndices;
@@ -11,12 +11,20 @@ function checkIndices() {
 }
 
 exports.migrate = migrate;
-function migrate() {
-    return db.getCollection('users').updateMany({version: '1.0.0'}, {
+async function migrate() {
+    await db.getCollection('users').updateMany({version: '1.0.0'}, {
         $set: {
             favouriteEstates: [],
             seenEstates: [],
             version: '1.1.0'
+        }
+    }, {multi: true});
+
+    return db.getCollection('users').updateMany({version: '1.1.0'}, {
+        $set: {
+            readAllMark: null,
+            unseenMarkedEstates: [],
+            version: '1.2.0'
         }
     }, {multi: true});
 }

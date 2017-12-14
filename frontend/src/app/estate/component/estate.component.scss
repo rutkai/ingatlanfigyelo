@@ -2,6 +2,10 @@
   max-width: 1200px;
   margin: 15px auto;
   position: static;
+
+  &.seen {
+    opacity: 0.6;
+  }
 }
 
 .estate-details {

@@ -53,12 +53,28 @@ function updateSeenAndFavourite(user, estateId, favourite, seen) {
         if (!user.seenEstates.includes(estateId)) {
             user.seenEstates.push(estateId);
         }
+        if (user.unseenMarkedEstates.includes(estateId)) {
+            const index = user.unseenMarkedEstates.indexOf(estateId);
+            user.unseenMarkedEstates.splice(index, 1);
+        }
     } else {
         if (user.seenEstates.includes(estateId)) {
             const index = user.seenEstates.indexOf(estateId);
             user.seenEstates.splice(index, 1);
         }
+        if (!user.unseenMarkedEstates.includes(estateId)) {
+            user.unseenMarkedEstates.push(estateId);
+        }
     }
+
+    return users.save(user);
+}
+
+exports.resetSeenAll = resetSeenAll;
+function resetSeenAll(user) {
+    user.seenEstates = [];
+    user.unseenMarkedEstates = [];
+    user.readAllMark = new Date();
 
     return users.save(user);
 }

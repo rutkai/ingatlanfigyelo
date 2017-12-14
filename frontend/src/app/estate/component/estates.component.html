@@ -1,3 +1,4 @@
+<button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">Mind megnézettnek jelöl</button>
 <app-estate *ngFor="let estate of estates" [estate]="estate"></app-estate>
 <mat-spinner *ngIf="!exhausted" class="loading-spinner"
              in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">

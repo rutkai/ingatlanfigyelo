@@ -26,12 +26,33 @@ router.get('/:start(\\d+)?/:pool(favourite|unseen|seen)?', async function (req, 
                 estates = await estateRepository.getEstates(favouriteQuery, start, RESULT_LIMIT);
                 break;
             case "seen":
-                const seenQuery = {
+                let seenQuery = {
                     "_id": {
                         "$in": user.seenEstates.map(ObjectId),
                         "$nin": user.favouriteEstates.map(ObjectId)
                     }
                 };
+                if (user.readAllMark) {
+                    const filter = filterSerializer.toMongoFilter(user.filterGroups);
+                    seenQuery = {
+                        "$or": [
+                            seenQuery,
+                            {
+                                "$and": [
+                                    {
+                                        "_id": {
+                                            "$nin": user.favouriteEstates.map(ObjectId).concat(user.unseenMarkedEstates.map(ObjectId))
+                                        },
+                                        "updated": {
+                                            "$lt": user.readAllMark
+                                        }
+                                    },
+                                    filter
+                                ]
+                            }
+                        ]
+                    };
+                }
                 estates = await estateRepository.getEstates(seenQuery, start, RESULT_LIMIT);
                 break;
             default:
@@ -39,15 +60,30 @@ router.get('/:start(\\d+)?/:pool(favourite|unseen|seen)?', async function (req, 
                 userRepository.resetLastRefresh(user);
 
                 const unseenQuery = {
-                    "$and": [
+                    "$or": [
                         {
                             "_id": {
-                                "$nin": user.favouriteEstates.map(ObjectId).concat(user.seenEstates.map(ObjectId))
+                                "$nin": user.favouriteEstates.map(ObjectId),
+                                "$in": user.unseenMarkedEstates.map(ObjectId),
                             }
                         },
-                        filter
+                        {
+                            "$and": [
+                                {
+                                    "_id": {
+                                        "$nin": user.favouriteEstates.map(ObjectId).concat(user.seenEstates.map(ObjectId)),
+                                    }
+                                },
+                                filter
+                            ]
+                        }
                     ]
                 };
+                if (user.readAllMark) {
+                    unseenQuery["$or"][1]["$and"][0]["updated"] = {
+                        "$gte": user.readAllMark
+                    };
+                }
                 estates = await estateRepository.getEstates(unseenQuery, start, RESULT_LIMIT);
                 break;
         }
@@ -58,6 +94,12 @@ router.get('/:start(\\d+)?/:pool(favourite|unseen|seen)?', async function (req, 
     res.json({
         estates: estateSerializer.toResponse(estates, user)
     });
+});
+
+router.post('/mark-read', async function (req, res) {
+    await userRepository.resetSeenAll(req.user);
+
+    res.json({});
 });
 
 module.exports = router;

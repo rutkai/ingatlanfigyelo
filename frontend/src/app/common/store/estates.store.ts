@@ -15,7 +15,7 @@ export class EstatesStore {
   private favouriteData: Estate[] = [];
   private unseenData: Estate[] = [];
   private seenData: Estate[] = [];
-  private estateData: Estate[] = [];
+  private estatesData: Estate[] = [];
   private favouriteExhaustedData = false;
   private unseenExhaustedData = false;
   private seenExhaustedData = false;
@@ -23,8 +23,11 @@ export class EstatesStore {
 
   private user: User;
 
-  private estates: BehaviorSubject<Estate[]> = new BehaviorSubject(this.estateData);
+  private estates: BehaviorSubject<Estate[]> = new BehaviorSubject(this.estatesData);
   public estates$: Observable<Estate[]> = this.estates.asObservable();
+
+  private unseenEstates: BehaviorSubject<Estate[]> = new BehaviorSubject(this.unseenData);
+  public unseenEstates$: Observable<Estate[]> = this.unseenEstates.asObservable();
 
   private exhausted: BehaviorSubject<boolean> = new BehaviorSubject(this.exhaustedData);
   public exhausted$: Observable<boolean> = this.exhausted.asObservable();
@@ -42,10 +45,11 @@ export class EstatesStore {
               private websocketEventsStore: WebsocketEventsStore,
               private userStore: UserStore) {
     this.websocketEventsStore.newEstates$.subscribe((estates: Estate[]) => {
-      this.estateData = estates.concat(this.estateData);
-      this.estates.next(this.estateData);
+      this.estatesData = estates.concat(this.estatesData);
+      this.estates.next(this.estatesData);
     });
-    this.userStore.user$.subscribe(() => {
+    this.userStore.user$.subscribe(user => {
+      this.user = user;
       this.reset();
     });
 
@@ -71,8 +75,8 @@ export class EstatesStore {
         .then((estates: Estate[]) => {
           if (estates.length) {
             this.favouriteData = this.favouriteData.concat(estates);
-            this.estateData = this.estateData.concat(estates);
-            this.estates.next(this.estateData);
+            this.estatesData = this.estatesData.concat(estates);
+            this.estates.next(this.estatesData);
           }
           if (estates.length < this.FETCH_COUNT) {
             this.favouriteExhaustedData = true;
@@ -87,8 +91,9 @@ export class EstatesStore {
         .then((estates: Estate[]) => {
           if (estates.length) {
             this.unseenData = this.unseenData.concat(estates);
-            this.estateData = this.estateData.concat(estates);
-            this.estates.next(this.estateData);
+            this.unseenEstates.next(this.unseenData);
+            this.estatesData = this.estatesData.concat(estates);
+            this.estates.next(this.estatesData);
           }
           if (estates.length < this.FETCH_COUNT) {
             this.unseenExhaustedData = true;
@@ -103,8 +108,8 @@ export class EstatesStore {
         .then((estates: Estate[]) => {
           if (estates.length) {
             this.seenData = this.seenData.concat(estates);
-            this.estateData = this.estateData.concat(estates);
-            this.estates.next(this.estateData);
+            this.estatesData = this.estatesData.concat(estates);
+            this.estates.next(this.estatesData);
           }
           if (estates.length < this.FETCH_COUNT) {
             this.seenExhaustedData = true;
@@ -116,12 +121,23 @@ export class EstatesStore {
     return Promise.reject("This shouldn't be happening!");
   }
 
+  public markAllSeen() {
+    for (const estate of this.estatesData) {
+      estate.isSeen = true;
+    }
+
+    this.seenData = this.unseenData.concat(this.seenData);
+    this.unseenData = [];
+    this.unseenEstates.next(this.unseenData);
+  }
+
   public reset(): void {
     this.favouriteData = [];
     this.unseenData = [];
+    this.unseenEstates.next(this.unseenData);
     this.seenData = [];
-    this.estateData = [];
-    this.estates.next(this.estateData);
+    this.estatesData = [];
+    this.estates.next(this.estatesData);
 
     this.favouriteExhaustedData = false;
     this.favouriteExhausted.next(this.favouriteExhaustedData);

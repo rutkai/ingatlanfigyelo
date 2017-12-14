@@ -1,4 +1,4 @@
-<mat-card in-viewport (inViewportAction)="loadLazyContent($event)" class="card">
+<mat-card in-viewport (inViewportAction)="loadLazyContent($event)" class="card" [class.seen]="estate.isSeen && !estate.favourite">
   <mat-card-content class="estate-details">
     <div class="estate-details-content" [style.height]="estateCardContentHeight" #estateCardContent>
       <div class="estate-data">

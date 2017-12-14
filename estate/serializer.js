@@ -20,7 +20,25 @@ function toResponse(estateDocs, user) {
             source: doc.source,
             updated: doc.updated,
             favourite: user ? user.favouriteEstates.includes(doc._id.toString()) : false,
-            seen: user ? user.seenEstates.includes(doc._id.toString()) : false
+            seen: isEstateSeen(doc, user)
         };
     });
+}
+
+function isEstateSeen(estateDoc, user) {
+    if (user) {
+        const id = estateDoc._id.toString();
+
+        if (user.seenEstates.includes(id)) {
+            return true;
+        }
+
+        if (user.unseenMarkedEstates.includes(id)) {
+            return false;
+        }
+
+        return user.readAllMark && estateDoc.updated < user.readAllMark;
+    }
+
+    return false;
 }

@@ -24,4 +24,9 @@ export class EstatesRepository {
     return this.http.put(`/estate/${estate.id}`, data, {withCredentials: true}).toPromise()
       .then(() => {});
   }
+
+  public markAllSeen(): Promise<void> {
+    return this.http.post(`/estates/mark-read`, {}, {withCredentials: true}).toPromise()
+      .then(() => {});
+  }
 }
