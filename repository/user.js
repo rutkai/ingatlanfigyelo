@@ -10,6 +10,8 @@ function create(username, password) {
         filterGroups: [],
         favouriteEstates: [],
         seenEstates: [],
+        readAllMark: null,
+        unseenMarkedEstates: [],
         lastRefresh: new Date()
     });
 }
