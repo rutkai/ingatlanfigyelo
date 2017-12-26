@@ -31,9 +31,9 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
     const feed = new RSS({
         title: 'Ingatlanfigyelő RSS feed',
         description: 'Az utolsó 20 megjelenített ingatlan. Bejelentkezett felhasználóknál az új ingatlanok jelennek meg a szűrőfeltételeknek megfelelően.',
-        feed_url: 'http://ingatlanfigyelo.idealib.net/rss',
-        site_url: 'http://ingatlanfigyelo.idealib.net',
-        image_url: 'http://ingatlanfigyelo.idealib.net/assets/logo.png',
+        feed_url: 'https://ingatlanfigyelo.eu/rss',
+        site_url: 'https://ingatlanfigyelo.eu',
+        image_url: 'https://ingatlanfigyelo.eu/assets/logo.png',
         webMaster: 'András Rutkai',
         language: 'Hungarian/Magyar',
         categories: ['real estate']
@@ -46,7 +46,7 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
                 'Méret: ' + estate.size + 'm<sup>2</sup><br/>\n' +
                 'Négyzetméterár: ' + estate.squareMeterPrice + ' Ft<br/>\n' +
                 'Szobák: ' + estate.rooms + ' + ' + estate.halfrooms,
-            url: 'http://ingatlanfigyelo.idealib.net/#/estate/' + estate._id,
+            url: 'http://ingatlanfigyelo.eu/#/estate/' + estate._id,
             guid: estate._id,
             date: estate.updated
         });
