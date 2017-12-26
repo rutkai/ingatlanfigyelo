@@ -17,6 +17,7 @@ const pushServer = require('./push-server/server');
 
 const authEndpoints = require('./routes/auth');
 const filtersEndpoints = require('./routes/filters');
+const rss = require('./routes/rss');
 const estates = require('./routes/estates');
 const estate = require('./routes/estate');
 
@@ -58,6 +59,11 @@ function getApp() {
                 delayAfter: 0,
                 max: 30,
             });
+            const rssLimiter = new RateLimit({
+                windowMs: 60000,
+                delayAfter: 0,
+                max: 10,
+            });
             const apiLimiter = new RateLimit({
                 windowMs: 60000,
                 delayAfter: 10,
@@ -72,6 +78,7 @@ function getApp() {
 
             app.use('/user', userLimiter, authEndpoints);
             app.use('/filters', filterLimiter, filtersEndpoints);
+            app.use('/rss', rssLimiter, rss);
             app.use('/estates', apiLimiter, estates);
             app.use('/estate', estateLimiter, estate);
 

@@ -36,7 +36,7 @@ export class WebsocketEventsStore {
   }
 
   private handleNewEstates(data: NewEstatesData) {
-    const estates = this.estateParser.parse(data.estates);
+    const estates = this.estateParser.parseMany(data.estates);
     this.newEstates.next(estates);
     this.pushNotificationService.show(data.estates.length + " új ingatlan jelent meg az Ingatlanfigyelőben!");
   }

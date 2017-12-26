@@ -16,11 +16,13 @@ import {EstatesComponent} from "./component/estates.component";
 import {EstateGalleryComponent} from "./component/estate-gallery.component";
 import {CommonModule} from "../common/common.module";
 import {Routing} from "./estate.routing";
+import {SingleEstateComponent} from "./component/single-estate.component";
 
 
 @NgModule({
   declarations: [
     EstatesComponent,
+    SingleEstateComponent,
     EstateComponent,
     EstateMapComponent,
     EstateGalleryComponent

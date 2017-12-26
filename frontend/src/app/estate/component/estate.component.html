@@ -3,7 +3,10 @@
     <div class="estate-details-content" [style.height]="estateCardContentHeight" #estateCardContent>
       <div class="estate-data">
         <div class="header">
-          <h2>{{ estate.district }}. kerület, {{ estate.address }}</h2>
+          <h2>
+            {{ estate.district }}. kerület, {{ estate.address }}
+            <a routerLink="/estate/{{ estate.id }}"><i class="material-icons">link</i></a>
+          </h2>
           <p>{{ estate.source }}, frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</p>
         </div>
         <table>

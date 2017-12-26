@@ -9,10 +9,16 @@ export class EstatesRepository {
   constructor(private http: HttpClient, private estateParser: EstateParser) {
   }
 
+  public getEstate(id: string): Promise<Estate> {
+    return this.http.get(`/estate/${id}`, {withCredentials: true}).toPromise()
+      .then((response: any) => response.estate)
+      .then(estate => this.estateParser.parse(estate));
+  }
+
   public getEstates(start: number = 0, pool: EstatePool): Promise<Estate[]> {
     return this.http.get(`/estates/${start}/${pool}`, {withCredentials: true}).toPromise()
       .then((response: any) => response.estates)
-      .then(this.estateParser.parse);
+      .then(estates => this.estateParser.parseMany(estates));
   }
 
   public setEstateUserAttributes(estate: Estate): Promise<void> {

@@ -21,9 +21,14 @@ function isUsernameTaken(username) {
     return users.has(username);
 }
 
+exports.get = get;
+function get(filter) {
+    return users.get(filter);
+}
+
 exports.getByUsername = getByUsername;
 function getByUsername(username) {
-    return users.get({username});
+    return get({username});
 }
 
 exports.resetLastRefresh = resetLastRefresh;

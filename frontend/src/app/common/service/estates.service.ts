@@ -9,6 +9,10 @@ export class EstatesService {
               private estatesStore: EstatesStore) {
   }
 
+  public getEstate(id: string): Promise<Estate> {
+    return this.estatesRepository.getEstate(id);
+  }
+
   public updateEstateSeen(estate: Estate): Promise<void> {
     return this.estatesRepository.setEstateUserAttributes(estate);
   }
