@@ -4,11 +4,12 @@ import 'rxjs/add/operator/share'
 import {Subject} from "rxjs/Subject";
 import {Subscription} from "rxjs/Subscription";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {environment} from "../../../environments/environment";
 
 
 @Injectable()
 export class WebsocketRepository {
-  private readonly endpoint = `ws://${location.hostname}${location.port ? ':' + location.port : ''}/poll`;
+  private readonly endpoint = (environment.production ? 'wss' : 'ws') + `://${location.hostname}${location.port ? ':' + location.port : ''}/poll`;
 
   private inputStream: Subject<string>;
   private messages: BehaviorSubject<any>;
