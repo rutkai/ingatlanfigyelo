@@ -1,7 +1,8 @@
 import {Filters} from "./filters/filters";
 
 export class User {
-  public username;
+  public id: string;
+  public username: string;
   public filterGroups: Filters[] = [];
 
   public addFilterGroup(group: Filters) {

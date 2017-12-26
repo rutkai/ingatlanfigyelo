@@ -1,6 +1,7 @@
 const RSS = require('rss');
 const express = require('express');
 const router = express.Router();
+const ObjectId = require('mongodb').ObjectId;
 
 const estatesService = require('../service/estates');
 const estateRepository = require('../repository/estate');

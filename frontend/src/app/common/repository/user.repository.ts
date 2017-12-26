@@ -62,6 +62,7 @@ export class UserRepository {
 
   private unserializeUser(userData: any): User {
     const user = new User();
+    user.id = userData.id;
     user.username = userData.username;
     user.filterGroups = userData.filterGroups ? this.unserializeFilterGroups(userData.filterGroups) : [];
     return user;

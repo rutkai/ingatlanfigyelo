@@ -13,6 +13,7 @@ import {EstatesRepository} from "./repository/estates.repository";
 import {EstatesStore} from "./store/estates.store";
 import {EstateAttributeDisplayPipe} from "./pipes/estate-attribute-display.pipe";
 import {EstatesService} from "./service/estates.service";
+import {HeadUpdaterService} from "./service/head-updater.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ export class CommonModule {
         NotificationService,
         WebsocketRepository,
         WebsocketEventsStore,
-        PushNotificationService
+        PushNotificationService,
+        HeadUpdaterService
       ],
     };
   }

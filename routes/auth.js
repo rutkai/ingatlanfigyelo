@@ -66,6 +66,7 @@ function isEmailAddress(string) {
 
 function getUserProfile(user) {
     return {
+        id: user._id,
         username: user.username,
         filterGroups: user.filterGroups
     };
