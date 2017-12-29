@@ -19,8 +19,17 @@
 
       {
         "type": "aws-lambda",
+        "region": "oregon",
         "performance": "auto",
-        "endpoint": "https://aws-lambda-endpoint"
+        "endpoint": "https://aws-lambda-endpoint",
+        "apikey": "asdasd"
+      },
+
+      {
+        "type": "azure-function",
+        "region": "central-us",
+        "performance": "auto",
+        "endpoint": "https://azure-endpoint"
       },
 
       {

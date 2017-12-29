@@ -22,6 +22,7 @@ function init() {
                     "baseUrl": provider.baseUrl,
                     "parser": parsers.getParser(provider.parser),
                     "indexPage": provider.parserOpts.indexPage,
+                    "scheduler-interval": moment.duration(provider.scheduler.interval).asMilliseconds(),
                     "interval": moment.duration(provider.parserOpts.interval).asMilliseconds()
                 });
             }
@@ -42,7 +43,6 @@ function start() {
 
 function createUpdater(provider) {
     const updater = new Updater(provider);
-    const interval = moment.duration(config.get('polling.scheduler.interval')).asMilliseconds();
     let isUpdating = false;
 
     const update = () => {
@@ -59,6 +59,6 @@ function createUpdater(provider) {
         });
     };
 
-    setInterval(update, interval);
+    setInterval(update, provider["scheduler-interval"]);
     update();
 }

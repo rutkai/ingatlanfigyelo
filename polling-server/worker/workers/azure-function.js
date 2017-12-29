@@ -1,24 +1,23 @@
 const got = require('got');
 const LocalWorker = require('./local');
 
-
-class AwsLambdaWorker extends LocalWorker {
+class AzureFunctionWorker extends LocalWorker {
     name() {
-        return 'AWS - ' + this.config.region;
+        return 'Azure - ' + this.config.region;
     }
 
     fetchContent(url, provider) {
         this._lastUsed[provider] = new Date();
 
         const body = {url};
-        const options = {body, json: true};
-        if (this.config.apikey) {
-            options["headers"] = {
+        const options = {
+            body,
+            headers: {
                 "accept": "application/json",
-                "content-type": "application/json",
-                "x-api-key": this.config.apikey
-            };
-        }
+                "content-type": "application/json"
+            },
+            json: true
+        };
 
         return got(this.config.endpoint, options)
             .then(response => {
@@ -27,4 +26,4 @@ class AwsLambdaWorker extends LocalWorker {
     }
 }
 
-module.exports = AwsLambdaWorker;
+module.exports = AzureFunctionWorker;

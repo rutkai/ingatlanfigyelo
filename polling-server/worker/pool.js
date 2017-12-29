@@ -2,6 +2,7 @@ const config = require('config');
 
 const LocalWorker = require('./workers/local');
 const AwsLambdaWorker = require('./workers/aws-lambda');
+const AzureFunctionWorker = require('./workers/azure-function');
 const NativePhpWorker = require('./workers/native-php');
 
 let workerPool = [];
@@ -13,16 +14,18 @@ async function init() {
 
         if (worker) {
             workerPool.push(worker);
+            console.log('Worker initialized: ' + worker.name());
         }
     }
+    console.log('All workers have been initialized!');
 }
 
 exports.getWorker = getWorker;
-function getWorker() {
+function getWorker(provider) {
     let selectedWorker = null;
 
     for (const worker of workerPool) {
-        if (worker.isAvailable() && (!selectedWorker || worker.lastUsed() < selectedWorker.lastUsed())) {
+        if (worker.isAvailable() && (!selectedWorker || worker.lastUsed(provider) < selectedWorker.lastUsed(provider))) {
             selectedWorker = worker;
         }
     }
@@ -42,6 +45,10 @@ async function createWorker(config) {
             worker = new AwsLambdaWorker(config);
             await worker.init();
             break;
+        case 'azure-function':
+            worker = new AzureFunctionWorker(config);
+            await worker.init();
+            break;
         case 'native-php':
             worker = new NativePhpWorker(config);
             await worker.init();
@@ -49,7 +56,7 @@ async function createWorker(config) {
     }
 
     if (worker) {
-        worker.test();
+        await worker.test();
     }
 
     return worker;

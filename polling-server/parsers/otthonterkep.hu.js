@@ -69,7 +69,7 @@ function parseProfile(html) {
         const $row = $(this);
 
         if ($row.find('span').text().includes('Épület emelet')) {
-            floor = parseInt($row.find('span').text().replace('Épület emelet:', '').replace('.', '').trim());
+            floor = parseInt($row.find('span').text().replace('Épület emelet:', '').replace('.', '').replace('földszint', '0').trim());
         } else if ($row.find('span').text().includes('erkély')) {
             balcony = parseFloat($row.find('span').text().replace('erkély:', '').trim());
             if (isNaN(balcony)) {

@@ -30,7 +30,7 @@ class Updater {
 
     updateNextIndexPage(page) {
         this.log('Reading index: ' + page);
-        worker.fetchContent(this.normalizeUrl(page))
+        worker.fetchContent(this.normalizeUrl(page), this.provider.name)
             .then(response => {
                 const listData = this.provider.parser.parseList(response);
                 setTimeout(() => {
@@ -67,7 +67,7 @@ class Updater {
 
         const url = this.normalizeUrl(this.estates.pop().url);
         this.log('Reading profile: ' + url);
-        worker.fetchContent(url)
+        worker.fetchContent(url, this.provider.name)
             .then(response => {
                 return this.provider.parser.parseProfile(response);
             })

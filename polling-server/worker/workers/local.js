@@ -1,18 +1,24 @@
 const got = require('got');
+const Raven = require('raven');
 
 
 class LocalWorker {
     constructor(config) {
-        this._lastUsed = new Date();
+        this._lastUsed = [];
         this.config = config;
+        this.available = true;
+    }
+
+    name() {
+        return 'local';
     }
 
     init() {
         return Promise.resolve();
     }
 
-    fetchContent(url) {
-        this._lastUsed = new Date();
+    fetchContent(url, provider) {
+        this._lastUsed[provider] = new Date();
 
         return got(url, this.config.options)
             .then(response => {
@@ -28,15 +34,27 @@ class LocalWorker {
     }
 
     test() {
-        return Promise.resolve();
+        this.available = false;
+        return this.fetchContent("https://www.example.com/")
+            .then(response => {
+                this.available = !!response;
+            })
+            .catch(err => {
+                console.log('Worker is unavailable: ' + this.name());
+                Raven.captureException(err);
+            });
     }
 
     isAvailable() {
-        return true;
+        return this.available;
     }
 
-    get lastUsed() {
-        return this._lastUsed;
+    lastUsed(provider) {
+        if (this._lastUsed[provider]) {
+            return this._lastUsed[provider];
+        }
+
+        return new Date('2000-01-01');
     }
 }
 

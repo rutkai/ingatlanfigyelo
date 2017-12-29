@@ -30,7 +30,7 @@
           </tr>
           <tr *ngIf="estate.floor !== null">
             <td>Emelet:</td>
-            <td>{{ estate.floor }}</td>
+            <td>{{ estate.floor === 0 ? 'földszint' : estate.floor }}</td>
           </tr>
           <tr *ngIf="estate.elevator !== null">
             <td>Lift:</td>

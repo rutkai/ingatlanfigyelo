@@ -1,19 +1,14 @@
 const got = require('got');
+const LocalWorker = require('./local');
 
 
-class AwsLambdaWorker {
-    constructor(config) {
-        this._lastUsed = new Date();
-        this.config = config;
-        this.available = true;
+class NativePhpWorker extends LocalWorker {
+    name() {
+        return 'PHP - ' + this.config.endpoint;
     }
 
-    init() {
-        return Promise.resolve();
-    }
-
-    fetchContent(url) {
-        this._lastUsed = new Date();
+    fetchContent(url, provider) {
+        this._lastUsed[provider] = new Date();
 
         const body = {
             token: this.config.token,
@@ -24,22 +19,6 @@ class AwsLambdaWorker {
                 return response.body.data;
             });
     }
-
-    test() {
-        this.available = false;
-        return this.fetchContent("https://www.example.com/")
-            .then(response => {
-                this.available = !!response;
-            });
-    }
-
-    isAvailable() {
-        return this.available;
-    }
-
-    get lastUsed() {
-        return this._lastUsed;
-    }
 }
 
-module.exports = AwsLambdaWorker;
+module.exports = NativePhpWorker;

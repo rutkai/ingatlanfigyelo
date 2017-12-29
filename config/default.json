@@ -13,11 +13,6 @@
     }
   },
   "polling": {
-    "scheduler": {
-      "interval": {
-        "hours": 24
-      }
-    },
     "workers": [
       {
         "type": "local",
@@ -34,6 +29,11 @@
         "name": "Ingatlan.com",
         "baseUrl": "https://ingatlan.com",
         "parser": "ingatlan.com",
+        "scheduler": {
+          "interval": {
+            "hours": 21
+          }
+        },
         "parserOpts": {
           "indexPage": "https://ingatlan.com/szukites/elado+lakas+budapest",
           "interval": {
@@ -45,6 +45,11 @@
         "name": "Otthontérkép",
         "baseUrl": "https://otthonterkep.hu",
         "parser": "otthonterkep.hu",
+        "scheduler": {
+          "interval": {
+            "hours": 11
+          }
+        },
         "parserOpts": {
           "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest",
           "interval": {
@@ -56,6 +61,11 @@
 //        "name": "Jófogás",
 //        "baseUrl": "https://ingatlan.jofogas.hu",
 //        "parser": "jofogas.hu",
+//        "scheduler": {
+//          "interval": {
+//            "hours": 21
+//          }
+//        },
 //        "parserOpts": {
 //          "indexPage": "https://ingatlan.jofogas.hu/budapest/ingatlan",
 //          "interval": {
@@ -67,6 +77,11 @@
 //        "name": "Ingatlannet",
 //        "baseUrl": "https://www.ingatlannet.hu",
 //        "parser": "ingatlannet.hu",
+//        "scheduler": {
+//          "interval": {
+//            "hours": 21
+//          }
+//        },
 //        "parserOpts": {
 //          "indexPage": "https://www.ingatlannet.hu/elad%C3%B3/lak%C3%A1s/Budapest",
 //          "interval": {
@@ -78,6 +93,11 @@
 //        "name": "Ingatlanbazar",
 //        "baseUrl": "https://www.ingatlanbazar.hu",
 //        "parser": "ingatlanbazar.hu",
+//        "scheduler": {
+//          "interval": {
+//            "hours": 21
+//          }
+//        },
 //        "parserOpts": {
 //          "indexPage": "https://www.ingatlanbazar.hu/ingatlan-Elado?page=1",
 //          "interval": {
@@ -89,6 +109,11 @@
 //        "name": "Ingatlanok",
 //        "baseUrl": "https://ingatlanok.hu",
 //        "parser": "ingatlanok.hu",
+//        "scheduler": {
+//          "interval": {
+//            "hours": 21
+//          }
+//        },
 //        "parserOpts": {
 //          "indexPage": "https://ingatlanok.hu/elado/lakas/budapest",
 //          "interval": {
