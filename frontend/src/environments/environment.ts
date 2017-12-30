@@ -5,6 +5,6 @@
 
 export const environment = {
   apiDomain: 'localhost:3000',
-  mapsApiKey: 'AIzaSyCXsZ6qiAjyUOOY6S46qy9-R7qk1W6grGY',
+  mapsApiKey: 'AIzaSyDzEMIx08kuBg9cwp4iUCQ-eswD4xomIUI',
   production: false
 };
