@@ -46,7 +46,7 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
                 'Méret: ' + estate.size + 'm<sup>2</sup><br/>\n' +
                 'Négyzetméterár: ' + estate.squareMeterPrice + ' Ft<br/>\n' +
                 'Szobák: ' + estate.rooms + ' + ' + estate.halfrooms,
-            url: 'http://ingatlanfigyelo.eu/#/estate/' + estate._id,
+            url: 'http://ingatlanfigyelo.eu/estate/' + estate._id,
             guid: estate._id,
             date: estate.updated
         });
