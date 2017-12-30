@@ -4,6 +4,7 @@ import {User} from "../model/user";
 import {Filters} from "../model/filters/filters";
 import {Filter} from "../model/filters/types/filter";
 import {FilterFactory} from "../factory/filter.factory";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class UserRepository {
@@ -11,7 +12,7 @@ export class UserRepository {
   }
 
   public getProfile(): Promise<User> {
-    return this.http.get(`/user/profile`, {withCredentials: true}).toPromise()
+    return this.http.get(`//${environment.apiDomain}/user/profile`, {withCredentials: true}).toPromise()
       .then((response: any) => response.user)
       .then((userData: any) => this.unserializeUser(userData));
   }
@@ -22,13 +23,13 @@ export class UserRepository {
       password
     };
 
-    return this.http.post(`/user/login`, payload, {withCredentials: true}).toPromise()
+    return this.http.post(`//${environment.apiDomain}/user/login`, payload, {withCredentials: true}).toPromise()
       .then((response: any) => response.user)
       .then((userData: any) => this.unserializeUser(userData));
   }
 
   public logout(): Promise<void> {
-    return this.http.get(`/user/logout`, {withCredentials: true}).toPromise()
+    return this.http.get(`//${environment.apiDomain}/user/logout`, {withCredentials: true}).toPromise()
       .then(() => {
       });
   }
@@ -39,7 +40,7 @@ export class UserRepository {
       password
     };
 
-    return this.http.post(`/user/register`, payload, {withCredentials: true}).toPromise()
+    return this.http.post(`//${environment.apiDomain}/user/register`, payload, {withCredentials: true}).toPromise()
       .then(() => {
       });
   }
@@ -55,7 +56,7 @@ export class UserRepository {
       payload.push(group);
     });
 
-    return this.http.put(`/filters/save`, payload, {withCredentials: true}).toPromise()
+    return this.http.put(`//${environment.apiDomain}/filters/save`, payload, {withCredentials: true}).toPromise()
       .then(() => {
       });
   }

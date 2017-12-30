@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {EstateParser} from "../parsers/estate.parser";
 import {Estate} from "../model/estate";
 import {EstatePool} from "../model/estate-pool";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class EstatesRepository {
@@ -10,13 +11,13 @@ export class EstatesRepository {
   }
 
   public getEstate(id: string): Promise<Estate> {
-    return this.http.get(`/estate/${id}`, {withCredentials: true}).toPromise()
+    return this.http.get(`//${environment.apiDomain}/estate/${id}`, {withCredentials: true}).toPromise()
       .then((response: any) => response.estate)
       .then(estate => this.estateParser.parse(estate));
   }
 
   public getEstates(start: number = 0, pool: EstatePool): Promise<Estate[]> {
-    return this.http.get(`/estates/${start}/${pool}`, {withCredentials: true}).toPromise()
+    return this.http.get(`//${environment.apiDomain}/estates/${start}/${pool}`, {withCredentials: true}).toPromise()
       .then((response: any) => response.estates)
       .then(estates => this.estateParser.parseMany(estates));
   }
@@ -27,12 +28,12 @@ export class EstatesRepository {
       seen: estate.isSeen
     };
 
-    return this.http.put(`/estate/${estate.id}`, data, {withCredentials: true}).toPromise()
+    return this.http.put(`//${environment.apiDomain}/estate/${estate.id}`, data, {withCredentials: true}).toPromise()
       .then(() => {});
   }
 
   public markAllSeen(): Promise<void> {
-    return this.http.post(`/estates/mark-read`, {}, {withCredentials: true}).toPromise()
+    return this.http.post(`//${environment.apiDomain}/estates/mark-read`, {}, {withCredentials: true}).toPromise()
       .then(() => {});
   }
 }

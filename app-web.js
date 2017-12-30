@@ -31,11 +31,15 @@ function getApp() {
             Raven.config(config.get('sentry.web')).install();
             app.use(Raven.requestHandler());
 
-            app.use(logger('dev'));
+            if (isDev()) {
+                app.use(logger('dev'));
+            }
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded({extended: false}));
             app.use(cookieParser());
-            app.use(express.static(path.join(__dirname, 'public')));
+            if (isDev()) {
+                app.use(express.static(path.join(__dirname, 'public')));
+            }
 
             await passportAuth.init();
             app.use(session({
@@ -164,4 +168,8 @@ function createRefreshTimer(ws, user) {
                 });
         }
     }, 60000);
+}
+
+function isDev() {
+    return process.env.NODE_ENV !== 'production';
 }
