@@ -31,8 +31,9 @@
         "parser": "ingatlan.com",
         "scheduler": {
           "interval": {
-            "hours": 21
-          }
+            "minutes": 30
+          },
+          "maxPages": 30
         },
         "parserOpts": {
           "indexPage": "https://ingatlan.com/szukites/elado+lakas+budapest",
@@ -47,14 +48,15 @@
         "parser": "otthonterkep.hu",
         "scheduler": {
           "interval": {
-            "hours": 11
+            "minutes": 30
           }
         },
         "parserOpts": {
-          "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest",
+          "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest?ex=1&sort=rd&lv=list-only",
           "interval": {
-            "milliseconds": 1000
-          }
+            "milliseconds": 2000
+          },
+          "maxPages": 20
         }
       }
 //      {

@@ -25,19 +25,24 @@ class Updater {
 
     update(onReady) {
         this.onReady = onReady;
+        this.page = 1;
         this.updateNextIndexPage(this.provider.indexPage);
     }
 
     updateNextIndexPage(page) {
-        this.log('Reading index: ' + page);
+        this.log(`Reading index (page ${this.page}): ${page}`);
         worker.fetchContent(this.normalizeUrl(page), this.provider.name)
             .then(response => {
                 const listData = this.provider.parser.parseList(response);
                 setTimeout(() => {
-                    if (listData.nextList && env.isProd()) {
+                    if (listData.nextList && env.isProd() && this.page <= this.provider.maxPages) {
+                        this.page += 1;
                         this.updateNextIndexPage(listData.nextList);
                     } else {
-                        console.log('Finished reading index on ' + this.provider.name);
+                        if (this.page > this.provider.maxPages) {
+                            this.log('Max page limit reached!');
+                        }
+                        this.log(`Finished reading index on ${this.provider.name}`);
                         this.dequeueEstate();
                     }
                 }, this.provider.interval);
@@ -101,7 +106,12 @@ class Updater {
             .catch(error => {
                 console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
                 console.error(error);
-                Raven.captureException(error);
+                Raven.context(function () {
+                    Raven.setContext({
+                        url
+                    });
+                    Raven.captureException(error);
+                });
                 this.dequeueEstate();
             });
     }

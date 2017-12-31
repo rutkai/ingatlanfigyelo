@@ -22,6 +22,7 @@ function init() {
                     "baseUrl": provider.baseUrl,
                     "parser": parsers.getParser(provider.parser),
                     "indexPage": provider.parserOpts.indexPage,
+                    "maxPages": provider.parserOpts.maxPages,
                     "scheduler-interval": moment.duration(provider.scheduler.interval).asMilliseconds(),
                     "interval": moment.duration(provider.parserOpts.interval).asMilliseconds()
                 });
