@@ -35,11 +35,11 @@ class Updater {
             .then(response => {
                 const listData = this.provider.parser.parseList(response);
                 setTimeout(() => {
-                    if (listData.nextList && env.isProd() && this.page <= this.provider.maxPages) {
+                    if (listData.nextList && env.isProd() && this.page < this.provider.maxPages) {
                         this.page += 1;
                         this.updateNextIndexPage(listData.nextList);
                     } else {
-                        if (this.page > this.provider.maxPages) {
+                        if (this.page >= this.provider.maxPages) {
                             this.log('Max page limit reached!');
                         }
                         this.log(`Finished reading index on ${this.provider.name}`);

@@ -7,6 +7,7 @@ const parsers = require('./parsers/parser');
 const Updater = require('./updater').Updater;
 const estates = require('../db/estate');
 
+const MAX_PAGES_HARD_LIMIT = 1000;
 const polling = [];
 let isPolling = false;
 
@@ -22,7 +23,7 @@ function init() {
                     "baseUrl": provider.baseUrl,
                     "parser": parsers.getParser(provider.parser),
                     "indexPage": provider.parserOpts.indexPage,
-                    "maxPages": provider.parserOpts.maxPages,
+                    "maxPages": provider.parserOpts.maxPages || MAX_PAGES_HARD_LIMIT,
                     "scheduler-interval": moment.duration(provider.scheduler.interval).asMilliseconds(),
                     "interval": moment.duration(provider.parserOpts.interval).asMilliseconds()
                 });
