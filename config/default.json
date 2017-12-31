@@ -52,7 +52,7 @@
           }
         },
         "parserOpts": {
-          "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest?ex=1&sort=rd&lv=list-only",
+          "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest?ex=1&sort=td",
           "interval": {
             "milliseconds": 2000
           },
