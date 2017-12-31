@@ -30,8 +30,9 @@ class Updater {
     }
 
     updateNextIndexPage(page) {
-        this.log(`Reading index (page ${this.page}): ${page}`);
-        worker.fetchContent(this.normalizeUrl(page), this.provider.name)
+        const normalizedPageUrl = this.normalizeUrl(page);
+        this.log(`Reading index (page ${this.page}): ${normalizedPageUrl}`);
+        worker.fetchContent(normalizedPageUrl, this.provider.name)
             .then(response => {
                 const listData = this.provider.parser.parseList(response);
                 setTimeout(() => {
@@ -57,7 +58,7 @@ class Updater {
                 }
             })
             .catch(error => {
-                console.error(`Error during fetching/parsing index page on ${this.provider.name}, URL: ${page}`);
+                console.error(`Error during fetching/parsing index page on ${this.provider.name}, URL: ${normalizedPageUrl}`);
                 console.error(error);
                 Raven.captureException(error);
                 this.onReady(error);
