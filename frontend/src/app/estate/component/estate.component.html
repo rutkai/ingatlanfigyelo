@@ -39,7 +39,7 @@
         </table>
 
         <p class="description" [class.expand]="expandDescription" [innerHtml]="estate.descriptionHtml"
-           (click)="toggleDescription()"></p>
+           (click)="expandDescription ? null : toggleDescription()"></p>
         <div class="expand-button">
           <button mat-raised-button color="primary" (click)="toggleDescription()">
             {{ expandDescription ? 'Elrejt' : 'Mind megjelenít' }}

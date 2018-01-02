@@ -42,9 +42,9 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
     for (const estate of estates) {
         feed.item({
             title: estate.district + '. kerület, ' + estate.address,
-            description: 'Ár: ' + estate.price + ' Ft<br/>\n' +
+            description: 'Ár: ' + addNumberSpacing(estate.price) + ' Ft<br/>\n' +
                 'Méret: ' + estate.size + 'm<sup>2</sup><br/>\n' +
-                'Négyzetméterár: ' + estate.squareMeterPrice + ' Ft<br/>\n' +
+                'Négyzetméterár: ' + addNumberSpacing(estate.squareMeterPrice) + ' Ft<br/>\n' +
                 'Szobák: ' + estate.rooms + ' + ' + estate.halfrooms,
             url: 'http://ingatlanfigyelo.eu/estate/' + estate._id,
             guid: estate._id,
@@ -57,3 +57,8 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
 });
 
 module.exports = router;
+
+
+function addNumberSpacing(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
