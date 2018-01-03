@@ -23,14 +23,18 @@ in `frontend` directory.
 
 ### Running
 
-Execute in the project root:
+Running polling server only:
 
-     npm start
+     npm run start-polling
+
+Running web server only:
+
+     npm run start-web
      
 Production
 ----------
 
-### Docker
+### Docker (obsolete)
 
 Running in docker:
 
