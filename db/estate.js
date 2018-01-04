@@ -20,6 +20,11 @@ function get(filter = {}) {
     return db.getCollection('estates').findOne(filter);
 }
 
+exports.count = count;
+function count(filter = {}) {
+    return db.getCollection('estates').count(filter);
+}
+
 exports.getMany = getMany;
 function getMany(filter = {}, from = 0, number = 3) {
     return db.getCollection('estates').find(filter).sort({updated: -1}).skip(from).limit(number).toArray();

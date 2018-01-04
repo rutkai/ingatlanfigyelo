@@ -9,6 +9,7 @@ export * from './model/filters/estate-attributes';
 export * from './model/filters/filters';
 export * from './model/estate';
 export * from './model/estate-sources';
+export * from './model/stats';
 export * from './model/user';
 
 export * from './parsers/estate.parser';
@@ -19,5 +20,6 @@ export * from './service/push-notification.service';
 export * from './service/user.service';
 
 export * from './store/estates.store';
+export * from './store/stats.store';
 export * from './store/user.store';
 export * from './store/websocket-events.store';

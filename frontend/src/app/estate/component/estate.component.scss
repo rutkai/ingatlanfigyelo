@@ -14,12 +14,13 @@
 
   .estate-details-content {
     display: flex;
+    width: 100%;
   }
 }
 
 .estate-data {
   display: flex;
-  flex-basis: 100%;
+  flex-basis: 45%;
   flex-direction: column;
 
   .header {
@@ -87,16 +88,34 @@
 }
 
 app-estate-gallery {
-  display: flex;
-  flex-basis: 100%;
+  display: block;
+  flex-basis: 55%;
 }
 
-@media (min-width: 700px) {
+@media (max-width: 700px) {
+  .estate-details .estate-details-content {
+    flex-direction: column-reverse;
+  }
+
   .estate-data {
-    flex-basis: 45%;
+    flex-basis: 100%;
   }
 
   app-estate-gallery {
-    flex-basis: 55%;
+    flex-basis: 100%;
+  }
+}
+
+@media (orientation: portrait) {
+  .estate-details .estate-details-content {
+    flex-direction: column-reverse;
+  }
+
+  .estate-data {
+    flex-basis: 100%;
+  }
+
+  app-estate-gallery {
+    flex-basis: 100%;
   }
 }

@@ -18,9 +18,17 @@
     <li>Csoportok maximális száma: <strong>5</strong></li>
     <li>Feltételek maximális száma csoportonként: <strong>10</strong></li>
   </ul>
+  <h3>Statisztika</h3>
+  <p *ngIf="stats">Hozzáadott ingatlanok az elmúlt órában: <strong>{{ stats.db.lastHour }}</strong></p>
+  <p *ngIf="stats">Hozzáadott ingatlanok az elmúlt napon: <strong>{{ stats.db.lastDay }}</strong></p>
+  <p *ngIf="stats">Hozzáadott ingatlanok az elmúlt héten: <strong>{{ stats.db.lastWeek }}</strong></p>
   <h3>Működési paraméterek</h3>
   <ul>
-    <li>Frissítési gyakoriság: <strong>naponta</strong></li>
+    <li *ngIf="stats">Frissítési gyakoriság:
+      <ul>
+        <li *ngFor="let parser of stats.parserStats">{{ parser.name }}: <strong>{{ parser.refresh }}</strong></li>
+      </ul>
+    </li>
     <li>Értesítés új ingatlanról: <strong>percenként</strong></li>
   </ul>
   <h2>Feltételek</h2>

@@ -4,8 +4,8 @@ import {CommonModule as NgCommonModule} from '@angular/common';
 import {HttpClientModule} from "@angular/common/http";
 import {EstateComponent} from "./component/estate.component";
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatExpansionModule, MatIconModule, MatInputModule,
-  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
+  MatButtonModule, MatCardModule, MatExpansionModule, MatIconModule, MatInputModule,
+  MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./component/estate-map.component";

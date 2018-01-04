@@ -14,6 +14,8 @@ import {EstatesStore} from "./store/estates.store";
 import {EstateAttributeDisplayPipe} from "./pipes/estate-attribute-display.pipe";
 import {EstatesService} from "./service/estates.service";
 import {HeadUpdaterService} from "./service/head-updater.service";
+import {StatsRepository} from "./repository/stats.repository";
+import {StatsStore} from "./store/stats.store";
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ export class CommonModule {
         UserRepository,
         UserStore,
         UserService,
+        StatsRepository,
+        StatsStore,
         EstateParser,
         NotificationService,
         WebsocketRepository,
