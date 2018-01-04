@@ -1,16 +1,23 @@
 const config = require('config');
+const moment = require('moment');
 const express = require('express');
 const router = express.Router();
 
 const estateRepository = require('../repository/estate');
 
+let statsCache;
+let cacheTTL = moment();
+
 router.get('/', async function (req, res) {
-    const stats = {};
+    if (!statsCache || cacheTTL < moment()) {
+        statsCache = {
+            parserStats: getParserStats(),
+            db: await getDbStats(),
+        };
+        cacheTTL = moment().add(1, 'hour');
+    }
 
-    stats.parserStats = getParserStats();
-    stats.db = await getDbStats();
-
-    res.json(stats);
+    res.json(statsCache);
 });
 
 module.exports = router;
