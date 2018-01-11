@@ -1,0 +1,34 @@
+{
+  "name": "Stage2CSS",
+  "version": "0.1.0",
+  "description": "a second phase framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabor Levai <csaknekedittesmost@gmail.com>",
+  "license": "MIT 2.0",
+  "browserslist": [
+    "Firefox > 20",
+    "Chrome > 20",
+    "Safari > 10",
+    "Explorer > 9",
+    "Edge > 14"
+  ],
+  "devDependencies": {
+    "browser-sync": "^2.18.2",
+    "browserslist": "^1.7.7",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-cache": "^0.4.6",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-sass": "^2.3.2",
+    "gulp-shell": "^0.6.3",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-useref": "^3.1.2",
+    "run-sequence": "^1.2.2"
+  }
+}

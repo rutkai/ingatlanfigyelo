@@ -1,0 +1,21 @@
+/************
+  BOX SIZING
+************/
+
+html {
+  box-sizing: border-box;
+}
+
+* {
+
+  &,
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+
+}
+
+.u-border-box {
+  box-sizing: border-box;
+}

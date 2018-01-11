@@ -16,13 +16,16 @@ import {EstatesService} from "./service/estates.service";
 import {HeadUpdaterService} from "./service/head-updater.service";
 import {StatsRepository} from "./repository/stats.repository";
 import {StatsStore} from "./store/stats.store";
+import {RemoveAccentsPipe} from "./pipes/remove-accents.pipe";
 
 @NgModule({
   declarations: [
-    EstateAttributeDisplayPipe
+    EstateAttributeDisplayPipe,
+    RemoveAccentsPipe
   ],
   exports: [
-    EstateAttributeDisplayPipe
+    EstateAttributeDisplayPipe,
+    RemoveAccentsPipe
   ],
   imports: [
     HttpClientModule,

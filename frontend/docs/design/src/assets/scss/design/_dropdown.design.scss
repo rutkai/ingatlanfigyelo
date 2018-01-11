@@ -1,0 +1,27 @@
+.c-dropdown {
+  padding: 12px 24px;
+}
+
+.c-dropdown__body {
+  background-color: #ffffff;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1), 1px 0 2px rgba(0, 0, 0, 0.1), -1px 0 2px rgba(0, 0, 0, 0.1);
+  transition: 225ms ease-out;
+  transform-origin: center top;
+
+  &.is-open {
+    transform: translateY(0%);
+    max-height: 250px;
+    overflow: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .c-dropdown__item {
+    transition: 125ms ease-out;
+
+    &:hover {
+      background-color: rgba(0,0,0, .1);
+    }
+  }
+}

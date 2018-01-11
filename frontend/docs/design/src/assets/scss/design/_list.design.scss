@@ -1,0 +1,27 @@
+ol,
+ul {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+ul {
+  margin-top: 0;
+  padding-left: 0;
+  ul,
+  ol {
+    font-size: 90%;
+    margin: 24px 0 24px 48px;
+  }
+}
+
+ol {
+  ol,
+  ul {
+    font-size: 90%;
+    margin: 24px 0 24px 48px;
+  }
+}
+
+li {
+  margin-bottom: 16px;
+}

@@ -32,6 +32,19 @@ export class EstatesComponent {
     });
   }
 
+  public get estatesForRender() {
+    const rows = [[]];
+
+    for (const estate of this.estates) {
+      if (rows[rows.length - 1].length === 3) {
+        rows.push([]);
+      }
+      rows[rows.length - 1].push(estate);
+    }
+
+    return rows;
+  }
+
   public loadMoreEstates() {
     if (this.loadingInProgress) {
       return;

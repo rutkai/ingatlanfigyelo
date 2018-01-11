@@ -1,0 +1,166 @@
+@import '../utilities/transitions.utility';
+
+////// Tables //////
+.container--table {
+  //background-color: #ffffff;
+  //border: 1px solid #e7e8ea;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding-bottom: 24px;
+  position: relative;
+  max-height: 600px;
+}
+
+table {
+  //background-color: #ffffff;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+thead {
+  border-bottom: 1px solid #e7e8ea;
+}
+
+tbody {
+  overflow-y: auto;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  min-width: 80px;
+  border-collapse: collapse;
+  border-bottom: 1px solid #e7e8ea;
+}
+
+th {
+  padding: 24px 12px;
+}
+
+th:first-child,
+td:first-child {
+  padding-left: 30px;
+  color: #252424;
+  font-weight: 600;
+}
+
+th:last-child,
+td:last-child {
+  padding-right: 30px;
+}
+
+//tr {
+//  transition: background-color $leaving-transition;
+//}
+//
+//tr:hover {
+//  background-color: #e7e8ea;
+//  cursor: pointer;
+//  transition: background-color $entering-transition;
+//}
+
+tr[disabled]:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+thead tr:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+td > img {
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 30px;
+  height: 40px;
+  width: 40px;
+}
+
+.table-striped tr:nth-child(even) {
+  background-color: #f7f9fa;
+}
+
+.additional-row {
+  display: block;
+}
+
+.table__features {
+  display: flex;
+}
+
+table tr:last-child td {
+  border-bottom: 0;
+}
+
+////// Table with Fixed Header //////
+$header_background_color: #ffffff;
+$header_text_color: inherit;
+$alternate_row_background_color: #ffffff;
+$table_width: 100%;
+$table_body_height: 600px;
+$column_one_width: 200px;
+$column_two_width: 200px;
+$column_three_width: 350px;
+
+.container--table--fixed-header {
+  position: relative;
+  overflow-x: auto;
+}
+
+.table--fixed-header {
+  width: $table_width;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 15px;
+    text-align: left;
+    min-width: 80px;
+    border-collapse: collapse;
+  }
+  td, th {
+    min-width: 215px;
+  }
+
+  th:first-child,
+  td:first-child {
+    padding-left: 30px;
+    min-width: 350px;
+    font-weight: bold;
+  }
+
+  th:last-child,
+  td:last-child {
+    padding-right: 30px;
+    min-width: 150px;
+  }
+
+  thead {
+    background-color: $header_background_color;
+    color: $header_text_color;
+    tr {
+      display: block;
+      position: relative;
+    }
+  }
+  tbody {
+    display: block;
+    overflow-y: auto;
+    width: 100%;
+    height: $table_body_height;
+  }
+}
+
+.old_ie_wrapper {
+  height: $table_body_height;
+  width: $table_width;
+  overflow-x: hidden;
+  overflow-y: auto;
+  tbody {
+    height: auto;
+  }
+}

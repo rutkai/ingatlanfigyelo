@@ -1,0 +1,75 @@
+//********************
+// Grid
+//********************
+
+$bp-larger-than-extra-small: "min-width: 640px" !default;
+$bp-larger-than-small: "min-width: 768px" !default;
+$bp-larger-than-medium: "min-width: 990px" !default;
+$bp-larger-than-large: "min-width: 1200px" !default;
+$bp-larger-than-extra-large: "min-width: 1600px" !default;
+$grid-columns: 12;
+
+.o-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+[class^="o-column"],
+[class^=" o-column"]{
+  display: block;
+  flex-basis: 100%;
+  flex-grow: 1;
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+[class^="o-column--auto"],
+[class^=" o-column--auto"]{
+  display: block;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (#{$bp-larger-than-extra-small}) {
+  @for $i from 1 through $grid-columns {
+    .xs--#{$i} {
+      flex-basis: 100% / $grid-columns * $i;
+    }
+  }
+}
+
+@media (#{$bp-larger-than-small}) {
+  @for $i from 1 through $grid-columns {
+    .sm--#{$i} {
+      flex-basis: 100% / $grid-columns * $i;
+    }
+  }
+}
+
+@media (#{$bp-larger-than-medium}) {
+  @for $i from 1 through $grid-columns {
+    .md--#{$i} {
+      flex-basis: 100% / $grid-columns * $i;
+    }
+  }
+}
+
+@media (#{$bp-larger-than-large}) {
+  @for $i from 1 through $grid-columns {
+    .lg--#{$i} {
+      flex-basis: 100% / $grid-columns * $i;
+    }
+  }
+}
+
+@media (#{$bp-larger-than-extra-large}) {
+  @for $i from 1 through $grid-columns {
+    .xl--#{$i} {
+      width: 100% / $grid-columns * $i;
+    }
+  }
+}

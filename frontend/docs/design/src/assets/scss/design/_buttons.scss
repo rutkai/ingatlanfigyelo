@@ -1,0 +1,166 @@
+@import '../utilities/transitions.utility';
+@import '../utilities/colors';
+
+// Flat Styles
+.c-button {
+  color: rgba(0, 0, 0, .8);
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all $leaving-transition;
+
+  &:hover {
+    background-color: rgba(158, 158, 158, 0.2);
+    transition: all $entering-transition;
+  }
+
+  &:active {
+    background-color: rgba(158, 158, 158, 0.4);
+    transition: all $entering-transition;
+  }
+
+  &.primary {
+    color: $blue-500;
+  }
+
+  &[disabled] {
+    background-color: transparent;
+    color: rgba(0, 0, 0, .3);
+  }
+
+  &.warn {
+    color: $deep-orange-500;
+  }
+}
+
+// Raised Styles
+
+.c-button--raised {
+  border-radius: 2px;
+  color: rgba(0, 0, 0, .8);
+  font-weight: 500;
+  text-transform: uppercase;
+  transition: all $leaving-transition;
+
+  &:not([disabled]) {
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  }
+
+  &:not([disabled]):active,
+  &:not(.disabled):active {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.4);
+    transition: all $entering-transition;
+  }
+
+  &.primary {
+    background-color: $blue-500;
+    color: #fff;
+
+    &:not([disabled]):hover {
+      background-color: $blue-700;
+      transition: all $entering-transition;
+    }
+  }
+
+  &.warn {
+    background-color: $deep-orange-500;
+    color: #fff;
+
+    &:not([disabled]):hover {
+      background-color: $deep-orange-700;
+      transition: all $entering-transition;
+    }
+  }
+
+  &[disabled] {
+    background-color: rgba(0,0,0,0.12);
+    color: rgba(0, 0, 0, .3);
+  }
+}
+
+
+.c-button--outline {
+  border: 2px solid #000000;
+  color: #000000;
+  background-color: transparent;
+  border-radius: 2px;
+
+  &:before {
+    background-color: #000000;
+    content: '';
+    display: inline;
+    transform: scaleY(0);
+    transition: transform $leaving-transition;
+    transform-origin: 50% 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 101%;
+    height: 101%;
+    will-change: transform;
+    z-index: 0;
+  }
+
+  &:not([disabled]):hover {
+    color: #FFFFFF;
+
+    &:before {
+      transform: scaleY(1);
+      transition: transform $leaving-transition;
+    }
+  }
+
+  span {
+    z-index: 1;
+  }
+
+  &.primary {
+    border-color: $blue-500;
+    color: $blue-500;
+
+    &:before {
+      background-color: $blue-500;
+    }
+
+    &:not([disabled]):hover {
+      color: #FFFFFF;
+    }
+  }
+
+  &.warn {
+    border-color: $deep-orange-500;
+    color: $deep-orange-500;
+
+    &:before {
+      background-color: $deep-orange-500;
+    }
+
+    &:not([disabled]):hover {
+      color: #FFFFFF;
+    }
+  }
+
+  &[disabled] {
+    background-color: transparent;
+    border-color: rgba(0,0,0,0.12);
+    color: rgba(0, 0, 0, .3);
+
+    &:before {
+      background-color: transparent;
+    }
+  }
+}
+
+.open-button {
+  position: absolute;
+  align-self: center;
+  z-index: 2;
+  top: 40%;
+  transform: translateY(-50%);
+  color: #fff;
+  opacity: 0;
+  transition: $leaving-transition;
+
+  &:hover {
+    background-color: transparent;
+  }
+}

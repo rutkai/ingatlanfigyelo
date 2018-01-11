@@ -1,0 +1,46 @@
+.c-dropdown {
+  cursor: pointer;
+  position: relative;
+}
+
+.c-dropdown__body {
+  transform: translateY(0%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  width: 100%;
+  list-style: none;
+  z-index: 10;
+
+  &.is-open {
+    transform: translateY(0%);
+    max-height: 250px;
+    overflow: auto;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .c-dropdown__item {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+// Disabled State
+.c-dropdown[disabled] {
+  cursor: default;
+
+  .c-dropdown__body.active {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .c-dropdown__item:hover {
+    cursor: default;
+  }
+}

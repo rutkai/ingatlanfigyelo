@@ -1,0 +1,23 @@
+@import '../utilities/transitions.utility';
+@import '../utilities/colors';
+
+input {
+  background-color: transparent;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: none;
+  color: #616161;
+  font-size: 1rem;
+  padding: 6px 0;
+  transition: border-color $leaving-transition;
+
+  &:focus {
+    border-color: $blue-500;
+    transition: border-color $entering-transition;
+  }
+}
+
+label {
+  color: #616161;
+  font-weight: 300;
+  margin-bottom: 6px;
+}

@@ -1,2 +1,67 @@
-<app-estate *ngIf="estate" [estate]="estate"></app-estate>
+<mat-card *ngIf="estate" in-viewport (inViewportAction)="loadLazyContent($event)" class="card" [class.seen]="estate.isSeen && !estate.favourite">
+  <mat-card-content class="estate-details">
+    <div class="estate-details-content" [style.height]="estateCardContentHeight" #estateCardContent>
+      <div class="estate-data">
+        <div class="header">
+          <h2>
+            {{ estate.district }}. kerület, {{ estate.address }}
+            <a routerLink="/estate/{{ estate.id }}"><i class="material-icons">link</i></a>
+          </h2>
+          <p>{{ estate.source }}, frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</p>
+        </div>
+        <table>
+          <tr class="main-data">
+            <td>{{ estate.price | number:'.0-0' }} Ft</td>
+            <td>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></td>
+          </tr>
+          <tr class="main-data">
+            <td>{{ estate.size }} m<sup>2</sup></td>
+            <td>
+              {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
+            </td>
+          </tr>
+          <tr *ngIf="estate.balcony !== null">
+            <td>Erkély:</td>
+            <td>{{ estate.balcony }} m<sup>2</sup></td>
+          </tr>
+          <tr *ngIf="estate.heating !== null">
+            <td>Fűtés:</td>
+            <td>{{ estate.heating }}</td>
+          </tr>
+          <tr *ngIf="estate.floor !== null">
+            <td>Emelet:</td>
+            <td>{{ estate.floor === 0 ? 'földszint' : estate.floor }}</td>
+          </tr>
+          <tr *ngIf="estate.elevator !== null">
+            <td>Lift:</td>
+            <td>{{ estate.elevator ? 'van' : 'nincs' }}</td>
+          </tr>
+        </table>
+
+        <p class="description" [class.expand]="expandDescription" [innerHtml]="estate.descriptionHtml"
+           (click)="expandDescription ? null : toggleDescription()"></p>
+        <div class="expand-button">
+          <button mat-raised-button color="primary" (click)="toggleDescription()">
+            {{ expandDescription ? 'Elrejt' : 'Mind megjelenít' }}
+          </button>
+        </div>
+
+        <app-estate-map [estate]="estate" *ngIf="loadContent && isVisible" class="estate-map"></app-estate-map>
+      </div>
+
+      <app-estate-gallery *ngIf="estate.images.length && isVisible" [images]="estate.images"
+                          [loadContent]="loadContent"></app-estate-gallery>
+    </div>
+  </mat-card-content>
+  <mat-card-actions class="action-buttons">
+    <button mat-button (click)="toggleFavourite()" *ngIf="user">
+      {{ estate.favourite ? 'Kedvencnek jelölve' : 'Kedvencnek jelöl' }}
+    </button>
+    <button mat-button (click)="toggleSeen()" *ngIf="user">
+      {{ estate.isSeen ? 'Megnézve' : 'Megnézettnek jelöl' }}
+    </button>
+    <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>
+  </mat-card-actions>
+</mat-card>
+
 <p *ngIf="!estate" class="error">Ingatlan nem található!</p>
