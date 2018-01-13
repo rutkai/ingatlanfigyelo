@@ -10,7 +10,7 @@ import {User} from "../";
 
 @Injectable()
 export class EstatesStore {
-  private readonly FETCH_COUNT = 3;
+  private readonly FETCH_COUNT = 6;
 
   private favouriteData: Estate[] = [];
   private unseenData: Estate[] = [];
