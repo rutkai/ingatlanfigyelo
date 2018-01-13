@@ -1,3 +1,11 @@
+.c-card.seen {
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .title--card {
   font-size: 1.225rem;
   margin-bottom: 6px;

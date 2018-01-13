@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Estate, EstatesService, EstatesStore, NotificationService, User, UserStore} from "../../common";
 
 @Component({
   selector: 'app-estates',
   templateUrl: './estates.component.html',
-  styleUrls: ['./estates.component.scss']
+  styleUrls: ['./estates.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EstatesComponent {
   public estates: Estate[] = [];

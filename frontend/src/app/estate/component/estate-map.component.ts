@@ -14,7 +14,6 @@ export class EstateMapComponent implements OnInit {
 
   public lat = 0;
   public lng = 0;
-  public showMap = false;
   public error = false;
 
   constructor(private mapsLoader: MapsAPILoader) {
@@ -34,11 +33,5 @@ export class EstateMapComponent implements OnInit {
         }
       });
     });
-  }
-
-  public loadMap() {
-    if (!this.showMap) {
-      this.showMap = true;
-    }
   }
 }

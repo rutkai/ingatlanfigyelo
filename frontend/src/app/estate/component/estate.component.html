@@ -1,4 +1,4 @@
-<div class="c-card hoverable u-flex u-justify-center" [routerLink]="['estate', estate.id]">
+<div class="c-card hoverable u-flex u-justify-center" [class.seen]="estate.isSeen && !estate.favourite" [routerLink]="['estate', estate.id]">
   <button class="c-button open-button"><img src="/assets/images/search.svg" alt=""></button>
   <div class="c-card__header u-flex u-flex--column u-align--center">
     <div class="container--image">
@@ -17,7 +17,7 @@
     <p class="title--card__content">
       {{ estate.district }}. kerület - {{ estate.address }}
     </p>
-    <!--<p>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></p>-->
+    <p>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></p>
     <p>Frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</p>
     <div class="container--image">
       <img src="/assets/logos/{{ estate.source | lowercase | removeAccents }}.png" alt="{{ estate.source }}">

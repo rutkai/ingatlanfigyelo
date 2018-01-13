@@ -6,7 +6,7 @@ const estateRepository = require('../repository/estate');
 const userRepository = require('../repository/user');
 const estateSerializer = require('../estate/serializer');
 
-const RESULT_LIMIT = 3;
+const RESULT_LIMIT = 6;
 
 router.get('/:start(\\d+)?/:pool(favourite|unseen|seen)?', async function (req, res) {
     const start = req.params.start ? parseInt(req.params.start) : 0;

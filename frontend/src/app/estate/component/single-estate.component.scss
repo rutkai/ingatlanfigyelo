@@ -1,121 +1,53 @@
-.card {
-  max-width: 1200px;
-  margin: 15px auto;
-  position: static;
+.item-page {
+  margin-bottom: 20px;
 
-  &.seen {
-    opacity: 0.6;
+  .o-container {
+    position: static;
   }
-}
 
-.estate-details {
-  display: flex;
-  flex-flow: row wrap;
+  h2 {
+    margin: 1.2rem 1rem 0.8rem;
+  }
 
-  .estate-details-content {
-    display: flex;
+  .subheading {
+    margin: 1.2rem 1rem 0.8rem;
+    padding-top: 12px;
+    text-align: right;
+  }
+
+  .images.c-card {
+    position: static;
+  }
+
+  .container--map {
+    height: 100%;
     width: 100%;
+    background: #F8F8F8;
   }
-}
 
-.estate-data {
-  display: flex;
-  flex-basis: 45%;
-  flex-direction: column;
+  .description,
+  .list {
+    font-size: 1rem;
+    letter-spacing: .03rem;
+    line-height: 1.5;
 
-  .header {
-    margin-right: 20px;
-
-    .material-icons {
-      vertical-align: text-bottom;
+    h3 {
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #252424;
     }
 
-    p {
-      margin-top: -8px;
-      margin-bottom: 16px;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.54);
+    .c-card {
+      padding: 12px 0;
     }
   }
 
-  table {
-    width: 100%;
-    padding: 0 20px 0 10px;
-    margin: 5px 0;
-    border-spacing: 0;
-
-    .main-data {
-      font-weight: 700;
-    }
-
-    td {
-      padding: 10px 5px 6px;
-      border-bottom: 1px solid lightgray;
-    }
-  }
-
-  .description {
-    text-align: left;
-    margin: 10px 12px;
-    max-height: 75px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: max-height 1s;
-
-    &.expand {
-      max-height: none;
-      margin-bottom: 40px;
-      transition: max-height 1s;
-      cursor: auto;
-    }
-  }
-
-  .expand-button {
-    margin-top: -30px;
-
-    button {
-      border-radius: 20px;
-    }
+  .buttons {
+    text-align: center;
+    margin: 1rem 0;
   }
 }
 
-.estate-map {
-  margin: 20px 20px 10px 10px;
-}
-
-.action-buttons {
-  text-align: right;
-}
-
-app-estate-gallery {
-  display: block;
-  flex-basis: 55%;
-}
-
-@media (max-width: 700px) {
-  .estate-details .estate-details-content {
-    flex-direction: column-reverse;
-  }
-
-  .estate-data {
-    flex-basis: 100%;
-  }
-
-  app-estate-gallery {
-    flex-basis: 100%;
-  }
-}
-
-@media (orientation: portrait) {
-  .estate-details .estate-details-content {
-    flex-direction: column-reverse;
-  }
-
-  .estate-data {
-    flex-basis: 100%;
-  }
-
-  app-estate-gallery {
-    flex-basis: 100%;
-  }
+.bottom-margin--4rem {
+  margin-bottom: 4rem;
 }

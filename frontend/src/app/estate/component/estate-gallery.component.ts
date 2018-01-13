@@ -9,7 +9,6 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "ngx-galle
 })
 export class EstateGalleryComponent implements OnInit {
   @Input() public images: string[];
-  @Input() public loadContent: boolean;
 
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[];
@@ -23,8 +22,8 @@ export class EstateGalleryComponent implements OnInit {
       // Full width
       {
         width: '100%',
-        height: '460px',
-        thumbnailsColumns: 4,
+        height: '400px',
+        thumbnails: false,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageInfinityMove: true,
         previewInfinityMove: true
@@ -32,33 +31,8 @@ export class EstateGalleryComponent implements OnInit {
       // max-width 500
       {
         breakpoint: 500,
-        width: '100%',
         height: '300px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20,
-        imageInfinityMove: true,
-        previewInfinityMove: true
-      },
-      // max-width 400
-      {
-        breakpoint: 400,
-        width: '100%',
-        height: '250px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20,
-        imageInfinityMove: true,
-        previewInfinityMove: true
-      },
-      // max-width 300
-      {
-        breakpoint: 300,
-        preview: false,
-        imageInfinityMove: true,
-        previewInfinityMove: true
+        imagePercent: 80
       }
     ];
 
