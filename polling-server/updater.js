@@ -4,6 +4,7 @@ const worker = require('./worker/worker');
 const fs = require('fs');
 const env = require('../env/env');
 
+const duplication = require('./duplication');
 const estates = require('../db/estate');
 const estateRepository = require('../repository/estate');
 
@@ -77,24 +78,45 @@ class Updater {
             .then(response => {
                 return this.provider.parser.parseProfile(response);
             })
-            .then(profileData => {
+            .then(async profileData => {
+                if (!this.isProfileDataValid(profileData)) {
+                    this.log('Invalid profile, cannot parse properly: ' + url);
+                    return null;
+                }
+
                 profileData.url = url;
                 profileData.source = this.provider.name;
                 profileData.squareMeterPrice = Math.round(profileData.price / profileData.size);
 
-                return estateRepository.get({url})
-                    .then(estate => {
-                        if (estate) {
-                            estate.version = estates.version;
-                        } else {
-                            estate = {};
-                        }
-                        Object.assign(estate, profileData);
-                        return estate;
-                    });
+                let estate = await estateRepository.get({url});
+                if (estate) {
+                    estate.version = estates.version;
+                    Object.assign(estate, profileData);
+                    return estate;
+                }
+                if (estate = await estateRepository.get({urls: {[this.provider.name]: url}})) {
+                    // This is a duplicate estate, no update for duplicates - for now
+                    return estate;
+                }
+                if (estate = await duplication.isDuplicate(profileData)) {
+                    estate.urls[this.provider.name] = url;
+                    if (estate.price > profileData.price) {
+                        estate.price = profileData.price;
+                        estate.source = this.provider.name;
+                        estate.url = url;
+                    }
+                    return estate;
+                }
+
+                profileData.urls = {
+                    [this.provider.name]: url
+                };
+                return profileData;
             })
             .then(estate => {
-                estateRepository.save(estate);
+                if (estate) {
+                    estateRepository.save(estate);
+                }
 
                 if (this.estates.length) {
                     setTimeout(() => {
@@ -126,13 +148,28 @@ class Updater {
         return url.href;
     }
 
-    doUpdateEstate(profile) {
+    isProfileDataValid(profileData) {
+        return profileData.district &&
+            profileData.size &&
+            profileData.rooms &&
+            profileData.price;
+    }
+
+    async doUpdateEstate(profile) {
         // No update for now
         const normUrl = this.normalizeUrl(profile.url);
-        return estateRepository.get({url: normUrl})
-            .then(estate => {
-                return !estate || estate.version !== estates.version;
-            });
+        let estate = await estateRepository.get({url: normUrl});
+        if (estate) {
+            return estate.version !== estates.version;
+        }
+
+        estate = await estateRepository.get({urls: {[this.provider.name]: normUrl}});
+        if (estate) {
+            // This is a duplicate, no update for duplicates - for now
+            return false;
+        }
+
+        return true;
     }
 }
 

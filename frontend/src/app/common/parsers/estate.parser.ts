@@ -21,6 +21,7 @@ export class EstateParser {
     estate.squareMeterPrice = rawEstate.squareMeterPrice;
     estate.source = rawEstate.source;
     estate.url = rawEstate.url;
+    estate.urls = rawEstate.urls;
     estate.updated = new Date(rawEstate.updated);
     estate.favourite = rawEstate.favourite;
     estate.isSeen = rawEstate.seen;

@@ -16,6 +16,7 @@ export class Estate {
   public descriptionHtml: string;
   public source: string;
   public url: string;
+  public urls: { [url: string]: string };
   public updated: Date;
 
   public favourite: boolean;

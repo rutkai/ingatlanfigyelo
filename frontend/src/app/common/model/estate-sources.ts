@@ -1,4 +1,4 @@
 export enum EstateSources {
-  INGATLAN_COM = "Ingatlan.com",
+  INGATLAN_COM = "Ingatlancom",
   OTTHONTERKEP = "Otthontérkép",
 }

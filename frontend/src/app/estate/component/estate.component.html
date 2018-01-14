@@ -60,6 +60,10 @@
     <button mat-button (click)="toggleSeen()" *ngIf="user">
       {{ estate.isSeen ? 'Megnézve' : 'Megnézettnek jelöl' }}
     </button>
-    <a mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>
+    <a *ngIf="!hasDuplicates()" mat-button href="{{ estate.url }}" target="_blank" rel="noreferrer">Megnyitás</a>
+    <span *ngIf="hasDuplicates()">
+      <a *ngFor="let source of getUrlKeys()"
+         mat-button href="{{ estate.urls[source] }}" target="_blank" rel="noreferrer">Megnyitás ({{ source }})</a>
+    </span>
   </mat-card-actions>
 </mat-card>

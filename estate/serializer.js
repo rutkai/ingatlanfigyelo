@@ -24,6 +24,7 @@ function docToResponse(doc, user) {
         balcony: doc.balcony,
         descriptionHtml: doc.descriptionHtml,
         url: doc.url,
+        urls: doc.urls,
         source: doc.source,
         updated: doc.updated,
         favourite: user ? user.favouriteEstates.includes(doc._id.toString()) : false,
