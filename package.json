@@ -19,6 +19,7 @@
     "express-rate-limit": "^2.9.0",
     "express-session": "^1.15.6",
     "express-ws": "^3.0.0",
+    "fast-levenshtein": "^2.0.6",
     "got": "^7.1.0",
     "moment": "^2.19.1",
     "mongodb": "^2.2.33",

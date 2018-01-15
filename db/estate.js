@@ -1,18 +1,33 @@
 const db = require('./db');
 
-const version = '1.1.0';
+const version = '1.2.0';
 exports.version = version;
 
 exports.checkIndices = checkIndices;
-function checkIndices() {
-    return db.getCollection('estates').createIndex({
+async function checkIndices() {
+    await db.getCollection('estates').createIndex({
         updated: -1
+    });
+    await db.getCollection('estates').createIndex({
+        created: -1
     });
 }
 
 exports.migrate = migrate;
-function migrate() {
-    return Promise.resolve();
+async function migrate() {
+    await db.getCollection('estates').updateMany({version: '1.1.0', source: 'Ingatlan.com'}, {
+        $set: {
+            source: 'Ingatlancom'
+        }
+    }, {multi: true});
+    await db.getCollection('estates').find({version: '1.1.0'}).forEach(async estate => {
+        await db.getCollection('estates').update({_id: estate._id}, {
+            $set: {
+                urls: {[estate.source]: estate.url},
+                version: '1.2.0'
+            }
+        });
+    });
 }
 
 exports.get = get;
@@ -26,8 +41,8 @@ function count(filter = {}) {
 }
 
 exports.getMany = getMany;
-function getMany(filter = {}, from = 0, number = 3) {
-    return db.getCollection('estates').find(filter).sort({updated: -1}).skip(from).limit(number).toArray();
+function getMany(filter = {}) {
+    return db.getCollection('estates').find(filter);
 }
 
 exports.save = save;

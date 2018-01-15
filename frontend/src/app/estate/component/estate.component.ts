@@ -26,6 +26,14 @@ export class EstateComponent {
     });
   }
 
+  public hasDuplicates(): boolean {
+    return Object.keys(this.estate.urls).length > 1;
+  }
+
+  public getUrlKeys(): string[] {
+    return Object.keys(this.estate.urls);
+  }
+
   public loadLazyContent(event) {
     if (event.value) {
       this.estateCardContentHeight = 'auto';
