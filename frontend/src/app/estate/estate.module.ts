@@ -20,6 +20,9 @@ import {SingleEstateComponent} from "./component/single-estate.component";
 
 
 @NgModule({
+  providers: [
+    { provide: 'Window', useValue: window }
+  ],
   declarations: [
     EstatesComponent,
     SingleEstateComponent,

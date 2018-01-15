@@ -3,7 +3,7 @@
   <div class="c-card__header u-flex u-flex--column u-align--center">
     <div class="container--image">
       <div class="overlay--c-card__header"></div>
-      <img *ngIf="estate.images.length" src="{{ estate.images[0] }}" alt="">
+      <img src="{{ estate.images.length ? estate.images[0] : '/assets/logo.png' }}" alt="">
     </div>
     <div class="c-card__header__description">
       <p class="title--card">{{ estate.price | number:'.0-0' }} Ft</p>

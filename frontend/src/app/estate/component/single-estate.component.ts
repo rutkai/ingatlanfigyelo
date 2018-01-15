@@ -28,6 +28,14 @@ export class SingleEstateComponent implements OnInit {
       });
   }
 
+  public hasDuplicates(): boolean {
+    return Object.keys(this.estate.urls).length > 1;
+  }
+
+  public getUrlKeys(): string[] {
+    return Object.keys(this.estate.urls);
+  }
+
   public toggleFavourite() {
     this.estate.favourite = !this.estate.favourite;
     this.estatesService.updateEstateFavourite(this.estate)

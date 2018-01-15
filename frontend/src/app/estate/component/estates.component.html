@@ -1,7 +1,7 @@
 <button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
   Mind megnézettnek jelöl
 </button>
-<div class="o-container" *ngIf="estates.length">
+<div class="o-container" *ngIf="estates.length" #estateContainer>
   <div *ngFor="let row of estatesForRender" class="o-row">
     <div *ngFor="let estate of row" class="o-column xs--12 sm--4">
       <app-estate [estate]="estate"></app-estate>

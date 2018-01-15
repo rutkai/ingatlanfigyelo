@@ -24,6 +24,7 @@ export class EstateGalleryComponent implements OnInit {
         width: '100%',
         height: '400px',
         thumbnails: false,
+        preview: !!this.images.length,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageInfinityMove: true,
         previewInfinityMove: true
@@ -36,12 +37,22 @@ export class EstateGalleryComponent implements OnInit {
       }
     ];
 
-    this.galleryImages = this.images.map(img => {
-      return {
-        small: img,
-        medium: img,
-        big: img
-      }
-    });
+    if (this.images.length) {
+      this.galleryImages = this.images.map(img => {
+        return {
+          small: img,
+          medium: img,
+          big: img
+        }
+      });
+    } else {
+      this.galleryImages = [
+        {
+          small: '/assets/logo.png',
+          medium: '/assets/logo.png',
+          big: '/assets/logo.png'
+        }
+      ];
+    }
   }
 }

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {Estate, EstatesService, NotificationService, User, UserStore} from "../../common";
+import {Estate, EstatesService, User, UserStore} from "../../common";
 
 @Component({
   selector: 'app-estate',
@@ -13,58 +13,10 @@ export class EstateComponent {
 
   public user: User;
 
-  public loadContent = false;
-  public isVisible = false;
-  public estateCardContentHeight = 'auto';
-  public expandDescription = false;
-
   constructor(private estatesService: EstatesService,
-              private userStore: UserStore,
-              private notificationService: NotificationService) {
+              private userStore: UserStore) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });
-  }
-
-  public hasDuplicates(): boolean {
-    return Object.keys(this.estate.urls).length > 1;
-  }
-
-  public getUrlKeys(): string[] {
-    return Object.keys(this.estate.urls);
-  }
-
-  public loadLazyContent(event) {
-    if (event.value) {
-      this.estateCardContentHeight = 'auto';
-      this.isVisible = this.loadContent = true;
-    } else {
-      this.estateCardContentHeight =
-        this.estateCardContent.nativeElement ?
-        this.estateCardContent.nativeElement.offsetHeight + 'px' : 'auto';
-      this.isVisible = false;
-    }
-  }
-
-  public toggleDescription() {
-    this.expandDescription = !this.expandDescription;
-  }
-
-  public toggleFavourite() {
-    this.estate.favourite = !this.estate.favourite;
-    this.estatesService.updateEstateFavourite(this.estate)
-      .catch(() => {
-        this.estate.favourite = !this.estate.favourite;
-        this.notificationService.showSnackbarNotification('Hiba mentés közben!');
-      });
-  }
-
-  public toggleSeen() {
-    this.estate.isSeen = !this.estate.isSeen;
-    this.estatesService.updateEstateSeen(this.estate)
-      .catch(() => {
-        this.estate.isSeen = !this.estate.isSeen;
-        this.notificationService.showSnackbarNotification('Hiba mentés közben!');
-      });
   }
 }

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {Estate, EstatesService, EstatesStore, NotificationService, User, UserStore} from "../../common";
 
 @Component({
@@ -8,6 +8,8 @@ import {Estate, EstatesService, EstatesStore, NotificationService, User, UserSto
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EstatesComponent {
+  @ViewChild('estateContainer') estateContainer: ElementRef;
+
   public estates: Estate[] = [];
   public exhausted = true;
   public areUnseenEstates = false;
@@ -18,7 +20,9 @@ export class EstatesComponent {
   constructor(private estatesStore: EstatesStore,
               private estatesService: EstatesService,
               private notificationService: NotificationService,
-              private userStore: UserStore) {
+              private userStore: UserStore,
+              private changeDetector: ChangeDetectorRef,
+              @Inject('Window') private window: Window) {
     this.estatesStore.estates$.subscribe(estates => {
       this.estates = estates;
     });
@@ -53,8 +57,12 @@ export class EstatesComponent {
 
     this.loadingInProgress = true;
     this.estatesStore.fetchMore().then(() => {
+      this.changeDetector.markForCheck();
       setTimeout(() => {
         this.loadingInProgress = false;
+        if (this.estateContainer.nativeElement.scrollHeight < this.window.innerHeight) {
+          this.loadMoreEstates();
+        }
       }, 100);
     });
   }
