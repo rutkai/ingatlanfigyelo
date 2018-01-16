@@ -1,5 +1,11 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery";
+import {Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {NgxGalleryAnimation, NgxGalleryComponent, NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery";
+
+enum KeyCodes {
+  ESCAPE = 27,
+  LEFT_ARROW = 37,
+  RIGHT_ARROW = 39,
+}
 
 @Component({
   selector: 'app-estate-gallery',
@@ -10,11 +16,42 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "ngx-galle
 export class EstateGalleryComponent implements OnInit {
   @Input() public images: string[];
 
+  @ViewChild('gallery') gallery: NgxGalleryComponent;
+
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[];
 
+  private previewOpen = false;
+
   ngOnInit(): void {
     this.initImages();
+  }
+
+  @HostListener('document:keyup', ['$event.keyCode'])
+  public keyEvent(keyCode: number) {
+    if (keyCode === KeyCodes.RIGHT_ARROW) {
+      if (this.previewOpen) {
+        this.gallery.preview.showNext();
+      } else {
+        this.gallery.showNext();
+      }
+    } else if (keyCode === KeyCodes.LEFT_ARROW) {
+      if (this.previewOpen) {
+        this.gallery.preview.showPrev();
+      } else {
+        this.gallery.showPrev();
+      }
+    } else if (keyCode === KeyCodes.ESCAPE) {
+      this.gallery.preview.close();
+    }
+  }
+
+  public previewOpened() {
+    this.previewOpen = true;
+  }
+
+  public previewClosed() {
+    this.previewOpen = false;
   }
 
   private initImages() {

@@ -17,6 +17,16 @@
 
   .images.c-card {
     position: static;
+
+    app-estate-gallery {
+      height: 400px;
+    }
+
+    @media (max-width: 500px) {
+      app-estate-gallery {
+        height: 300px;
+      }
+    }
   }
 
   .container--map {

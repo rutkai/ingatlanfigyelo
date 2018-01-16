@@ -1,1 +1,2 @@
-<ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="estate-gallery"></ngx-gallery>
+<ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="estate-gallery"
+             (previewOpen)="previewOpened()" (previewClose)="previewClosed()" #gallery></ngx-gallery>

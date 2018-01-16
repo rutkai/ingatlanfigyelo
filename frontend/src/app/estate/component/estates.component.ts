@@ -37,8 +37,8 @@ export class EstatesComponent {
     });
   }
 
-  public get estatesForRender() {
-    const rows = [[]];
+  public get estatesForRender(): Estate[][] {
+    const rows: Estate[][] = [[]];
 
     for (const estate of this.estates) {
       if (rows[rows.length - 1].length === 3) {
