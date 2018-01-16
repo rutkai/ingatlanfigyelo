@@ -2,7 +2,14 @@
   display: flex;
   flex-basis: 100%;
 
-  ngx-gallery-preview.ngx-gallery-active {
-    position: absolute;
+  ngx-gallery-preview {
+    &.ngx-gallery-active {
+      position: absolute;
+    }
+
+    .ngx-gallery-preview-img {
+      opacity: 0.4;
+      transition: opacity 0s;
+    }
   }
 }
