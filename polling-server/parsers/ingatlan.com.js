@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const striptags = require('striptags');
+const listBasedMatcher = require('./list-based-matcher');
 
 exports.parseList = parseList;
 function parseList(html) {
@@ -37,6 +38,7 @@ function parseProfile(html) {
     const district = parseInt($(".listing .listing-header h1").text());
     const descriptionHtml = striptags($('.details .long-description').html(), ['a', 'p', 'br', 'i', 'em', 'strong', 'ul', 'li']);
     const descriptionText = $('.details .long-description').text().trim();
+    const flatMaterial = listBasedMatcher.extractFlatMaterial($('.listing-subtype').text().trim());
     let address = getAddress(html);
     if (!address) {
         address = $(".listing .listing-header h1").text().replace(`${district}. kerület,`, '').trim();
@@ -94,7 +96,8 @@ function parseProfile(html) {
             heating,
             balcony,
             descriptionHtml,
-            descriptionText
+            descriptionText,
+            flatMaterial
         });
     });
 }
