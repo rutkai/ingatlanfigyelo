@@ -1,4 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild} from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject,
+  ViewChild
+} from '@angular/core';
 import {Estate, EstatesService, EstatesStore, NotificationService, User, UserStore} from "../../common";
 
 @Component({
@@ -7,12 +10,13 @@ import {Estate, EstatesService, EstatesStore, NotificationService, User, UserSto
   styleUrls: ['./estates.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EstatesComponent {
+export class EstatesComponent implements AfterViewInit {
   @ViewChild('estateContainer') estateContainer: ElementRef;
 
   public estates: Estate[] = [];
   public exhausted = true;
   public areUnseenEstates = false;
+  public enableLoading = false;
 
   private user: User;
   private loadingInProgress = false;
@@ -32,9 +36,14 @@ export class EstatesComponent {
     this.estatesStore.unseenEstates$.subscribe(exhausted => {
       this.areUnseenEstates = !!exhausted.length;
     });
-    userStore.user$.subscribe(user => {
+    this.userStore.user$.subscribe(user => {
       this.user = user;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.enableLoading = true;
+    this.loadInitialEstates();
   }
 
   public get estatesForRender(): Estate[][] {
@@ -51,7 +60,7 @@ export class EstatesComponent {
   }
 
   public loadMoreEstates() {
-    if (this.loadingInProgress) {
+    if (this.loadingInProgress || !this.enableLoading) {
       return;
     }
 
@@ -60,9 +69,7 @@ export class EstatesComponent {
       this.changeDetector.markForCheck();
       setTimeout(() => {
         this.loadingInProgress = false;
-        if (this.estateContainer.nativeElement.scrollHeight < this.window.innerHeight) {
-          this.loadMoreEstates();
-        }
+        this.loadInitialEstates();
       }, 100);
     });
   }
@@ -72,5 +79,11 @@ export class EstatesComponent {
       .catch(() => {
         this.notificationService.showSnackbarNotification('Hiba mentés közben');
       });
+  }
+
+  private loadInitialEstates() {
+    if (this.estateContainer.nativeElement.scrollHeight < this.window.innerHeight) {
+      this.loadMoreEstates();
+    }
   }
 }

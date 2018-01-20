@@ -65,6 +65,10 @@ export class EstatesStore {
     this.seenExhausted$.subscribe(exhaustedCheck);
   }
 
+  public get loadedEstates(): Estate[] {
+    return this.estatesData;
+  }
+
   public fetchMore(): Promise<void> {
     if (this.exhaustedData) {
       return Promise.resolve();
