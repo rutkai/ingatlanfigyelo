@@ -59,23 +59,24 @@
           },
           "maxPages": 10
         }
+      },
+      {
+        "name": "Jófogás",
+        "baseUrl": "https://ingatlan.jofogas.hu",
+        "parser": "jofogas.hu",
+        "scheduler": {
+          "interval": {
+            "minutes": 30
+          }
+        },
+        "parserOpts": {
+          "indexPage": "https://ingatlan.jofogas.hu/budapest/ingatlan?st=s",
+          "interval": {
+            "milliseconds": 2000
+          },
+          "maxPages": 10
+        }
       }
-//      {
-//        "name": "Jófogás",
-//        "baseUrl": "https://ingatlan.jofogas.hu",
-//        "parser": "jofogas.hu",
-//        "scheduler": {
-//          "interval": {
-//            "hours": 21
-//          }
-//        },
-//        "parserOpts": {
-//          "indexPage": "https://ingatlan.jofogas.hu/budapest/ingatlan",
-//          "interval": {
-//            "milliseconds": 500
-//          }
-//        }
-//      },
 //      {
 //        "name": "Ingatlannet",
 //        "baseUrl": "https://www.ingatlannet.hu",

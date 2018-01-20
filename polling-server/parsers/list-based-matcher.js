@@ -5,7 +5,7 @@ exports.extractFlatMaterial = extractFlatMaterial;
 let materialMatchers = {
     'panel' : 'Panel',
     'tégla' : 'Tégla' ,
-    'csúsztatott.{3}zsalu' : 'Csúsztatott Zsalu'
+    'csúsztatott.{0,3}zsalu' : 'Csúsztatott Zsalu'
 }
 
 function extractFlatMaterial(text)
