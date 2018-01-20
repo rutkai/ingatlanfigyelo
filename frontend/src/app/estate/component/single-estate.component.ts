@@ -9,15 +9,10 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SingleEstateComponent implements OnInit {
   public estate: Estate;
-  public user: User;
 
   constructor(private estatesService: EstatesService,
-              private userStore: UserStore,
               private notificationService: NotificationService,
               private route: ActivatedRoute) {
-    userStore.user$.subscribe(user => {
-      this.user = user;
-    });
   }
 
   public ngOnInit(): void {
@@ -25,32 +20,6 @@ export class SingleEstateComponent implements OnInit {
     this.estatesService.getEstate(id)
       .then(estate => {
         this.estate = estate;
-      });
-  }
-
-  public hasDuplicates(): boolean {
-    return Object.keys(this.estate.urls).length > 1;
-  }
-
-  public getUrlKeys(): string[] {
-    return Object.keys(this.estate.urls);
-  }
-
-  public toggleFavourite() {
-    this.estate.favourite = !this.estate.favourite;
-    this.estatesService.updateEstateFavourite(this.estate)
-      .catch(() => {
-        this.estate.favourite = !this.estate.favourite;
-        this.notificationService.showSnackbarNotification('Hiba mentés közben!');
-      });
-  }
-
-  public toggleSeen() {
-    this.estate.isSeen = !this.estate.isSeen;
-    this.estatesService.updateEstateSeen(this.estate)
-      .catch(() => {
-        this.estate.isSeen = !this.estate.isSeen;
-        this.notificationService.showSnackbarNotification('Hiba mentés közben!');
       });
   }
 }

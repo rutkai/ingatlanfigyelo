@@ -2,7 +2,10 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject,
   ViewChild
 } from '@angular/core';
-import {Estate, EstatesService, EstatesStore, NotificationService, User, UserStore} from "../../common";
+import {
+  Estate, EstatesService, EstatesStore, NotificationService, User, UserService, UserStore,
+  View
+} from "../../common";
 
 @Component({
   selector: 'app-estates',
@@ -18,6 +21,8 @@ export class EstatesComponent implements AfterViewInit {
   public areUnseenEstates = false;
   public enableLoading = false;
 
+  public views = View;
+
   private user: User;
   private loadingInProgress = false;
 
@@ -25,19 +30,24 @@ export class EstatesComponent implements AfterViewInit {
               private estatesService: EstatesService,
               private notificationService: NotificationService,
               private userStore: UserStore,
+              private userService: UserService,
               private changeDetector: ChangeDetectorRef,
               @Inject('Window') private window: Window) {
     this.estatesStore.estates$.subscribe(estates => {
       this.estates = estates;
+      this.changeDetector.markForCheck();
     });
     this.estatesStore.exhausted$.subscribe(exhausted => {
       this.exhausted = exhausted;
+      this.changeDetector.markForCheck();
     });
     this.estatesStore.unseenEstates$.subscribe(exhausted => {
       this.areUnseenEstates = !!exhausted.length;
+      this.changeDetector.markForCheck();
     });
     this.userStore.user$.subscribe(user => {
       this.user = user;
+      this.changeDetector.markForCheck();
     });
   }
 
@@ -59,6 +69,10 @@ export class EstatesComponent implements AfterViewInit {
     return rows;
   }
 
+  public get view() {
+    return this.user ? this.user.view : View.CARDS;
+  }
+
   public loadMoreEstates() {
     if (this.loadingInProgress || !this.enableLoading) {
       return;
@@ -66,7 +80,6 @@ export class EstatesComponent implements AfterViewInit {
 
     this.loadingInProgress = true;
     this.estatesStore.fetchMore().then(() => {
-      this.changeDetector.markForCheck();
       setTimeout(() => {
         this.loadingInProgress = false;
         this.loadInitialEstates();
@@ -79,6 +92,14 @@ export class EstatesComponent implements AfterViewInit {
       .catch(() => {
         this.notificationService.showSnackbarNotification('Hiba mentés közben');
       });
+  }
+
+  public toggleView() {
+    if (this.user.view === View.CARDS) {
+      this.userService.changeView(View.INLINE);
+    } else {
+      this.userService.changeView(View.CARDS);
+    }
   }
 
   private loadInitialEstates() {

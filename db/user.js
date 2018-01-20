@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = '1.2.0';
+const version = '1.3.0';
 exports.version = version;
 
 exports.checkIndices = checkIndices;
@@ -20,11 +20,18 @@ async function migrate() {
         }
     }, {multi: true});
 
-    return db.getCollection('users').updateMany({version: '1.1.0'}, {
+    await db.getCollection('users').updateMany({version: '1.1.0'}, {
         $set: {
             readAllMark: null,
             unseenMarkedEstates: [],
             version: '1.2.0'
+        }
+    }, {multi: true});
+
+    return db.getCollection('users').updateMany({version: '1.2.0'}, {
+        $set: {
+            view: 'cards',
+            version: '1.3.0'
         }
     }, {multi: true});
 }
@@ -39,7 +46,7 @@ function save(record) {
     record.updated = new Date();
 
     if (record.created) {
-        return db.getCollection('users').updateOne({username: record.username}, record);
+        return db.getCollection('users').replaceOne({username: record.username}, record);
     }
 
     record.created = new Date();

@@ -49,8 +49,10 @@ export class EstatesStore {
       this.estates.next(this.estatesData);
     });
     this.userStore.user$.subscribe(user => {
+      if (this.user !== user) {
+        this.reset();
+      }
       this.user = user;
-      this.reset();
     });
 
     let exhaustedCheck = () => {

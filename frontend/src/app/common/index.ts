@@ -23,3 +23,5 @@ export * from './store/estates.store';
 export * from './store/stats.store';
 export * from './store/user.store';
 export * from './store/websocket-events.store';
+
+export * from './types/view';

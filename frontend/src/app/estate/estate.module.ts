@@ -7,6 +7,7 @@ import {
   MatButtonModule, MatCardModule, MatExpansionModule, MatIconModule, MatInputModule,
   MatProgressSpinnerModule, MatSnackBarModule, MatTooltipModule
 } from "@angular/material";
+import {MatDividerModule} from '@angular/material/divider';
 import {NgxGalleryModule} from "ngx-gallery";
 import {EstateMapComponent} from "./component/estate-map.component";
 import {AgmCoreModule} from '@agm/core';
@@ -17,6 +18,7 @@ import {EstateGalleryComponent} from "./component/estate-gallery.component";
 import {CommonModule} from "../common/common.module";
 import {Routing} from "./estate.routing";
 import {SingleEstateComponent} from "./component/single-estate.component";
+import {EstateCardComponent} from "./component/estate-card.component";
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import {SingleEstateComponent} from "./component/single-estate.component";
     EstatesComponent,
     SingleEstateComponent,
     EstateComponent,
+    EstateCardComponent,
     EstateMapComponent,
     EstateGalleryComponent
   ],
@@ -48,6 +51,7 @@ import {SingleEstateComponent} from "./component/single-estate.component";
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatDividerModule,
   ],
 })
 export class EstateModule {

@@ -1,10 +1,23 @@
 <button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
   Mind megnézettnek jelöl
 </button>
-<div class="o-container" #estateContainer>
-  <div *ngFor="let row of estatesForRender" class="o-row">
-    <div *ngFor="let estate of row" class="o-column xs--12 sm--4">
-      <app-estate [estate]="estate"></app-estate>
+
+<button mat-button *ngIf="user" (click)="toggleView()" class="view-button">
+  {{ view === views.CARDS ? 'Kompakt' : 'Lista' }} nézet
+</button>
+
+<div #estateContainer>
+  <div *ngIf="view === views.INLINE" class="inline-container">
+    <div *ngFor="let estate of estates">
+      <app-estate [estate]="estate" [inline]="true"></app-estate>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div *ngIf="view === views.CARDS" class="o-container">
+    <div *ngFor="let row of estatesForRender" class="o-row">
+      <div *ngFor="let estate of row" class="o-column xs--12 sm--4">
+        <app-estate-card [estate]="estate"></app-estate-card>
+      </div>
     </div>
   </div>
 </div>

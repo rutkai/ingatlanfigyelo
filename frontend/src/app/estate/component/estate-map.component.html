@@ -1,5 +1,5 @@
 <agm-map *ngIf="lat !== 0 || lng !== 0" [latitude]="lat" [longitude]="lng" [zoom]="16">
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map>
-<img *ngIf="lat === 0 || lng === 0" src="/assets/images/map_placeholder.svg" alt="Térkép">
+<img *ngIf="(lat === 0 || lng === 0) && !error" (click)="clickLoadMap()" src="/assets/images/map_placeholder.svg" alt="Térkép">
 <p *ngIf="error">A térkép nem jeleníthető meg!</p>

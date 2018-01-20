@@ -53,7 +53,7 @@ function save(record) {
                 if (!wasBump) {
                     record.updated = new Date();
                 }
-                return db.getCollection('estates').updateOne({url: record.url}, record);
+                return db.getCollection('estates').replaceOne({url: record.url}, record);
             });
     }
 

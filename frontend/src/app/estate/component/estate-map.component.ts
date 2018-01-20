@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {MapsAPILoader} from "@agm/core";
 import {Estate} from "../../common";
 
@@ -11,15 +11,31 @@ declare const google: any;
 })
 export class EstateMapComponent implements OnInit {
   @Input() public estate: Estate;
+  @Input() public loadOnClick = false;
 
   public lat = 0;
   public lng = 0;
   public error = false;
 
-  constructor(private mapsLoader: MapsAPILoader) {
+  private loadAttempted = false;
+
+  constructor(private mapsLoader: MapsAPILoader, private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
+    if (!this.loadOnClick) {
+      this.loadMap();
+    }
+  }
+
+  public clickLoadMap() {
+    if (!this.loadAttempted) {
+      this.loadMap();
+    }
+  }
+
+  private loadMap() {
+    this.loadAttempted = true;
     this.mapsLoader.load().then(() => {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({
@@ -31,6 +47,7 @@ export class EstateMapComponent implements OnInit {
         } else {
           this.error = true;
         }
+        this.changeDetector.markForCheck();
       });
     });
   }
