@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {HeadUpdaterService} from "./common/service/head-updater.service";
 import {NavigationEnd, NavigationStart, Router} from "@angular/router";
+import {EstatesStore, NavigationStore} from "./common";
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,10 @@ export class AppComponent implements AfterViewInit {
 
   public footerHidden = false;
 
-  public lastPosition: number = 0;
-
   constructor(private headUpdaterService: HeadUpdaterService,
+              private navigationStore: NavigationStore,
               private renderer: Renderer2,
-              public router: Router) {
+              private router: Router) {
   }
 
   public scrolled(event) {
@@ -26,6 +26,9 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.headUpdaterService.attach(this.renderer);
     this.initScrollAfterNavigation();
+    this.navigationStore.restoreRequest$.subscribe((position: number) => {
+      this.pageContent.nativeElement.scrollTop = position;
+    });
   }
 
   private initScrollAfterNavigation() {
@@ -33,10 +36,10 @@ export class AppComponent implements AfterViewInit {
       .filter(events => events instanceof NavigationStart || events instanceof NavigationEnd)
       .subscribe(events => {
         if (events instanceof NavigationStart && this.router.url === '/') {
-          this.lastPosition = this.pageContent.nativeElement.scrollTop || 0;
+          this.navigationStore.storePosition(this.pageContent.nativeElement.scrollTop || 0);
         }
-        if (events instanceof NavigationEnd && events.url === '/') {
-          this.pageContent.nativeElement.scrollTop = this.lastPosition;
+        if (events instanceof NavigationEnd) {
+          this.pageContent.nativeElement.scrollTop = 0;
         }
       });
   }

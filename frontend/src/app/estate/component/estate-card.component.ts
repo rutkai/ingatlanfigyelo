@@ -12,11 +12,20 @@ export class EstateCardComponent {
   @ViewChild('estateCardContent') estateCardContent: ElementRef;
 
   public user: User;
+  public imgError = false;
 
   constructor(private estatesService: EstatesService,
               private userStore: UserStore) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });
+  }
+
+  public get coverImg() {
+    return this.estate.images.length && !this.imgError ? this.estate.images[0] : '/assets/logo.png';
+  }
+
+  public imgLoadError() {
+    this.imgError = true;
   }
 }

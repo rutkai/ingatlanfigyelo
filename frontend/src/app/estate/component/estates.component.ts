@@ -1,22 +1,22 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject,
-  ViewChild
+  AfterContentInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild
 } from '@angular/core';
 import {
-  Estate, EstatesService, EstatesStore, NotificationService, User, UserService, UserStore,
+  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserService, UserStore,
   View
 } from "../../common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-estates',
   templateUrl: './estates.component.html',
   styleUrls: ['./estates.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EstatesComponent implements AfterViewInit {
+export class EstatesComponent implements AfterContentInit {
   @ViewChild('estateContainer') estateContainer: ElementRef;
 
   public estates: Estate[] = [];
+  public estatesGrid: Estate[][] = [[]];
   public exhausted = true;
   public areUnseenEstates = false;
   public enableLoading = false;
@@ -29,44 +29,32 @@ export class EstatesComponent implements AfterViewInit {
   constructor(private estatesStore: EstatesStore,
               private estatesService: EstatesService,
               private notificationService: NotificationService,
+              private navigationStore: NavigationStore,
               private userStore: UserStore,
               private userService: UserService,
-              private changeDetector: ChangeDetectorRef,
+              private router: Router,
               @Inject('Window') private window: Window) {
     this.estatesStore.estates$.subscribe(estates => {
       this.estates = estates;
-      this.changeDetector.markForCheck();
+      this.repopulateEstatesGrid();
     });
     this.estatesStore.exhausted$.subscribe(exhausted => {
       this.exhausted = exhausted;
-      this.changeDetector.markForCheck();
     });
     this.estatesStore.unseenEstates$.subscribe(exhausted => {
       this.areUnseenEstates = !!exhausted.length;
-      this.changeDetector.markForCheck();
     });
     this.userStore.user$.subscribe(user => {
       this.user = user;
-      this.changeDetector.markForCheck();
     });
   }
 
-  ngAfterViewInit(): void {
-    this.enableLoading = true;
-    this.loadInitialEstates();
-  }
-
-  public get estatesForRender(): Estate[][] {
-    const rows: Estate[][] = [[]];
-
-    for (const estate of this.estates) {
-      if (rows[rows.length - 1].length === 3) {
-        rows.push([]);
-      }
-      rows[rows.length - 1].push(estate);
-    }
-
-    return rows;
+  ngAfterContentInit(): void {
+    setTimeout(() => {
+      this.enableLoading = true;
+      this.loadInitialEstates();
+    }, 100);
+    this.navigationStore.restorePosition();
   }
 
   public get view() {
@@ -106,5 +94,17 @@ export class EstatesComponent implements AfterViewInit {
     if (this.estateContainer.nativeElement.scrollHeight < this.window.innerHeight) {
       this.loadMoreEstates();
     }
+  }
+
+  private repopulateEstatesGrid() {
+    const rows: Estate[][] = [[]];
+    for (const estate of this.estates) {
+      if (rows[rows.length - 1].length === 3) {
+        rows.push([]);
+      }
+      rows[rows.length - 1].push(estate);
+    }
+
+    this.estatesGrid = rows;
   }
 }

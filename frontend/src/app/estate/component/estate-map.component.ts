@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MapsAPILoader} from "@agm/core";
 import {Estate} from "../../common";
 
@@ -19,7 +19,7 @@ export class EstateMapComponent implements OnInit {
 
   private loadAttempted = false;
 
-  constructor(private mapsLoader: MapsAPILoader, private changeDetector: ChangeDetectorRef) {
+  constructor(private mapsLoader: MapsAPILoader) {
   }
 
   ngOnInit(): void {
@@ -47,7 +47,6 @@ export class EstateMapComponent implements OnInit {
         } else {
           this.error = true;
         }
-        this.changeDetector.markForCheck();
       });
     });
   }

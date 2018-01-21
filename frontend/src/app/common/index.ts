@@ -20,6 +20,7 @@ export * from './service/push-notification.service';
 export * from './service/user.service';
 
 export * from './store/estates.store';
+export * from './store/navigation.store';
 export * from './store/stats.store';
 export * from './store/user.store';
 export * from './store/websocket-events.store';

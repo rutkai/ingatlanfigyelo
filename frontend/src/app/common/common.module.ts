@@ -17,6 +17,7 @@ import {HeadUpdaterService} from "./service/head-updater.service";
 import {StatsRepository} from "./repository/stats.repository";
 import {StatsStore} from "./store/stats.store";
 import {RemoveAccentsPipe} from "./pipes/remove-accents.pipe";
+import {NavigationStore} from "./store/navigation.store";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ export class CommonModule {
         WebsocketRepository,
         WebsocketEventsStore,
         PushNotificationService,
-        HeadUpdaterService
+        HeadUpdaterService,
+        NavigationStore,
       ],
     };
   }
