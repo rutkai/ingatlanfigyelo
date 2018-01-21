@@ -25,7 +25,7 @@ function getWorker(provider) {
     let selectedWorker = null;
 
     for (const worker of workerPool) {
-        if (worker.isAvailable() && (!selectedWorker || worker.lastUsed(provider) < selectedWorker.lastUsed(provider))) {
+        if (isWorkerUsable(worker, provider) && (!selectedWorker || worker.lastUsed(provider.name) < selectedWorker.lastUsed(provider.name))) {
             selectedWorker = worker;
         }
     }
@@ -60,4 +60,9 @@ async function createWorker(config) {
     }
 
     return worker;
+}
+
+function isWorkerUsable(worker, provider) {
+    return worker.isAvailable() &&
+        (!provider.workerTypes || provider.workerTypes.includes(worker.type()));
 }

@@ -69,6 +69,7 @@
             "minutes": 30
           }
         },
+        "workerTypes": ["local"],
         "parserOpts": {
           "indexPage": "https://ingatlan.jofogas.hu/budapest/ingatlan?st=s",
           "interval": {

@@ -15,12 +15,12 @@ function fetchContent(url, provider) {
 
     incrementRetryCount(url);
     if (isRetriesReached(url)) {
-        log(provider, 'Failed fetches limit reached with URL ' + url);
+        log(provider.name, 'Failed fetches limit reached with URL ' + url);
         return Promise.reject('Too many failed fetches!');
     }
 
     if (!worker) {
-        log(provider, 'No more workers');
+        log(provider.name, 'No more workers');
         console.log('No more workers! Rescheduling...');
         return new Promise(resolve => {
             setTimeout(() => {
@@ -32,15 +32,15 @@ function fetchContent(url, provider) {
 
     return worker.fetchContent(url, provider)
         .then(result => {
-            log(provider, 'Fetch success using worker ' + worker.name() + ', content: ' + result.substr(0, 40) + '[...]');
+            log(provider.name, 'Fetch success using worker ' + worker.name() + ', content: ' + result.substr(0, 40) + '[...]');
             removeRetryCounter(url);
             return result;
         })
         .catch(err => {
             // Find a different worker for the job...
-            log(provider, 'Error during fetching using worker ' + worker.name() + ' from ' + url + ' :' + err.toString());
+            log(provider.name, 'Error during fetching using worker ' + worker.name() + ' from ' + url + ' :' + err.toString());
             worker.test();
-            return fetchContent(url);
+            return fetchContent(url, provider);
         });
 }
 
