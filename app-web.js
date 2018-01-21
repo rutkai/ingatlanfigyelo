@@ -57,7 +57,7 @@ function getApp() {
             const userLimiter = new RateLimit({
                 windowMs: 120000,
                 delayAfter: 0,
-                max: 8,
+                max: 20,
             });
             const filterLimiter = new RateLimit({
                 windowMs: 60000,

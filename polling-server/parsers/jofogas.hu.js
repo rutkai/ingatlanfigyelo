@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const striptags = require('striptags');
+const toArabic = require('roman-numerals').toArabic;
 const listBasedMatcher = require('./helpers/list-based-matcher');
 
 exports.parseList = parseList;
@@ -40,8 +41,8 @@ function parseProfile(html) {
     const halfroomElement = $('.rePCAP-half_room .reParamValue');
     const halfrooms = halfroomElement.length > 0 ? parseInt(halfroomElement.text().match(/[0-9]+/)[0]) : null;
     const size = parseInt($('.rePAP-size .reParamValue').text().match(/[0-9]+/)[0]);
-    const district = $('.rePAddress .reParamValue').text().trim();
-    const address = $('.vi_map_line').text().replace(/(\s|>|Cím:)+/g, ' ').trim();
+    const district = toArabic($('.rePAddress .reParamValue').text().replace('.', '').trim());
+    const address = $('.vi_map_line .street').text().trim();
     const floor = parseInt($('.rePCAP-floor .reParamValue').text().match(/[0-9]+/)[0]);
     const elevator = $('.rePCAP-elevator .reParamValue').text().trim() !== 'Nincs';
     const heating = $('.rePCAP-heating_type .reParamValue').text().trim();
