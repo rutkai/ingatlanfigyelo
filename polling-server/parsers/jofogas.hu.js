@@ -36,7 +36,8 @@ function parseProfile(html) {
 
     const price = parseInt($('.' + extractPriceSecret($('.price2-section').html()) + ' .price2-value').text().replace(/ /g, ''));
 
-    const rooms = parseInt($('.rePCAP-rooms .reParamValue').text().match(/[0-9]+/)[0]);
+    const roomsMatcher = $('.rePCAP-rooms .reParamValue').text().match(/[0-9]+/);
+    const rooms = roomsMatcher ? parseInt(roomsMatcher[0]) : null;
 
     const halfroomElement = $('.rePCAP-half_room .reParamValue');
     const halfrooms = halfroomElement.length > 0 ? parseInt(halfroomElement.text().match(/[0-9]+/)[0]) : null;
