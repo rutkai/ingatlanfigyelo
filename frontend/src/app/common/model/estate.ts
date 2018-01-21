@@ -13,6 +13,7 @@ export class Estate {
   public rooms: number;
   public halfrooms: number;
   public size: number;
+  public material?: string;
   public descriptionHtml: string;
   public source: string;
   public url: string;

@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const striptags = require('striptags');
-const listBasedMatcher = require('./list-based-matcher');
+const listBasedMatcher = require('./helpers/list-based-matcher');
 
 exports.parseList = parseList;
 exports.parseProfile = parseProfile;
@@ -26,12 +26,6 @@ function parseList(html) {
     }
 }
 
-function extractPriceSecret(html)
-{
-    const res = html.match(/\.([a-z0-9]{41})\{display:inline-block;\}/);
-    return res ? res[1] : null;
-}
-
 function parseProfile(html) {
     const $ = cheerio.load(html);
 
@@ -54,7 +48,7 @@ function parseProfile(html) {
     const balcony = $('.rePCAP-balcony .reParamValue').text().trim() === 'Nincs' ? null : 1 ;
     const descriptionHtml = striptags($('.reViSection .description').html(), ['a', 'p', 'br', 'i', 'em', 'strong', 'ul', 'li']);
     const descriptionText = $('.reViSection .description').text().trim();
-    const flatMaterial = listBasedMatcher.extractFlatMaterial($('.rePCAP-building_type .reParamValue').text());
+    const material = listBasedMatcher.extractMaterial($('.rePCAP-building_type .reParamValue').text());
 
     return new Promise(resolve => {
         resolve({
@@ -71,8 +65,13 @@ function parseProfile(html) {
             balcony,
             descriptionHtml,
             descriptionText,
-            flatMaterial
+            material
         });
     });
+}
+
+function extractPriceSecret(html) {
+    const res = html.match(/\.([a-z0-9]{41})\{display:inline-block;\}/);
+    return res ? res[1] : null;
 }
 

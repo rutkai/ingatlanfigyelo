@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 const toArabic = require('roman-numerals').toArabic;
 const got = require('got');
 const striptags = require('striptags');
-const listBasedMatcher = require('./list-based-matcher');
+const listBasedMatcher = require('./helpers/list-based-matcher');
 
 exports.parseList = parseList;
 function parseList(html) {
@@ -37,7 +37,7 @@ function parseProfile(html) {
     let elevator = null;
     let heating = null;
     let balcony = null;
-    let flatMaterial = null;
+    let material = null;
 
     const $locationDataList = $(".prop-stage .prop-bc li a");
     const locationDataListLength = $locationDataList.length;
@@ -65,9 +65,8 @@ function parseProfile(html) {
             halfrooms = roomsData.includes('fél') ? parseInt(/\d+\W*fél/i.exec(roomsData)[0]) : 0;
         } else if ($row.text().includes('fűtéssel')) {
             heating = $row.find('strong').text().trim();
-        }
-        else if (flatMaterial === null) {
-            flatMaterial = listBasedMatcher.extractFlatMaterial($row.text().trim());
+        } else if (material === null) {
+            material = listBasedMatcher.extractMaterial($row.text().trim());
         }
     });
 
@@ -110,7 +109,7 @@ function parseProfile(html) {
                 balcony,
                 descriptionHtml,
                 descriptionText,
-                flatMaterial
+                material
             };
         });
 }
