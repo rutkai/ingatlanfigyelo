@@ -1,9 +1,63 @@
 @import "~normalize.css/normalize";
+
+// Utilities
+@import 'scss/utilities/box-sizing.utility';
+@import 'scss/utilities/flex.utility';
+@import 'scss/utilities/font-weight.utility';
+@import 'scss/utilities/normalize.utility';
+@import 'scss/utilities/reset.utility';
+@import 'scss/utilities/text-align.utility';
+@import 'scss/utilities/visibility.utility';
+
+// Objects
+@import 'scss/objects/containers.object';
+@import 'scss/objects/grid.object';
+@import 'scss/objects/item-block.object';
+@import 'scss/objects/media.object';
+
+// Components
+@import 'scss/components/button.component';
+@import 'scss/components/card.component';
+@import 'scss/components/dropdown.component';
+@import 'scss/components/navigations.component';
+
+// Elements
+@import 'scss/elements/forms.element';
+@import 'scss/elements/headings.element';
+@import 'scss/elements/image.element';
+@import 'scss/elements/list.element';
+@import 'scss/elements/tables';
+@import 'scss/elements/text.element';
+
+// Designs
+@import 'scss/design/buttons';
+@import 'scss/design/card.design';
+@import 'scss/design/forms.design';
+@import 'scss/design/dropdown.design';
+@import 'scss/design/item-block.design';
+@import 'scss/design/label';
+@import 'scss/design/list.design';
+@import 'scss/design/navigation.design';
+@import 'scss/design/shadows';
+
+// Colors
+$charade: #414445;
+$white-smoke: #F2F2F2;
+$light-grey: #D5D5D5;
+$nobel: #A1A1A1;
+$zircon: #DDE6E7;
+$half-baked: #4F969B;
+$outrageous-orange: #F35E2E;
+
 @import "~@angular/material/prebuilt-themes/deeppurple-amber";
 
+html {
+  font-family: 'Montserrat', sans-serif;
+}
+
 body {
-  text-align: center;
-  font-family: Roboto,"Helvetica Neue",sans-serif;
+  background-color: #FFFFFF;
+  color: #616161;
 }
 
 a {

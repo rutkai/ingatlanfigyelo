@@ -30,4 +30,8 @@ export class UserStore {
         this.user.next(null);
       });
   }
+
+  public updateUser(user: User) {
+    this.user.next(user);
+  }
 }

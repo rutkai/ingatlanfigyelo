@@ -1,9 +1,36 @@
-.mark-all-seen {
-  margin-top: 20px;
+:host {
+  display: block;
+  text-align: center;
 }
 
-app-estate {
+.mark-all-seen, .view-button {
+  margin: 20px 0;
+}
+
+.o-container {
+  margin-top: 25px;
+  max-width: 1600px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.o-row {
+  width: 100%;
+}
+
+.o-column {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .o-column.sm--4 {
+    max-width: 33.3%;
+  }
+}
+
+app-estate-card {
   display: block;
+  text-align: left;
 }
 
 .loading-spinner {

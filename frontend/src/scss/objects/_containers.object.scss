@@ -1,0 +1,17 @@
+//********************
+// Container
+//********************
+
+.o-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  width: 100%;
+}
+
+.o-container--fluid {
+  @extend .o-container;
+  padding: initial;
+  max-width: initial;
+}

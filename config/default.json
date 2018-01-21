@@ -1,6 +1,7 @@
 {
   "db": {
-    "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo"
+    "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo",
+    "collection": "ingatlanfigyelo"
   },
   "sentry": {
     "web": "https://acdca2b5ed9c42599b12cf10cd149420:9c80fc7fc6f9448ca219762e528d1cbc@sentry.io/250273",

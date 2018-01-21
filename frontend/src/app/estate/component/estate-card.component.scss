@@ -1,0 +1,58 @@
+.c-card.seen {
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.title--card {
+  font-size: 1.225rem;
+  margin-bottom: 6px;
+  letter-spacing: .05rem;
+  font-weight: 300;
+}
+
+.description--card {
+  display: inline-block;
+
+  font-size: .875rem;
+  letter-spacing: .05rem;
+  font-weight: 300;
+}
+
+.c-card__header .container--image {
+  height: 200px;
+  overflow: hidden;
+  width: 100%;
+
+  img {
+    min-height: 100%;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.c-card__content {
+  p {
+    letter-spacing: .03rem;
+    margin-bottom: 6px;
+    font-size: .875rem;
+  }
+
+  .title--card__content {
+    font-size: 1.225rem;
+    font-weight: 600;
+    color: #252424;
+  }
+
+  .container--image {
+    position: absolute;
+    right: 18px;
+    top: -20px;
+    background-color: #FFFFFF;
+    padding: 9px 8px;
+    border-radius: 50%;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+  }
+}

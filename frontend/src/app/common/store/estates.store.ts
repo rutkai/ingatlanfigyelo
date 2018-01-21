@@ -49,8 +49,10 @@ export class EstatesStore {
       this.estates.next(this.estatesData);
     });
     this.userStore.user$.subscribe(user => {
+      if (this.user !== user) {
+        this.reset();
+      }
       this.user = user;
-      this.reset();
     });
 
     let exhaustedCheck = () => {
@@ -63,6 +65,10 @@ export class EstatesStore {
     this.favouriteExhausted$.subscribe(exhaustedCheck);
     this.unseenExhausted$.subscribe(exhaustedCheck);
     this.seenExhausted$.subscribe(exhaustedCheck);
+  }
+
+  public get loadedEstates(): Estate[] {
+    return this.estatesData;
   }
 
   public fetchMore(): Promise<void> {

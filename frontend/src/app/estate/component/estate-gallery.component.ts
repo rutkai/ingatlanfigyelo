@@ -1,5 +1,11 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery";
+import {Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {NgxGalleryAnimation, NgxGalleryComponent, NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery";
+
+enum KeyCodes {
+  ESCAPE = 27,
+  LEFT_ARROW = 37,
+  RIGHT_ARROW = 39,
+}
 
 @Component({
   selector: 'app-estate-gallery',
@@ -9,13 +15,43 @@ import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from "ngx-galle
 })
 export class EstateGalleryComponent implements OnInit {
   @Input() public images: string[];
-  @Input() public loadContent: boolean;
+
+  @ViewChild('gallery') gallery: NgxGalleryComponent;
 
   public galleryOptions: NgxGalleryOptions[];
   public galleryImages: NgxGalleryImage[];
 
+  private previewOpen = false;
+
   ngOnInit(): void {
     this.initImages();
+  }
+
+  @HostListener('document:keyup', ['$event.keyCode'])
+  public keyEvent(keyCode: number) {
+    if (keyCode === KeyCodes.RIGHT_ARROW) {
+      if (this.previewOpen) {
+        this.gallery.preview.showNext();
+      } else {
+        this.gallery.showNext();
+      }
+    } else if (keyCode === KeyCodes.LEFT_ARROW) {
+      if (this.previewOpen) {
+        this.gallery.preview.showPrev();
+      } else {
+        this.gallery.showPrev();
+      }
+    } else if (keyCode === KeyCodes.ESCAPE) {
+      this.gallery.preview.close();
+    }
+  }
+
+  public previewOpened() {
+    this.previewOpen = true;
+  }
+
+  public previewClosed() {
+    this.previewOpen = false;
   }
 
   private initImages() {
@@ -23,8 +59,9 @@ export class EstateGalleryComponent implements OnInit {
       // Full width
       {
         width: '100%',
-        height: '460px',
-        thumbnailsColumns: 4,
+        height: '400px',
+        thumbnails: false,
+        preview: !!this.images.length,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageInfinityMove: true,
         previewInfinityMove: true
@@ -32,42 +69,27 @@ export class EstateGalleryComponent implements OnInit {
       // max-width 500
       {
         breakpoint: 500,
-        width: '100%',
         height: '300px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20,
-        imageInfinityMove: true,
-        previewInfinityMove: true
-      },
-      // max-width 400
-      {
-        breakpoint: 400,
-        width: '100%',
-        height: '250px',
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20,
-        imageInfinityMove: true,
-        previewInfinityMove: true
-      },
-      // max-width 300
-      {
-        breakpoint: 300,
-        preview: false,
-        imageInfinityMove: true,
-        previewInfinityMove: true
+        imagePercent: 80
       }
     ];
 
-    this.galleryImages = this.images.map(img => {
-      return {
-        small: img,
-        medium: img,
-        big: img
-      }
-    });
+    if (this.images.length) {
+      this.galleryImages = this.images.map(img => {
+        return {
+          small: img,
+          medium: img,
+          big: img
+        }
+      });
+    } else {
+      this.galleryImages = [
+        {
+          small: '/assets/logo.png',
+          medium: '/assets/logo.png',
+          big: '/assets/logo.png'
+        }
+      ];
+    }
   }
 }

@@ -8,15 +8,11 @@ import {Estate, EstatesService, NotificationService, User, UserStore} from "../.
 })
 export class EstateComponent {
   @Input() public estate: Estate;
+  @Input() public inline = false;
 
   @ViewChild('estateCardContent') estateCardContent: ElementRef;
 
   public user: User;
-
-  public loadContent = false;
-  public isVisible = false;
-  public estateCardContentHeight = 'auto';
-  public expandDescription = false;
 
   constructor(private estatesService: EstatesService,
               private userStore: UserStore,
@@ -32,22 +28,6 @@ export class EstateComponent {
 
   public getUrlKeys(): string[] {
     return Object.keys(this.estate.urls);
-  }
-
-  public loadLazyContent(event) {
-    if (event.value) {
-      this.estateCardContentHeight = 'auto';
-      this.isVisible = this.loadContent = true;
-    } else {
-      this.estateCardContentHeight =
-        this.estateCardContent.nativeElement ?
-        this.estateCardContent.nativeElement.offsetHeight + 'px' : 'auto';
-      this.isVisible = false;
-    }
-  }
-
-  public toggleDescription() {
-    this.expandDescription = !this.expandDescription;
   }
 
   public toggleFavourite() {

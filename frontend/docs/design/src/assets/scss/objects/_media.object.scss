@@ -1,0 +1,42 @@
+.media {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 0 0 1rem 0;
+}
+.media .media__image {
+  margin: 0 1rem 0 0;
+}
+.media .media__body {
+  flex: 1;
+}
+.media .media__headline {
+  margin: 0 0 0.5rem 0;
+}
+
+// Alignment
+
+.media.top {
+  align-items: flex-start;
+}
+
+.media.center {
+  align-items: center;
+}
+
+.media.bottom {
+  align-items: flex-end;
+}
+
+//// Image
+.media .media__image.top {
+  align-self: flex-start;
+}
+
+.media .media__image.center {
+  align-self: center;
+}
+
+.media .media__image.bottom {
+  align-self: flex-end;
+}

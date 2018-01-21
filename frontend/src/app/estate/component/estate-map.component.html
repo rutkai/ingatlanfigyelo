@@ -1,9 +1,5 @@
-<mat-expansion-panel *ngIf="lat !== 0 || lng !== 0" (opened)="loadMap()">
-  <mat-expansion-panel-header>
-    <mat-panel-title>Térkép</mat-panel-title>
-  </mat-expansion-panel-header>
-  <agm-map [latitude]="lat" [longitude]="lng" [zoom]="16" *ngIf="showMap">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-  </agm-map>
-</mat-expansion-panel>
-<p *ngIf="error">This map cannot be loaded!</p>
+<agm-map *ngIf="lat !== 0 || lng !== 0" [latitude]="lat" [longitude]="lng" [zoom]="16">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+<img *ngIf="(lat === 0 || lng === 0) && !error" (click)="clickLoadMap()" src="/assets/images/map_placeholder.svg" alt="Térkép">
+<p *ngIf="error">A térkép nem jeleníthető meg!</p>

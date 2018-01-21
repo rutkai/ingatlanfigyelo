@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Estate, EstatesService} from "../../common";
+import {Estate, EstatesService, NotificationService, User, UserStore} from "../../common";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -11,10 +11,11 @@ export class SingleEstateComponent implements OnInit {
   public estate: Estate;
 
   constructor(private estatesService: EstatesService,
+              private notificationService: NotificationService,
               private route: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.estatesService.getEstate(id)
       .then(estate => {

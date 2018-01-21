@@ -5,6 +5,7 @@ import {Filters} from "../model/filters/filters";
 import {Filter} from "../model/filters/types/filter";
 import {FilterFactory} from "../factory/filter.factory";
 import {environment} from "../../../environments/environment";
+import {View} from "../";
 
 @Injectable()
 export class UserRepository {
@@ -61,10 +62,19 @@ export class UserRepository {
       });
   }
 
+  public changeView(view: View): Promise<void> {
+    const payload = {view};
+
+    return this.http.put(`//${environment.apiDomain}/user/view`, payload, {withCredentials: true}).toPromise()
+      .then(() => {
+      });
+  }
+
   private unserializeUser(userData: any): User {
     const user = new User();
     user.id = userData.id;
     user.username = userData.username;
+    user.view = userData.view;
     user.filterGroups = userData.filterGroups ? this.unserializeFilterGroups(userData.filterGroups) : [];
     return user;
   }

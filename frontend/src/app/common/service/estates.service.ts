@@ -10,6 +10,12 @@ export class EstatesService {
   }
 
   public getEstate(id: string): Promise<Estate> {
+    for (const estate of this.estatesStore.loadedEstates) {
+      if (estate.id === id) {
+        return Promise.resolve(estate);
+      }
+    }
+
     return this.estatesRepository.getEstate(id);
   }
 

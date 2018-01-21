@@ -1,0 +1,35 @@
+//********************
+// Headings
+//********************
+
+$font-size-h1: 2.25rem !default;  /* 36px */
+$font-size-h2: 1.75rem !default;  /* 28px */
+$font-size-h3: 1.5rem !default;   /* 24px */
+$font-size-h4: 1.25rem !default;  /* 20px */
+$font-size-h5: 1.125rem !default; /* 18px */
+$font-size-h6: 1rem !default;     /* 16px */
+
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h2 {
+  font-size: $font-size-h2;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+h4 {
+  font-size: $font-size-h4;
+}
+
+h5 {
+  font-size: $font-size-h5;
+}
+
+h6 {
+ font-size: $font-size-h6;
+}

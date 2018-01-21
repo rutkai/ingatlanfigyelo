@@ -56,6 +56,29 @@ router.post('/register', function (req, res) {
         .catch(() => {});
 });
 
+router.put('/view', async function (req, res) {
+    if (!req.isAuthenticated()) {
+        res.status(403).json({
+            error: 'Unauthorized!',
+            code: 403
+        });
+        return;
+    }
+
+    const view = req.body.view;
+    if (!view || !['cards', 'inline'].includes(view)) {
+        res.status(400).json({
+            error: 'Invalid data!',
+            code: 400
+        });
+        return;
+    }
+
+    await userRepository.updateView(req.user, view);
+
+    res.json({});
+});
+
 module.exports = router;
 
 
@@ -68,6 +91,7 @@ function getUserProfile(user) {
     return {
         id: user._id,
         username: user.username,
+        view: user.view,
         filterGroups: user.filterGroups
     };
 }

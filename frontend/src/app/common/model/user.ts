@@ -1,8 +1,10 @@
 import {Filters} from "./filters/filters";
+import {View} from "../types/view";
 
 export class User {
   public id: string;
   public username: string;
+  public view: View;
   public filterGroups: Filters[] = [];
 
   public addFilterGroup(group: Filters) {

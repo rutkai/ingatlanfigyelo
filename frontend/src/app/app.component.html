@@ -9,7 +9,7 @@
       <app-sidenav-filter></app-sidenav-filter>
     </mat-sidenav>
 
-    <div class="page-content" (scroll)="scrolled($event)" (click)="sidenavMenu.close()">
+    <div class="page-content" (scroll)="scrolled($event)" (click)="sidenavMenu.close()" #pageContent>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-container>

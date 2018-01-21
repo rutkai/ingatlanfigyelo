@@ -43,6 +43,12 @@ function updateFilters(user, filterGroups) {
     return users.save(user);
 }
 
+exports.updateView = updateView;
+function updateView(user, view) {
+    user.view = view;
+    return users.save(user);
+}
+
 exports.updateSeenAndFavourite = updateSeenAndFavourite;
 function updateSeenAndFavourite(user, estateId, favourite, seen) {
     if (favourite) {

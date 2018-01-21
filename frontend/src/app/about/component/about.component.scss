@@ -2,7 +2,34 @@
   text-align: left;
   padding: 0 20px 20px;
 
+  h2 {
+    margin: 20px 0 10px;
+  }
+
+  h3 {
+    margin: 12px 0 6px;
+  }
+
   p {
     text-align: justify;
+    margin: 0 0 1em;
+  }
+
+  ul {
+    margin-left: 1em;
+    list-style-type: disc;
+
+    li {
+      margin: 0 0 0.5em;
+    }
+
+    ul {
+      list-style-type: circle;
+      margin: 0 0 0.8em 2em;
+
+      li {
+        margin: 0.2em 0;
+      }
+    }
   }
 }

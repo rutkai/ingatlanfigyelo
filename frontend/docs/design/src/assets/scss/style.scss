@@ -1,0 +1,256 @@
+// Utilities
+@import 'utilities/box-sizing.utility';
+@import 'utilities/flex.utility';
+@import 'utilities/font-weight.utility';
+@import 'utilities/normalize.utility';
+@import 'utilities/reset.utility';
+@import 'utilities/text-align.utility';
+@import 'utilities/visibility.utility';
+
+// Objects
+@import 'objects/containers.object';
+@import 'objects/grid.object';
+@import 'objects/item-block.object';
+@import 'objects/media.object';
+
+// Components
+@import 'components/button.component';
+@import 'components/card.component';
+@import 'components/dropdown.component';
+@import 'components/navigations.component';
+
+// Elements
+@import 'elements/forms.element';
+@import 'elements/headings.element';
+@import 'elements/image.element';
+@import 'elements/list.element';
+@import 'elements/tables';
+@import 'elements/text.element';
+
+// Designs
+@import 'design/buttons';
+@import 'design/card.design';
+@import 'design/forms.design';
+@import 'design/dropdown.design';
+@import 'design/item-block.design';
+@import 'design/label';
+@import 'design/list.design';
+@import 'design/navigation.design';
+@import 'design/shadows';
+
+// Colors
+$charade: #414445;
+$white-smoke: #F2F2F2;
+$light-grey: #D5D5D5;
+$nobel: #A1A1A1;
+$zircon: #DDE6E7;
+$half-baked: #4F969B;
+$outrageous-orange: #F35E2E;
+
+html {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #FFFFFF;
+  color: #616161;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+}
+
+.o-container {
+  max-width: 1600px;
+}
+
+//************
+// Navigation
+//************
+
+.c-navigation {
+  flex-grow: 1;
+  transition: $leaving-transition;
+  overflow: hidden;
+
+  background-color: $charade;
+  padding: 0;
+
+  @media (min-width: 768px) {
+    padding: 0 96px 0;
+  }
+
+  &.scrolled {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.12), 0 3px 4px rgba(0, 0, 0, 0.24);
+    transition: $entering-transition;
+
+    li a:first-child span {
+      color: $outrageous-orange;
+      transition: $entering-transition;
+    }
+  }
+
+  li a:first-child {
+    padding-left: 0;
+    transition: $leaving-transition;
+  }
+}
+
+//************
+// Header
+//************
+
+.header {
+  align-items: center;
+  background-color: $charade;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  pointer-events: none;
+  z-index: 1;
+  min-height: 80vh;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .page-title {
+    font-size: 2rem;
+    margin: 0 0 1rem;
+
+    @media (min-width: 768px) {
+      font-size: 3.75rem;
+    }
+
+    span {
+      color: $outrageous-orange;
+    }
+  }
+
+  .header__overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 2;
+  }
+
+  .container--text {
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 30px 42px;
+    pointer-events: all;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media (min-width: 768px) {
+      padding: 30px 96px;
+    }
+  }
+}
+
+//************
+// Sections
+//************
+
+.section {
+  padding: 50px 0;
+  width: 100%;
+
+  &:nth-child(even) {
+    background-color: #FAFAFA;
+  }
+}
+
+.codeblock {
+  background-color: $charade;
+}
+
+
+// Card
+
+.title--card {
+  font-size: 1.225rem;
+  margin-bottom: 6px;
+  letter-spacing: .05rem;
+  font-weight: 300;
+}
+
+.description--card {
+  display: inline-block;
+
+  font-size: .875rem;
+  letter-spacing: .05rem;
+  font-weight: 300;
+}
+
+.c-card__content {
+
+  p {
+    letter-spacing: .03rem;
+    margin-bottom: 6px;
+    font-size: .875rem;
+  }
+
+  .title--card__content {
+    font-size: 1.225rem;
+    font-weight: 600;
+    color: #252424;
+  }
+
+  .container--image {
+    position: absolute;
+    right: 18px;
+    top: -20px;
+    background-color: #FFFFFF;
+    padding: 9px 8px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.item-page {
+
+  .images {
+  }
+
+  .container--map {
+    height: 100%;
+    width: 100%;
+    background: #F8F8F8;
+
+    img {
+      width: 150px;
+    }
+  }
+
+  .description,
+  .list {
+    font-size: 1rem;
+    letter-spacing: .03rem;
+    line-height: 1.5;
+
+    h2 {
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: #252424;
+    }
+
+    .c-card {
+      padding: 12px 0;
+    }
+  }
+}
+
+.bottom-margin--4rem {
+  margin-bottom: 4rem;
+}

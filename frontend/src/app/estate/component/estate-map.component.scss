@@ -1,3 +1,17 @@
+:host {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+img {
+  width: 150px;
+}
+
 agm-map {
-  height: 400px;
+  height: 100%;
+  min-height: 300px;
+  width: 100%;
 }

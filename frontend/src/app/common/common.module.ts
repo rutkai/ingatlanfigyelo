@@ -16,13 +16,17 @@ import {EstatesService} from "./service/estates.service";
 import {HeadUpdaterService} from "./service/head-updater.service";
 import {StatsRepository} from "./repository/stats.repository";
 import {StatsStore} from "./store/stats.store";
+import {RemoveAccentsPipe} from "./pipes/remove-accents.pipe";
+import {NavigationStore} from "./store/navigation.store";
 
 @NgModule({
   declarations: [
-    EstateAttributeDisplayPipe
+    EstateAttributeDisplayPipe,
+    RemoveAccentsPipe
   ],
   exports: [
-    EstateAttributeDisplayPipe
+    EstateAttributeDisplayPipe,
+    RemoveAccentsPipe
   ],
   imports: [
     HttpClientModule,
@@ -46,7 +50,8 @@ export class CommonModule {
         WebsocketRepository,
         WebsocketEventsStore,
         PushNotificationService,
-        HeadUpdaterService
+        HeadUpdaterService,
+        NavigationStore,
       ],
     };
   }

@@ -1,0 +1,26 @@
+<div class="c-card hoverable u-flex u-justify-center" [class.seen]="estate.isSeen && !estate.favourite" [routerLink]="['estate', estate.id]">
+  <button class="c-button open-button"><img src="/assets/images/search.svg" alt=""></button>
+  <div class="c-card__header u-flex u-flex--column u-align--center">
+    <div class="container--image">
+      <div class="overlay--c-card__header"></div>
+      <img [src]="coverImg" (error)="imgLoadError()" alt="">
+    </div>
+    <div class="c-card__header__description">
+      <p class="title--card">{{ estate.price | number:'.0-0' }} Ft</p>
+      <p class="description--card">
+        {{ estate.size }} m<sup>2</sup>,
+        {{ estate.rooms }} szoba<span *ngIf="estate.halfrooms">, {{ estate.halfrooms }} félszoba</span>
+      </p>
+    </div>
+  </div>
+  <div class="c-card__content">
+    <p class="title--card__content">
+      {{ estate.district }}. kerület - {{ estate.address }}
+    </p>
+    <p>{{ estate.squareMeterPrice | number:'.0-0' }} Ft/m<sup>2</sup></p>
+    <p>Frissítve: {{ estate.updated.toLocaleDateString('hu-HU') }}</p>
+    <div class="container--image">
+      <img src="/assets/logos/{{ estate.source | lowercase | removeAccents }}.png" alt="{{ estate.source }}">
+    </div>
+  </div>
+</div>

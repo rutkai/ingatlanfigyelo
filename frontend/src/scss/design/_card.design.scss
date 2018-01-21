@@ -1,0 +1,88 @@
+@import '../utilities/transitions.utility';
+
+.c-card {
+  background-color: #ffffff;
+  box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  flex-direction: column;
+  overflow: hidden;
+
+  &:hover {
+    .open-button {
+      opacity: 1;
+      transition: $entering-transition;
+    }
+
+    .c-card__header {
+      .container--image {
+        filter: blur(1px);
+      }
+    }
+
+    .overlay--c-card__header {
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: $entering-transition;
+    }
+  }
+}
+
+.c-card__header {
+  position: relative;
+
+  .container--image {
+    filter: blur(0);
+  }
+}
+
+.c-card__header__description {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #ffffff;
+  padding: 18px;
+
+  background-color: rgba(34,34,34,0.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99222222, endColorstr=#99222222);
+  -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99222222, endColorstr=#99222222);
+  box-shadow: 0px -6px 9px 1px rgba(34, 34, 34, 0.6);
+}
+
+.overlay--c-card__header {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: $leaving-transition;
+}
+
+.c-card__content {
+  padding: 18px;
+  position: relative;
+  width: 100%;
+  color: #616161;
+  z-index: 3;
+}
+
+.c-card.hoverable {
+  transition: box-shadow $leaving-transition;
+
+  &:focus,
+  &:active {
+    outline: 0;
+    outline-color: transparent;
+  }
+
+  &.hoverable {
+    cursor: pointer;
+    transform: translateY(0);
+    box-shadow: 1px 2px 7px rgba(0, 0, 0, 0.2);
+    transition: $leaving-transition;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px 4px rgba(0, 0, 0, 0.2);
+      transition: $entering-transition;
+    }
+  }
+}

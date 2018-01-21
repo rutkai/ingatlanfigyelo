@@ -1,0 +1,55 @@
+<svg width="30" height="27" viewBox="0 0 30 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:figma="http://www.figma.com/figma/ns">
+<g id="Canvas" transform="translate(-2358 4983)" figma:type="canvas">
+<g id="logo redesign" figma:type="instance">
+<g id="Vector 2" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(2358 -4969.5)" fill="#F68C2F"/>
+</g>
+<g id="Group" figma:type="frame">
+<mask id="mask0_alpha" mask-type="alpha">
+<g id="Vector 2" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(2358 -4969.5)" fill="#FBA832"/>
+</g>
+</mask>
+<g id="Vector 2" mask="url(#mask0_alpha)" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(2358 -4971.5)" fill="#000000" fill-opacity="0.1"/>
+</g>
+</g>
+<g id="Vector 2" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(2358 -4972.5)" fill="#FBA832"/>
+</g>
+<g id="Group" figma:type="frame">
+<mask id="mask1_alpha" mask-type="alpha">
+<g id="Vector 2" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(2358 -4972.5)" fill="#FBA832"/>
+</g>
+</mask>
+<g id="Vector 2" mask="url(#mask1_alpha)" figma:type="vector">
+<use xlink:href="#path0_fill" transform="translate(2358 -4974.5)" fill="#000000" fill-opacity="0.1"/>
+</g>
+</g>
+<g id="Vector 2" figma:type="vector">
+<use xlink:href="#path1_fill" transform="translate(2358 -4975)" fill="#FFCE46"/>
+</g>
+<g id="Vector 2" figma:type="vector">
+<use xlink:href="#path2_fill" transform="translate(2365 -4973.5)" fill="#C4C4C4"/>
+</g>
+<g id="Vector 10" figma:type="vector">
+<use xlink:href="#path3_fill" transform="translate(2365 -4977.5)" fill="#5B7ACC"/>
+</g>
+<g id="Vector 9" figma:type="vector">
+<use xlink:href="#path4_fill" transform="translate(2373 -4982.5)" fill="#4F67A9"/>
+</g>
+<g id="Vector 11" figma:type="vector">
+<use xlink:href="#path5_fill" transform="translate(2365 -4983)" fill="#6D8AD8"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 15 13L 0 6L 15 0L 30 6L 15 13Z"/>
+<path id="path1_fill" d="M 15 12.5L 0 5.5L 15 0L 30 5.5L 15 12.5Z"/>
+<path id="path2_fill" d="M 8 7L 0 3.23077L 8 0L 16 3.23077L 8 7Z"/>
+<path id="path3_fill" d="M 8 2L 8 11.5L 0 8L 0 0L 8 2Z"/>
+<path id="path4_fill" d="M 0 7L 0 16.5L 8 13L 8 5L 4 0L 0 7Z"/>
+<path id="path5_fill" d="M 8 7.5L 0 5.5L 4 0L 12 0.5L 8 7.5Z"/>
+</defs>
+</svg>

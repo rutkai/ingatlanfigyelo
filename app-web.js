@@ -15,7 +15,7 @@ const db = require('./db/db');
 const passportAuth = require('./auth/init');
 const pushServer = require('./push-server/server');
 
-const authEndpoints = require('./routes/auth');
+const userEndpoints = require('./routes/user');
 const filtersEndpoints = require('./routes/filters');
 const rss = require('./routes/rss');
 const stats = require('./routes/stats');
@@ -86,7 +86,7 @@ function getApp() {
                 max: 100,
             });
 
-            app.use('/user', userLimiter, authEndpoints);
+            app.use('/user', userLimiter, userEndpoints);
             app.use('/filters', filterLimiter, filtersEndpoints);
             app.use('/rss', rssLimiter, rss);
             app.use('/stats', statsLimiter, stats);

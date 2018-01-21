@@ -11,16 +11,31 @@ declare const google: any;
 })
 export class EstateMapComponent implements OnInit {
   @Input() public estate: Estate;
+  @Input() public loadOnClick = false;
 
   public lat = 0;
   public lng = 0;
-  public showMap = false;
   public error = false;
+
+  private loadAttempted = false;
 
   constructor(private mapsLoader: MapsAPILoader) {
   }
 
   ngOnInit(): void {
+    if (!this.loadOnClick) {
+      this.loadMap();
+    }
+  }
+
+  public clickLoadMap() {
+    if (!this.loadAttempted) {
+      this.loadMap();
+    }
+  }
+
+  private loadMap() {
+    this.loadAttempted = true;
     this.mapsLoader.load().then(() => {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({
@@ -34,11 +49,5 @@ export class EstateMapComponent implements OnInit {
         }
       });
     });
-  }
-
-  public loadMap() {
-    if (!this.showMap) {
-      this.showMap = true;
-    }
   }
 }

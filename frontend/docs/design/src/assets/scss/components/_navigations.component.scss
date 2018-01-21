@@ -1,0 +1,85 @@
+@import '../utilities/transitions.utility';
+
+.c-navigation {
+  list-style: none;
+  margin: 0;
+  display: flex;
+
+  li {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    display: block;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .c-navigation li:last-of-type a {
+    border-bottom: none;
+  }
+}
+
+.c-navigation--fixed {
+  position: fixed;
+  z-index: 1050;
+  right: 0;
+  left: 0;
+  top: 0;
+}
+
+.c-side-navigation {
+  bottom: 0;
+  flex-direction: column;
+  height: calc(100% + 60px);
+  left: 0;
+  justify-content: flex-start;
+  position: fixed;
+  top: 0;
+  width: 300px;
+  transform: translateX(-100%);
+  transition: transform $leaving-transition;
+
+  li {
+    align-self: center;
+    width: 100%;
+  }
+
+  a {
+    border-bottom: none;
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.c-side-navigation.is-open {
+  transform: translateX(0%);
+  transition: transform $entering-transition;
+}
+
+.c-side-navigation-overlay {
+  background-color: rgba(0,0,0, .5);
+  display: none;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: transform $leaving-transition;
+  z-index: 10;
+}
+
+.c-side-navigation-overlay.is-visible {
+  opacity: 1;
+  display: block;
+  transition: transform $entering-transition;
+}
+
+.c-button--mobile-menu {
+  float: right;
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
