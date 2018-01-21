@@ -22,6 +22,7 @@ function docToResponse(doc, user) {
         elevator: doc.elevator,
         heating: doc.heating,
         balcony: doc.balcony,
+        material: doc.material,
         descriptionHtml: doc.descriptionHtml,
         url: doc.url,
         urls: doc.urls,

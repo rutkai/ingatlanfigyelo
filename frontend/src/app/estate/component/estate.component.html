@@ -54,6 +54,10 @@
                 <td>Fűtés:</td>
                 <td>{{ estate.heating }}</td>
               </tr>
+              <tr *ngIf="estate.material !== null">
+                <td>Épület anyaga:</td>
+                <td>{{ estate.material }}</td>
+              </tr>
               <tr *ngIf="estate.floor !== null">
                 <td>Emelet:</td>
                 <td>{{ estate.floor === 0 ? 'földszint' : estate.floor }}</td>

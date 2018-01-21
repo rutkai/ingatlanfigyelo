@@ -17,6 +17,7 @@ export class EstateParser {
     estate.rooms = rawEstate.rooms;
     estate.halfrooms = rawEstate.halfrooms;
     estate.size = rawEstate.size;
+    estate.material = rawEstate.material;
     estate.descriptionHtml = rawEstate.descriptionHtml;
     estate.squareMeterPrice = rawEstate.squareMeterPrice;
     estate.source = rawEstate.source;
