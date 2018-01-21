@@ -62,7 +62,13 @@ function parseProfile(html) {
         } else if ($row.text().includes('szoba')) {
             const roomsData = $row.find('strong').text().replace('és fél', '+ 1').replace('és', '+');
             rooms = parseInt(roomsData);
-            halfrooms = roomsData.includes('fél') ? parseInt(/\d+\W*fél/i.exec(roomsData)[0]) : 0;
+            halfrooms = 0;
+            if (roomsData.includes('fél')) {
+                const matches = /\d+\W*fél/i.exec(roomsData);
+                if (matches) {
+                    halfrooms = parseInt(/\d+\W*fél/i.exec(roomsData)[0])
+                }
+            }
         } else if ($row.text().includes('fűtéssel')) {
             heating = $row.find('strong').text().trim();
         } else if (material === null) {
