@@ -1,3 +1,6 @@
+[Unit]
+After=mongod.service
+
 [Service]
 ExecStart=/usr/bin/npm run start-polling
 WorkingDirectory=/srv/ingatlanfigyelo
