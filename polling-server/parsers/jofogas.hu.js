@@ -41,7 +41,8 @@ function parseProfile(html) {
 
     const halfroomElement = $('.rePCAP-half_room .reParamValue');
     const halfrooms = halfroomElement.length > 0 ? parseInt(halfroomElement.text().match(/[0-9]+/)[0]) : null;
-    const size = parseInt($('.rePAP-size .reParamValue').text().match(/[0-9]+/)[0]);
+    const sizeMatcher = $('.rePAP-size .reParamValue').text().match(/[0-9]+/);
+    const size = sizeMatcher ? parseInt(sizeMatcher[0]) : null;
     const district = toArabic($('.rePAddress .reParamValue').text().replace('.', '').trim());
     const address = $('.vi_map_line .street').text().trim();
     const floorMatcher = $('.rePCAP-floor .reParamValue').text().match(/[0-9]+/);
