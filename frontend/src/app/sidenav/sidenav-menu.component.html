@@ -1,10 +1,10 @@
-<nav *ngIf="user">
+<nav>
   <h3>Ingatlanok</h3>
   <ul class="nav-list">
     <li>
       <a routerLink="/">Ingatlan lista</a>
     </li>
-    <li>
+    <li *ngIf="user">
       <a (click)="openFiltersSidenav()">Szűrők</a>
     </li>
     <li class="rss">
