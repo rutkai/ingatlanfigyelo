@@ -7,19 +7,10 @@
     <li>
       <a (click)="openFiltersSidenav()">Szűrők</a>
     </li>
-  </ul>
-</nav>
-<nav>
-  <h3>Felhasználó</h3>
-  <ul class="nav-list">
-    <li>
-      <a routerLink="/user/register" *ngIf="!user">Regisztráció</a>
-    </li>
-    <li>
-      <a routerLink="/user/login" *ngIf="!user">Bejelentkezés</a>
-    </li>
-    <li>
-      <a (click)="logout()" *ngIf="user">Kijelentkezés ({{ user.username }})</a>
+    <li class="rss">
+      <a rel="alternate" type="application/rss+xml" href="/rss{{ user ? '/' + user.id : '' }}" target="_blank">
+        RSS feed <mat-icon aria-label="Menu">rss_feed</mat-icon>
+      </a>
     </li>
   </ul>
 </nav>

@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {HeadUpdaterService} from "./common/service/head-updater.service";
 import {NavigationEnd, NavigationStart, Router} from "@angular/router";
-import {EstatesStore, NavigationStore} from "./common";
+import {NavigationStore, User, UserStore} from "./common";
+import {MatSidenav} from "@angular/material";
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,21 @@ import {EstatesStore, NavigationStore} from "./common";
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('pageContent') pageContent: ElementRef;
+  @ViewChild('sidenavMenu') sidenavMenu: MatSidenav;
 
   public footerHidden = false;
+  public showUsermenu = false;
 
   constructor(private headUpdaterService: HeadUpdaterService,
               private navigationStore: NavigationStore,
+              private userStore: UserStore,
               private renderer: Renderer2,
               private router: Router) {
-  }
-
-  public scrolled(event) {
-    this.footerHidden = event.srcElement.scrollTop !== 0;
+    userStore.user$.subscribe((user: User) => {
+      if (!user) {
+        this.showUsermenu = false;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -29,6 +34,19 @@ export class AppComponent implements AfterViewInit {
     this.navigationStore.restoreRequest$.subscribe((position: number) => {
       this.pageContent.nativeElement.scrollTop = position;
     });
+  }
+
+  public scrolled(event) {
+    this.footerHidden = event.srcElement.scrollTop !== 0;
+  }
+
+  public toggleUsermenu() {
+    this.showUsermenu = !this.showUsermenu;
+  }
+
+  public hideMenus() {
+    this.sidenavMenu.close();
+    this.showUsermenu = false;
   }
 
   private initScrollAfterNavigation() {

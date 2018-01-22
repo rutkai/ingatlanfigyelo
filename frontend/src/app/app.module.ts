@@ -13,6 +13,7 @@ import {FilterModule} from "./filter/filter.module";
 import {EstateModule} from "./estate/estate.module";
 import {RouterModule, Routes} from "@angular/router";
 import {environment} from "../environments/environment";
+import {UsermenuModule} from "./usermenu/usermenu.module";
 
 const routes: Routes = [
   { path: '', loadChildren: './estate/estate.module#EstateModule' },
@@ -37,7 +38,8 @@ const routes: Routes = [
     MatSidenavModule,
     CommonModule.forRoot(),
     FilterModule,
-    EstateModule
+    EstateModule,
+    UsermenuModule,
   ],
   bootstrap: [AppComponent]
 })

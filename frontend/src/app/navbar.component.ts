@@ -8,6 +8,7 @@ import {User, UserStore} from "./common";
 })
 export class NavbarComponent {
   @Output() public toggleSidenav = new EventEmitter();
+  @Output() public toggleUsermenu = new EventEmitter();
 
   public user: User;
 
@@ -19,5 +20,9 @@ export class NavbarComponent {
 
   public sidenavButtonPressed(): void {
     this.toggleSidenav.emit();
+  }
+
+  public userButtonPressed(): void {
+    this.toggleUsermenu.emit();
   }
 }

@@ -1,4 +1,5 @@
-<app-navbar (toggleSidenav)="sidenavMenu.toggle()"></app-navbar>
+<app-navbar (toggleSidenav)="sidenavMenu.toggle()" (toggleUsermenu)="toggleUsermenu()"></app-navbar>
+<app-usermenu-dropdown *ngIf="showUsermenu"></app-usermenu-dropdown>
 <div class="container">
   <mat-sidenav-container>
     <mat-sidenav #sidenavMenu class="sidenav-menu" [mode]="'side'" [position]="'start'">
@@ -9,7 +10,7 @@
       <app-sidenav-filter></app-sidenav-filter>
     </mat-sidenav>
 
-    <div class="page-content" (scroll)="scrolled($event)" (click)="sidenavMenu.close()" #pageContent>
+    <div class="page-content" (scroll)="scrolled($event)" (click)="hideMenus()" #pageContent>
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-container>

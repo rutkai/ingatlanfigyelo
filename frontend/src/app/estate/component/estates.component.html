@@ -2,10 +2,6 @@
   Mind megnézettnek jelöl
 </button>
 
-<button mat-button *ngIf="user" (click)="toggleView()" class="view-button">
-  {{ view === views.CARDS ? 'Kompakt' : 'Lista' }} nézet
-</button>
-
 <div #estateContainer>
   <div *ngIf="view === views.INLINE" class="inline-container">
     <div *ngFor="let estate of estates">

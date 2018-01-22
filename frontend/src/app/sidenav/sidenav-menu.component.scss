@@ -44,5 +44,11 @@ h3 {
         color: #3f51b5;
       }
     }
+
+    &.rss .mat-icon {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-top: -2px;
+    }
   }
 }

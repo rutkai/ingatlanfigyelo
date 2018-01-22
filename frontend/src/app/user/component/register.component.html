@@ -18,4 +18,6 @@
   <button mat-button mat-raised-button color="primary" [disabled]="username.invalid || password.invalid || password2.invalid" (click)="register()">
     Regisztráció
   </button>
+  <h3 class="existinguser">Meglévő felhasználó?</h3>
+  <a mat-button mat-raised-button color="secondary" routerLink="/user/login">Bejelentkezés</a>
 </div>

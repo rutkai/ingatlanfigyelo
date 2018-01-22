@@ -1,8 +1,8 @@
 import {
-  AfterContentInit, ChangeDetectorRef, Component, ElementRef, Inject, ViewChild
+  AfterContentInit, Component, ElementRef, Inject, ViewChild
 } from '@angular/core';
 import {
-  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserService, UserStore,
+  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore,
   View
 } from "../../common";
 import {Router} from "@angular/router";
@@ -31,7 +31,6 @@ export class EstatesComponent implements AfterContentInit {
               private notificationService: NotificationService,
               private navigationStore: NavigationStore,
               private userStore: UserStore,
-              private userService: UserService,
               private router: Router,
               @Inject('Window') private window: Window) {
     this.estatesStore.estates$.subscribe(estates => {
@@ -80,14 +79,6 @@ export class EstatesComponent implements AfterContentInit {
       .catch(() => {
         this.notificationService.showSnackbarNotification('Hiba mentés közben');
       });
-  }
-
-  public toggleView() {
-    if (this.user.view === View.CARDS) {
-      this.userService.changeView(View.INLINE);
-    } else {
-      this.userService.changeView(View.CARDS);
-    }
   }
 
   private loadInitialEstates() {

@@ -21,14 +21,4 @@ export class SidenavMenuComponent {
   public openFiltersSidenav() {
     this.openFilters.emit();
   }
-
-  public logout(): void {
-    this.userStore.logout()
-      .then(() => {
-        this.notificationService.showSnackbarNotification('Kijelentkezés sikeres');
-      })
-      .catch(() => {
-        this.notificationService.showSnackbarNotification('Váratlan hiba');
-      });
-  }
 }

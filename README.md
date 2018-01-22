@@ -55,6 +55,7 @@ Running in docker:
 
 4. Deploy application
 
+       mkdir -p /srv
        cd /srv 
        git clone https://riskawarrior@bitbucket.org/riskawarrior/ingatlanfigyelo.git ingatlanfigyelo
        cd ingatlanfigyelo

@@ -1,0 +1,7 @@
+<a mat-button *ngIf="!user" [routerLink]="['/user/login']">
+  Bejelentkezés
+</a>
+
+<button mat-icon-button *ngIf="user" (click)="userButton()">
+  <img [src]="gravatarBaseUrl + (user|gravatarEmailHash) + '?d=identicon&s=32'" class="avatar" />
+</button>
