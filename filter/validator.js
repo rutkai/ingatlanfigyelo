@@ -64,6 +64,7 @@ function isAllowedField(field) {
         "rooms",
         "halfrooms",
         "size",
+        "material",
         "descriptionText",
         "squareMeterPrice",
         "source"
@@ -128,11 +129,15 @@ function validateMultiselectFilter(filter) {
 }
 
 function validateStringFilter(filter) {
-    if (Object.keys(filter).length !== 2) {
+    if (Object.keys(filter).length !== 3) {
         return false;
     }
 
     if (!filter.contains || !Array.isArray(filter.contains)) {
+        return false;
+    }
+
+    if (typeof filter.nullable !== 'boolean') {
         return false;
     }
 

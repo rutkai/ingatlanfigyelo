@@ -1,3 +1,6 @@
+<mat-slide-toggle [(ngModel)]="filter.nullable" (change)="changed()">
+  {{ filter.nullable ? 'Hiányzó érték esetén kihagyás' : 'Mindig ellenőriz' }}
+</mat-slide-toggle>
 <tag-input [(ngModel)]="filter.containsAny" [modelAsStrings]="true"
            (onAdd)="changed()" (onRemove)="changed()" (onTagEdited)="changed()"
            placeholder="Kulcsszavak" secondaryPlaceholder="Írjon be egy kulcsszót, majd enter"></tag-input>

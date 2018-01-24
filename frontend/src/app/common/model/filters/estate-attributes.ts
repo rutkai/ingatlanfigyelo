@@ -8,6 +8,7 @@ export enum EstateAttributes {
   ROOMS = "rooms",
   HALF_ROOMS = "halfrooms",
   SIZE = "size",
+  MATERIAL = "material",
   DESCRIPTION = "descriptionText",
   SQUARE_METER_PRICE = "squareMeterPrice",
   SOURCE = "source",

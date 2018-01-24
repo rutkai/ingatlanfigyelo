@@ -36,6 +36,7 @@ exports.isStringField = isStringField;
 function isStringField(field) {
     const stringFields = [
         "heating",
+        "material",
         "descriptionText"
     ];
 

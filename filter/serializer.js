@@ -28,12 +28,12 @@ function toMongoFilter(userFilterGroups) {
                 });
             } else if (common.isStringField(filter.field) && filter.contains.length) {
                 const escapedFilter = filter.contains.join('|').replace(/[-[\]{}()*+?.,\\^$|#]/g, '');
-                filterQuery.push({
+                filterQuery.push(createMaybeNullableQuery(filter, {
                     [filter.field]: {
                         "$regex": `(${escapedFilter})`,
                         "$options": "i"
                     }
-                });
+                }));
             }
         }
 
