@@ -1,5 +1,5 @@
-<div class="footer">
+<div *ngIf="show" class="footer">
   <p>Az oldal sütiket használ.</p>
   <div class="flex-spacer"></div>
-  <p><a href="http://rutkai.hu/">rutkai.hu</a></p>
+  <i class="material-icons close-icon" (click)="hide()">close</i>
 </div>

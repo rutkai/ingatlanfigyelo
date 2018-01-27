@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {HeadUpdaterService} from "./common/service/head-updater.service";
 import {NavigationEnd, NavigationStart, Router} from "@angular/router";
-import {NavigationStore, User, UserStore} from "./common";
+import {NavigationStore, ScrollPositionStore, User, UserStore} from "./common";
 import {MatSidenav} from "@angular/material";
 
 @Component({
@@ -13,11 +13,11 @@ export class AppComponent implements AfterViewInit {
   @ViewChild('pageContent') pageContent: ElementRef;
   @ViewChild('sidenavMenu') sidenavMenu: MatSidenav;
 
-  public footerHidden = false;
   public showUsermenu = false;
 
   constructor(private headUpdaterService: HeadUpdaterService,
               private navigationStore: NavigationStore,
+              private scrollPositionStore: ScrollPositionStore,
               userStore: UserStore,
               private renderer: Renderer2,
               private router: Router) {
@@ -37,7 +37,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   public scrolled(event) {
-    this.footerHidden = event.srcElement.scrollTop !== 0;
+    this.scrollPositionStore.updatePosition(event.srcElement.scrollTop, event.srcElement.clientHeight);
   }
 
   public toggleUsermenu() {

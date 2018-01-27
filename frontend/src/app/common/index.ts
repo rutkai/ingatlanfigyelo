@@ -18,9 +18,11 @@ export * from './service/estates.service';
 export * from './service/notification.service';
 export * from './service/push-notification.service';
 export * from './service/user.service';
+export * from './service/storage.service';
 
 export * from './store/estates.store';
 export * from './store/navigation.store';
+export * from './store/scroll-position.store';
 export * from './store/stats.store';
 export * from './store/user.store';
 export * from './store/websocket-events.store';

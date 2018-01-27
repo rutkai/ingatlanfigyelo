@@ -2,8 +2,8 @@ import {
   AfterContentInit, Component, ElementRef, Inject, ViewChild
 } from '@angular/core';
 import {
-  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore,
-  View
+  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, PositionData, ScrollPositionStore, User,
+  UserStore, View
 } from "../../common";
 
 @Component({
@@ -24,12 +24,14 @@ export class EstatesComponent implements AfterContentInit {
 
   private user: User;
   private loadingInProgress = false;
+  private containerHeight = 1000;
 
   constructor(private estatesStore: EstatesStore,
               private estatesService: EstatesService,
               private notificationService: NotificationService,
               private navigationStore: NavigationStore,
               private userStore: UserStore,
+              scrollPositionStore: ScrollPositionStore,
               @Inject('Window') private window: Window) {
     this.estatesStore.estates$.subscribe(estates => {
       this.estates = estates;
@@ -43,6 +45,11 @@ export class EstatesComponent implements AfterContentInit {
     });
     this.userStore.user$.subscribe(user => {
       this.user = user;
+    });
+    scrollPositionStore.position$.subscribe((position: PositionData) => {
+      if (!this.exhausted && position.bottom > this.containerHeight) {
+        this.loadMoreEstates();
+      }
     });
   }
 
@@ -66,6 +73,7 @@ export class EstatesComponent implements AfterContentInit {
     this.loadingInProgress = true;
     this.estatesStore.fetchMore().then(() => {
       setTimeout(() => {
+        this.containerHeight = this.estateContainer.nativeElement.clientHeight;
         this.loadingInProgress = false;
         this.loadInitialEstates();
       }, 100);

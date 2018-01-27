@@ -1,8 +1,8 @@
-<button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
-  Mind megnézettnek jelöl
-</button>
-
 <div #estateContainer>
+  <button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
+    Mind megnézettnek jelöl
+  </button>
+
   <div *ngIf="view === views.INLINE" class="inline-container">
     <div *ngFor="let estate of estates">
       <app-estate [estate]="estate" [inline]="true"></app-estate>
@@ -17,7 +17,6 @@
     </div>
   </div>
 </div>
-<mat-spinner *ngIf="!exhausted" class="loading-spinner"
-             in-viewport (inViewportAction)="loadMoreEstates($event)" [inViewportOptions]="{ partial: false }">
-</mat-spinner>
+
+<mat-progress-bar *ngIf="!exhausted" mode="query" class="loading-spinner"></mat-progress-bar>
 <p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>

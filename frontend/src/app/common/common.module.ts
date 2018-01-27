@@ -18,6 +18,8 @@ import {StatsRepository} from "./repository/stats.repository";
 import {StatsStore} from "./store/stats.store";
 import {RemoveAccentsPipe} from "./pipes/remove-accents.pipe";
 import {NavigationStore} from "./store/navigation.store";
+import {StorageService} from "./service/storage.service";
+import {ScrollPositionStore} from "./store/scroll-position.store";
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ export class CommonModule {
         PushNotificationService,
         HeadUpdaterService,
         NavigationStore,
+        StorageService,
+        ScrollPositionStore,
       ],
     };
   }
