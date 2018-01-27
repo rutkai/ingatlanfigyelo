@@ -18,7 +18,7 @@ export class AppComponent implements AfterViewInit {
 
   constructor(private headUpdaterService: HeadUpdaterService,
               private navigationStore: NavigationStore,
-              private userStore: UserStore,
+              userStore: UserStore,
               private renderer: Renderer2,
               private router: Router) {
     userStore.user$.subscribe((user: User) => {

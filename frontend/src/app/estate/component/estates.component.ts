@@ -5,7 +5,6 @@ import {
   Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore,
   View
 } from "../../common";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-estates',
@@ -31,7 +30,6 @@ export class EstatesComponent implements AfterContentInit {
               private notificationService: NotificationService,
               private navigationStore: NavigationStore,
               private userStore: UserStore,
-              private router: Router,
               @Inject('Window') private window: Window) {
     this.estatesStore.estates$.subscribe(estates => {
       this.estates = estates;

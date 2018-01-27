@@ -9,7 +9,7 @@ export class StatsStore {
   private stats: BehaviorSubject<Stats> = new BehaviorSubject(null);
   public stats$: Observable<Stats> = this.stats.asObservable();
 
-  constructor(private statsRepository: StatsRepository) {
+  constructor(statsRepository: StatsRepository) {
     statsRepository.getStats().then((stats: Stats) => {
       this.stats.next(stats);
     });

@@ -1,17 +1,18 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {AppComponent} from './app.component';
 import {HttpClientModule} from "@angular/common/http";
-import {MatButtonModule, MatIconModule, MatSidenavModule} from "@angular/material";
+import {RouterModule, Routes} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatButtonModule, MatIconModule, MatSidenavModule} from "@angular/material";
+
+import {AppComponent} from './app.component';
 import {NavbarComponent} from "./navbar.component";
 import {FooterComponent} from "./footer.component";
 import {SidenavMenuComponent} from "./sidenav/sidenav-menu.component";
 import {CommonModule} from "./common/common.module";
 import {FilterModule} from "./filter/filter.module";
 import {EstateModule} from "./estate/estate.module";
-import {RouterModule, Routes} from "@angular/router";
 import {environment} from "../environments/environment";
 import {UsermenuModule} from "./usermenu/usermenu.module";
 

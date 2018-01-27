@@ -12,7 +12,7 @@ export class NavbarComponent {
 
   public user: User;
 
-  constructor(private userStore: UserStore) {
+  constructor(userStore: UserStore) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });

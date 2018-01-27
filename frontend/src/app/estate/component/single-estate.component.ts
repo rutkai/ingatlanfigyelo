@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Estate, EstatesService, NotificationService, User, UserStore} from "../../common";
+import {Estate, EstatesService} from "../../common";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -11,7 +11,6 @@ export class SingleEstateComponent implements OnInit {
   public estate: Estate;
 
   constructor(private estatesService: EstatesService,
-              private notificationService: NotificationService,
               private route: ActivatedRoute) {
   }
 

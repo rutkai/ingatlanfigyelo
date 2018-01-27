@@ -15,7 +15,7 @@ export class EstateComponent {
   public user: User;
 
   constructor(private estatesService: EstatesService,
-              private userStore: UserStore,
+              userStore: UserStore,
               private notificationService: NotificationService) {
     userStore.user$.subscribe(user => {
       this.user = user;

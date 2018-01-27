@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {Estate, EstatesService, User, UserStore} from "../../common";
+import {Estate, User, UserStore} from "../../common";
 
 @Component({
   selector: 'app-estate-card',
@@ -14,8 +14,7 @@ export class EstateCardComponent {
   public user: User;
   public imgError = false;
 
-  constructor(private estatesService: EstatesService,
-              private userStore: UserStore) {
+  constructor(userStore: UserStore) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });

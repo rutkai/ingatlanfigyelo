@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from "@angular/core";
-import {NotificationService, User, UserStore} from "../common";
+import {User, UserStore} from "../common";
 
 @Component({
   selector: 'app-sidenav-menu',
@@ -11,8 +11,7 @@ export class SidenavMenuComponent {
 
   public user: User;
 
-  constructor(private notificationService: NotificationService,
-              private userStore: UserStore) {
+  constructor(userStore: UserStore) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });

@@ -17,7 +17,7 @@ export class SidenavFilterComponent implements OnInit, OnDestroy {
   private changes = new Subject();
   private subscription: Subscription;
 
-  constructor(private estatesStore: EstatesStore, private userStore: UserStore, private userService: UserService) {
+  constructor(private estatesStore: EstatesStore, userStore: UserStore, private userService: UserService) {
     userStore.user$.subscribe(user => {
       this.user = user;
     });

@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Output} from "@angular/core";
 import {User, UserStore} from "../../common";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-usermenu-navicon',
@@ -14,8 +13,7 @@ export class NaviconComponent {
 
   public user: User;
 
-  constructor(private router: Router,
-              private userStore: UserStore) {
+  constructor(userStore: UserStore) {
     userStore.user$.subscribe((user: User) => {
       this.user = user;
     });
