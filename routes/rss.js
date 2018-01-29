@@ -45,7 +45,7 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
             description: 'Ár: ' + addNumberSpacing(estate.price) + ' Ft<br/>\n' +
                 'Méret: ' + estate.size + 'm<sup>2</sup><br/>\n' +
                 'Négyzetméterár: ' + addNumberSpacing(estate.squareMeterPrice) + ' Ft<br/>\n' +
-                'Szobák: ' + estate.rooms + ' + ' + estate.halfrooms,
+                'Szobák: ' + estate.rooms + (estate.halfrooms ? ' + ' + estate.halfrooms : ''),
             url: 'http://ingatlanfigyelo.eu/estate/' + estate._id,
             guid: estate._id,
             date: estate.updated

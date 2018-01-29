@@ -1,12 +1,13 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import {Estate, EstatesService, NotificationService, User, UserStore} from "../../common";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-estate',
   templateUrl: './estate.component.html',
   styleUrls: ['./estate.component.scss']
 })
-export class EstateComponent {
+export class EstateComponent implements OnDestroy {
   @Input() public estate: Estate;
   @Input() public inline = false;
 
@@ -14,12 +15,18 @@ export class EstateComponent {
 
   public user: User;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(private estatesService: EstatesService,
               userStore: UserStore,
               private notificationService: NotificationService) {
-    userStore.user$.subscribe(user => {
+    this.subscriptions.push(userStore.user$.subscribe(user => {
       this.user = user;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
   public hasDuplicates(): boolean {

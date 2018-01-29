@@ -1,17 +1,18 @@
 import {
-  AfterContentInit, Component, ElementRef, Inject, ViewChild
+  AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild
 } from '@angular/core';
 import {
   Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, PositionData, ScrollPositionStore, User,
   UserStore, View
 } from "../../common";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-estates',
   templateUrl: './estates.component.html',
   styleUrls: ['./estates.component.scss'],
 })
-export class EstatesComponent implements AfterContentInit {
+export class EstatesComponent implements AfterViewInit, OnDestroy {
   @ViewChild('estateContainer') estateContainer: ElementRef;
 
   public estates: Estate[] = [];
@@ -24,7 +25,9 @@ export class EstatesComponent implements AfterContentInit {
 
   private user: User;
   private loadingInProgress = false;
-  private containerHeight = 1000;
+  private containerHeight = 0;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(private estatesStore: EstatesStore,
               private estatesService: EstatesService,
@@ -33,31 +36,34 @@ export class EstatesComponent implements AfterContentInit {
               private userStore: UserStore,
               scrollPositionStore: ScrollPositionStore,
               @Inject('Window') private window: Window) {
-    this.estatesStore.estates$.subscribe(estates => {
+    this.subscriptions.push(this.estatesStore.estates$.subscribe((estates: Estate[]) => {
       this.estates = estates;
       this.repopulateEstatesGrid();
-    });
-    this.estatesStore.exhausted$.subscribe(exhausted => {
+    }));
+    this.subscriptions.push(this.estatesStore.exhausted$.subscribe((exhausted: boolean) => {
       this.exhausted = exhausted;
-    });
-    this.estatesStore.unseenEstates$.subscribe(exhausted => {
-      this.areUnseenEstates = !!exhausted.length;
-    });
-    this.userStore.user$.subscribe(user => {
+    }));
+    this.subscriptions.push(this.estatesStore.unseenEstates$.subscribe((unseenEstates: Estate[]) => {
+      this.areUnseenEstates = !!unseenEstates.length;
+    }));
+    this.subscriptions.push(this.userStore.user$.subscribe((user: User) => {
       this.user = user;
-    });
-    scrollPositionStore.position$.subscribe((position: PositionData) => {
-      if (!this.exhausted && position.bottom > this.containerHeight) {
+    }));
+    this.subscriptions.push(scrollPositionStore.position$.subscribe((position: PositionData) => {
+      if (!this.exhausted && this.containerHeight && position.bottom > this.containerHeight) {
         this.loadMoreEstates();
       }
-    });
+    }));
   }
 
-  ngAfterContentInit(): void {
-    setTimeout(() => {
-      this.enableLoading = true;
-      this.loadInitialEstates();
-    }, 100);
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
+  }
+
+  ngAfterViewInit(): void {
+    this.enableLoading = true;
+    this.containerHeight = this.estateContainer.nativeElement.clientHeight;
+    this.loadInitialEstates();
     this.navigationStore.restorePosition();
   }
 

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {Estate, User, UserStore} from "../../common";
+import {Estate} from "../../common";
 
 @Component({
   selector: 'app-estate-card',
@@ -11,14 +11,7 @@ export class EstateCardComponent {
 
   @ViewChild('estateCardContent') estateCardContent: ElementRef;
 
-  public user: User;
   public imgError = false;
-
-  constructor(userStore: UserStore) {
-    userStore.user$.subscribe(user => {
-      this.user = user;
-    });
-  }
 
   public get coverImg() {
     return this.estate.images.length && !this.imgError ? this.estate.images[0] : '/assets/logo.png';

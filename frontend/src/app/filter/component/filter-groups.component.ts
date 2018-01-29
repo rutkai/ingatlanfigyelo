@@ -1,20 +1,27 @@
-import {Component, EventEmitter, Output} from "@angular/core";
+import {Component, EventEmitter, OnDestroy, Output} from "@angular/core";
 import {Filters, User, UserStore} from "../../common";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-filter-groups',
   templateUrl: './filter-groups.component.html',
   styleUrls: ['./filter-groups.component.scss']
 })
-export class FilterGroupsComponent {
+export class FilterGroupsComponent implements OnDestroy {
   @Output() public change = new EventEmitter<Filters[]>();
 
   public user: User;
 
+  private subscriptions: Subscription[] = [];
+
   constructor(userStore: UserStore) {
-    userStore.user$.subscribe(user => {
+    this.subscriptions.push(userStore.user$.subscribe(user => {
       this.user = user;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
   public addFilterGroup() {

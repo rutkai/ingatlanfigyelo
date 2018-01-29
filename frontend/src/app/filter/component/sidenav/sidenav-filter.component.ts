@@ -15,16 +15,17 @@ export class SidenavFilterComponent implements OnInit, OnDestroy {
 
   private debounceTime = 2000;
   private changes = new Subject();
-  private subscription: Subscription;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(private estatesStore: EstatesStore, userStore: UserStore, private userService: UserService) {
-    userStore.user$.subscribe(user => {
+    this.subscriptions.push(userStore.user$.subscribe((user: User) => {
       this.user = user;
-    });
+    }));
   }
 
   ngOnInit(): void {
-    this.subscription = this.changes.pipe(
+    const subscription = this.changes.pipe(
       debounceTime(this.debounceTime)
     ).subscribe(() => {
       this.userService.saveFilters(this.user.filterGroups)
@@ -35,10 +36,12 @@ export class SidenavFilterComponent implements OnInit, OnDestroy {
           this.estatesStore.reset();
         });
     });
+
+    this.subscriptions.push(subscription);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
   public saveFilters() {
