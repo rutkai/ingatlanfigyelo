@@ -52,7 +52,9 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     }));
     this.subscriptions.push(this.userStore.user$.subscribe((user: User) => {
       this.user = user;
-      this.loadInitialEstates();
+      setTimeout(() => {
+        this.loadInitialEstates();
+      }, 100);
     }));
   }
 
