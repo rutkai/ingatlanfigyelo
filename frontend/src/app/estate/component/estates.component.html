@@ -1,22 +1,24 @@
-<div #estateContainer>
-  <button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
-    Mind megnézettnek jelöl
-  </button>
+<div class="estates-viewbox" (scroll)="scrolled($event)" #estatesViewbox>
+  <div #estateContainer>
+    <button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
+      Mind megnézettnek jelöl
+    </button>
 
-  <div *ngIf="view === views.INLINE" class="inline-container">
-    <div *ngFor="let estate of estates">
-      <app-estate [estate]="estate" [inline]="true"></app-estate>
-      <mat-divider></mat-divider>
+    <div *ngIf="view === views.INLINE" class="inline-container">
+      <div *ngFor="let estate of estates">
+        <app-estate [estate]="estate" [inline]="true"></app-estate>
+        <mat-divider></mat-divider>
+      </div>
     </div>
-  </div>
-  <div *ngIf="view === views.CARDS" class="o-container">
-    <div *ngFor="let row of estatesGrid" class="o-row">
-      <div *ngFor="let estate of row" class="o-column xs--12 sm--4">
-        <app-estate-card [estate]="estate"></app-estate-card>
+    <div *ngIf="view === views.CARDS" class="o-container">
+      <div *ngFor="let row of estatesGrid" class="o-row">
+        <div *ngFor="let estate of row" class="o-column xs--12 sm--4">
+          <app-estate-card [estate]="estate"></app-estate-card>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<mat-progress-bar *ngIf="!exhausted" mode="query" class="loading-spinner"></mat-progress-bar>
-<p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>
+  <mat-progress-bar *ngIf="!exhausted" mode="query" class="loading-spinner"></mat-progress-bar>
+  <p *ngIf="exhausted">Nem található több ingatlan a feedben!</p>
+</div>

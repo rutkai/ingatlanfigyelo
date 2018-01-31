@@ -2,8 +2,7 @@ import {
   AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild
 } from '@angular/core';
 import {
-  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, PositionData, ScrollPositionStore, User,
-  UserStore, View
+  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore, View
 } from "../../common";
 import {Subscription} from "rxjs/Subscription";
 
@@ -13,6 +12,7 @@ import {Subscription} from "rxjs/Subscription";
   styleUrls: ['./estates.component.scss'],
 })
 export class EstatesComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('estatesViewbox') estatesViewbox: ElementRef;
   @ViewChild('estateContainer') estateContainer: ElementRef;
 
   public estates: Estate[] = [];
@@ -32,11 +32,14 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   constructor(private estatesStore: EstatesStore,
               private estatesService: EstatesService,
               private notificationService: NotificationService,
-              private navigationStore: NavigationStore,
               private userStore: UserStore,
-              scrollPositionStore: ScrollPositionStore,
+              private navigationStore: NavigationStore,
               @Inject('Window') private window: Window) {
     this.subscriptions.push(this.estatesStore.estates$.subscribe((estates: Estate[]) => {
+      if (!estates.length && this.estates.length) {
+        this.navigationStore.position = 0;
+      }
+
       this.estates = estates;
       this.repopulateEstatesGrid();
       this.loadInitialEstates();
@@ -50,14 +53,10 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.push(this.userStore.user$.subscribe((user: User) => {
       this.user = user;
     }));
-    this.subscriptions.push(scrollPositionStore.position$.subscribe((position: PositionData) => {
-      if (!this.exhausted && this.containerHeight && position.bottom > this.containerHeight) {
-        this.loadMoreEstates();
-      }
-    }));
   }
 
   ngOnDestroy(): void {
+    this.navigationStore.position = this.estatesViewbox.nativeElement.scrollTop;
     this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
@@ -65,11 +64,18 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     this.enableLoading = true;
     this.containerHeight = this.estateContainer.nativeElement.clientHeight;
     this.loadInitialEstates();
-    this.navigationStore.restorePosition();
+    this.estatesViewbox.nativeElement.scrollTop = this.navigationStore.position;
   }
 
   public get view() {
     return this.user ? this.user.view : View.CARDS;
+  }
+
+  public scrolled(event): void {
+    let bottom = event.srcElement.scrollTop + event.srcElement.clientHeight;
+    if (!this.exhausted && this.containerHeight && bottom > this.containerHeight) {
+      this.loadMoreEstates();
+    }
   }
 
   public loadMoreEstates() {

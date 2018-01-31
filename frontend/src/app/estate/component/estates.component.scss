@@ -1,6 +1,13 @@
 :host {
   display: block;
   text-align: center;
+  height: 100%;
+}
+
+.estates-viewbox {
+  display: block;
+  height: 100%;
+  overflow: auto;
 }
 
 .mark-all-seen, .view-button {
