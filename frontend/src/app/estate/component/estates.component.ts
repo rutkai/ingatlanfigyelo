@@ -51,6 +51,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
       this.areUnseenEstates = !!unseenEstates.length;
     }));
     this.subscriptions.push(this.userStore.user$.subscribe((user: User) => {
+      this.loadInitialEstates();
       this.user = user;
     }));
   }
