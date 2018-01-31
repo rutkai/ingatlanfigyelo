@@ -12,6 +12,7 @@ function create(username, password) {
         seenEstates: [],
         readAllMark: null,
         unseenMarkedEstates: [],
+        view: 'cards',
         lastRefresh: new Date()
     });
 }

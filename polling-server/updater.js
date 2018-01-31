@@ -105,6 +105,11 @@ class Updater {
                         estate.source = this.provider.name;
                         estate.url = url;
                     }
+                    for (let attr of Object.keys(profileData)) {
+                        if (estate[attr] === null && profileData[attr] !== null) {
+                            estate[attr] = profileData[attr];
+                        }
+                    }
                     return estate;
                 }
 

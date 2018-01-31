@@ -30,8 +30,8 @@ function parseList(html) {
 function parseProfile(html) {
     const $ = cheerio.load(html);
 
-    const images = $('.newGalThumbPic').map(function() {
-        return $(this).attr('data-gallery-url');
+    const images = $('.newGalPic').map(function() {
+        return $(this).attr('data-gallery-biggest-url');
     }).toArray();
 
     const price = parseInt($('.' + extractPriceSecret($('.price2-section').html()) + ' .price2-value').text().replace(/ /g, ''));

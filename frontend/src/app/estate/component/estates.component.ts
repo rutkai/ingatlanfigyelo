@@ -39,6 +39,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.push(this.estatesStore.estates$.subscribe((estates: Estate[]) => {
       this.estates = estates;
       this.repopulateEstatesGrid();
+      this.loadInitialEstates();
     }));
     this.subscriptions.push(this.estatesStore.exhausted$.subscribe((exhausted: boolean) => {
       this.exhausted = exhausted;
@@ -94,7 +95,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   }
 
   private loadInitialEstates() {
-    if (this.estateContainer.nativeElement.scrollHeight < this.window.innerHeight) {
+    if (this.estateContainer && this.estateContainer.nativeElement.scrollHeight < this.window.innerHeight) {
       this.loadMoreEstates();
     }
   }

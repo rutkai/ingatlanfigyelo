@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {MapsAPILoader} from "@agm/core";
 import {Estate} from "../../common";
 
@@ -9,7 +9,7 @@ declare const google: any;
   templateUrl: './estate-map.component.html',
   styleUrls: ['./estate-map.component.scss']
 })
-export class EstateMapComponent implements OnInit {
+export class EstateMapComponent implements OnInit, OnDestroy {
   @Input() public estate: Estate;
   @Input() public loadOnClick = false;
 
@@ -18,6 +18,7 @@ export class EstateMapComponent implements OnInit {
   public error = false;
 
   private loadAttempted = false;
+  private destroyed = false;
 
   constructor(private changeDetector: ChangeDetectorRef,
               private mapsLoader: MapsAPILoader) {
@@ -27,6 +28,10 @@ export class EstateMapComponent implements OnInit {
     if (!this.loadOnClick) {
       this.loadMap();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed = true;
   }
 
   public clickLoadMap() {
@@ -48,7 +53,10 @@ export class EstateMapComponent implements OnInit {
         } else {
           this.error = true;
         }
-        this.changeDetector.detectChanges();
+
+        if (!this.destroyed) {
+          this.changeDetector.detectChanges();
+        }
       });
     });
   }
