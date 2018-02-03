@@ -1,3 +1,9 @@
+app-usermenu-navicon {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .navbar {
   display: -webkit-box;
   display: -ms-flexbox;

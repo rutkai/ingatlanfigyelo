@@ -26,6 +26,10 @@ module.exports = {
         src: ['{{ROOT}}/node_modules/font-awesome/css/font-awesome.css'],
         dest: '{{WWW}}/assets/css'
     },
+    copyMaterialIconsCss: {
+        src: ['{{ROOT}}/node_modules/material-design-icons/iconfont/*'],
+        dest: '{{WWW}}/assets/css'
+    },
     copyAngularMaterialIconsCss: {
         src: ['{{ROOT}}/node_modules/material-design-icons/iconfont/material-icons.css'],
         dest: '{{WWW}}/assets/css'
