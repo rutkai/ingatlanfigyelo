@@ -34,6 +34,10 @@ function getApp() {
 
             if (isDev()) {
                 app.use(logger('dev'));
+                app.use(require('cors')({
+                    origin: true,
+                    credentials: true
+                }))
             }
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded({extended: false}));

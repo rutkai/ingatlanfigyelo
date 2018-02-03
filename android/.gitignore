@@ -1,2 +1,9 @@
-/frontend
-/platforms
+# Libraries
+node_modules
+src/frontend
+
+# Compiled stuff
+.sourcemaps
+platforms
+plugins
+www

@@ -1,0 +1,10 @@
+{
+  "name": "Ingatlanfigyelő",
+  "app_id": "ingatlanfigyelo",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {
+      "enabled": true
+    }
+  }
+}
