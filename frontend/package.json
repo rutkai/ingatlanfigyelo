@@ -7,7 +7,7 @@
     "start": "ng serve",
     "clean": "rm -r ../public/*",
     "build": "ng build --output-path='../public'",
-    "build-prod": "ng build --output-path='../public' --prod --aot=false --build-optimizer=false",
+    "build-prod": "ng build --output-path='../public' --prod --aot=true --build-optimizer=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

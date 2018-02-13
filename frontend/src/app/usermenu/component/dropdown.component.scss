@@ -1,14 +1,4 @@
-@import "~scss/variables";
-
-:host {
-  box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.3), 0 12px 20px 0 rgba(0, 0, 0, 0.21), 0 2px 36px 0 rgba(0, 0, 0, 0.18);
-  position: fixed;
-  right: 20px;
-  top: 60px;
-  max-width: 300px;
-  z-index: 2000;
-  background-color: white;
-}
+@import "../../../scss/variables";
 
 .head {
   background-color: $white-smoke;

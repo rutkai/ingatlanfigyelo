@@ -13,7 +13,7 @@ export class UserRepository {
   }
 
   public getProfile(): Promise<User> {
-    return this.http.get(`//${environment.apiDomain}/user/profile`, {withCredentials: true}).toPromise()
+    return this.http.get(`${environment.apiScheme}://${environment.apiDomain}/user/profile`, {withCredentials: true}).toPromise()
       .then((response: any) => response.user)
       .then((userData: any) => this.unserializeUser(userData));
   }
@@ -24,13 +24,13 @@ export class UserRepository {
       password
     };
 
-    return this.http.post(`//${environment.apiDomain}/user/login`, payload, {withCredentials: true}).toPromise()
+    return this.http.post(`${environment.apiScheme}://${environment.apiDomain}/user/login`, payload, {withCredentials: true}).toPromise()
       .then((response: any) => response.user)
       .then((userData: any) => this.unserializeUser(userData));
   }
 
   public logout(): Promise<void> {
-    return this.http.get(`//${environment.apiDomain}/user/logout`, {withCredentials: true}).toPromise()
+    return this.http.get(`${environment.apiScheme}://${environment.apiDomain}/user/logout`, {withCredentials: true}).toPromise()
       .then(() => {
       });
   }
@@ -41,7 +41,7 @@ export class UserRepository {
       password
     };
 
-    return this.http.post(`//${environment.apiDomain}/user/register`, payload, {withCredentials: true}).toPromise()
+    return this.http.post(`${environment.apiScheme}://${environment.apiDomain}/user/register`, payload, {withCredentials: true}).toPromise()
       .then(() => {
       });
   }

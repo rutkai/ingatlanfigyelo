@@ -11,13 +11,13 @@ export class EstatesRepository {
   }
 
   public getEstate(id: string): Promise<Estate> {
-    return this.http.get(`//${environment.apiDomain}/estate/${id}`, {withCredentials: true}).toPromise()
+    return this.http.get(`${environment.apiScheme}://${environment.apiDomain}/estate/${id}`, {withCredentials: true}).toPromise()
       .then((response: any) => response.estate)
       .then(estate => this.estateParser.parse(estate));
   }
 
   public getEstates(start: number = 0, pool: EstatePool): Promise<Estate[]> {
-    return this.http.get(`//${environment.apiDomain}/estates/${start}/${pool}`, {withCredentials: true}).toPromise()
+    return this.http.get(`${environment.apiScheme}://${environment.apiDomain}/estates/${start}/${pool}`, {withCredentials: true}).toPromise()
       .then((response: any) => response.estates)
       .then(estates => this.estateParser.parseMany(estates));
   }
@@ -28,12 +28,12 @@ export class EstatesRepository {
       seen: estate.isSeen
     };
 
-    return this.http.put(`//${environment.apiDomain}/estate/${estate.id}`, data, {withCredentials: true}).toPromise()
+    return this.http.put(`${environment.apiScheme}://${environment.apiDomain}/estate/${estate.id}`, data, {withCredentials: true}).toPromise()
       .then(() => {});
   }
 
   public markAllSeen(): Promise<void> {
-    return this.http.post(`//${environment.apiDomain}/estates/mark-read`, {}, {withCredentials: true}).toPromise()
+    return this.http.post(`${environment.apiScheme}://${environment.apiDomain}/estates/mark-read`, {}, {withCredentials: true}).toPromise()
       .then(() => {});
   }
 }

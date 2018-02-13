@@ -15,6 +15,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   @ViewChild('estatesViewbox') estatesViewbox: ElementRef;
   @ViewChild('estateContainer') estateContainer: ElementRef;
 
+  public user: User;
   public estates: Estate[] = [];
   public estatesGrid: Estate[][] = [[]];
   public exhausted = true;
@@ -23,9 +24,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
 
   public views = View;
 
-  private user: User;
   private loadingInProgress = false;
-  private containerHeight = 0;
 
   private subscriptions: Subscription[] = [];
 
@@ -65,7 +64,6 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.enableLoading = true;
-    this.containerHeight = this.estateContainer.nativeElement.clientHeight;
     this.loadInitialEstates();
     this.estatesViewbox.nativeElement.scrollTop = this.navigationStore.position;
   }
@@ -76,7 +74,8 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
 
   public scrolled(event): void {
     let bottom = event.srcElement.scrollTop + event.srcElement.clientHeight;
-    if (!this.exhausted && this.containerHeight && bottom > this.containerHeight) {
+    let containerHeight = this.estateContainer.nativeElement.clientHeight;
+    if (!this.exhausted && containerHeight && bottom > containerHeight) {
       this.loadMoreEstates();
     }
   }
@@ -89,7 +88,6 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     this.loadingInProgress = true;
     this.estatesStore.fetchMore().then(() => {
       setTimeout(() => {
-        this.containerHeight = this.estateContainer.nativeElement.clientHeight;
         this.loadingInProgress = false;
         this.loadInitialEstates();
       }, 100);

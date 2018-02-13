@@ -33,6 +33,14 @@
     height: 100%;
     width: 100%;
     background: #F8F8F8;
+
+    app-estate-map {
+      height: 100%;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+    }
   }
 
   .description,
