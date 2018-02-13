@@ -14,7 +14,7 @@ export class EstateCardComponent {
   public imgError = false;
 
   public get coverImg() {
-    return this.estate.images.length && !this.imgError ? this.estate.images[0] : '/assets/logo.png';
+    return this.estate.images.length && !this.imgError ? this.estate.images[0] : 'assets/logo.png';
   }
 
   public imgLoadError() {

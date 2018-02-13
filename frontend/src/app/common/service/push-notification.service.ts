@@ -17,7 +17,7 @@ export class PushNotificationService {
 
     Push.create(title, {
       body,
-      icon: '/assets/logo.png',
+      icon: 'assets/logo.png',
       onClick: function () {
         window.focus();
         this.close();

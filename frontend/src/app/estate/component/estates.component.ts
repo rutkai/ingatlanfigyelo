@@ -25,6 +25,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   public views = View;
 
   private loadingInProgress = false;
+  private scrollCheckInterval: any;
 
   private subscriptions: Subscription[] = [];
 
@@ -60,21 +61,25 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.navigationStore.position = this.estatesViewbox.nativeElement.scrollTop;
     this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
+
+    clearInterval(this.scrollCheckInterval);
   }
 
   ngAfterViewInit(): void {
     this.enableLoading = true;
     this.loadInitialEstates();
     this.estatesViewbox.nativeElement.scrollTop = this.navigationStore.position;
+
+    this.scrollCheckInterval = setInterval(() => this.checkScroll(), 200);
   }
 
   public get view() {
     return this.user ? this.user.view : View.CARDS;
   }
 
-  public scrolled(event): void {
-    let bottom = event.srcElement.scrollTop + event.srcElement.clientHeight;
+  public checkScroll(): void {
     let containerHeight = this.estateContainer.nativeElement.clientHeight;
+    let bottom = this.estatesViewbox.nativeElement.scrollTop + this.estatesViewbox.nativeElement.clientHeight;
     if (!this.exhausted && containerHeight && bottom > containerHeight) {
       this.loadMoreEstates();
     }

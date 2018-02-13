@@ -85,9 +85,9 @@ export class EstateGalleryComponent implements OnInit {
     } else {
       this.galleryImages = [
         {
-          small: '/assets/logo.png',
-          medium: '/assets/logo.png',
-          big: '/assets/logo.png'
+          small: 'assets/logo.png',
+          medium: 'assets/logo.png',
+          big: 'assets/logo.png'
         }
       ];
     }

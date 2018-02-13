@@ -20,6 +20,8 @@ gulp.task('default', function() {
         .pipe(gulp.dest('src/frontend/scss'));
     gulp
         .src(['frontend/src/environments/**/*'])
+        .pipe(replace("apiScheme: 'http'", "apiScheme: 'https'"))
+        .pipe(replace("apiDomain: 'localhost:3000'", "apiDomain: 'api.ingatlanfigyelo.eu'"))
         .pipe(gulp.dest('src/frontend/environments'));
     gulp
         .src(['frontend/src/styles.scss'])
