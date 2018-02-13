@@ -9,7 +9,7 @@ import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class WebsocketRepository {
-  private readonly endpoint = (environment.production ? 'wss' : 'ws') + `://${environment.apiDomain}/poll`;
+  private readonly endpoint = (environment.apiScheme === 'https' ? 'wss' : 'ws') + `://${environment.apiDomain}/poll`;
 
   private inputStream: Subject<string>;
   private messages: BehaviorSubject<any>;

@@ -9,6 +9,6 @@ export class StatsRepository {
   }
 
   public getStats(): Promise<Stats> {
-    return this.http.get(`//${environment.apiDomain}/stats`).toPromise() as Promise<Stats>;
+    return this.http.get(`${environment.apiScheme}://${environment.apiDomain}/stats`).toPromise() as Promise<Stats>;
   }
 }

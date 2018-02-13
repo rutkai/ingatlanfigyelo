@@ -2,7 +2,14 @@
   "name": "Ingatlanfigyelő",
   "app_id": "ingatlanfigyelo",
   "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/",
+      "proxyUrl": "https://api.ingatlanfigyelo.eu/"
+    }
+  ],
   "integrations": {
-    "gulp": {}
+    "gulp": {},
+    "cordova": {}
   }
 }

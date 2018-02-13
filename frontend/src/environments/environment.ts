@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
+  apiScheme: 'http',
   apiDomain: 'localhost:3000',
   mapsApiKey: 'AIzaSyDzEMIx08kuBg9cwp4iUCQ-eswD4xomIUI',
   production: false
