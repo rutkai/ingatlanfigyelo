@@ -5,6 +5,19 @@
   </div>
   <div class="content">
     <mat-nav-list>
+      <a mat-list-item [matMenuTriggerFor]="changePool">
+        Lista:
+        {{ pool === estatePool.FAVOURITE ? 'kedvencek' : '' }}
+        {{ pool === estatePool.UNSEEN ? 'új ingatlanok' : '' }}
+        {{ pool === estatePool.SEEN ? 'megnézett ingatlanok' : '' }}
+      </a>
+      <mat-menu #changePool>
+        <button mat-menu-item (click)="changeEstatePool(estatePool.FAVOURITE)">Kedvencek</button>
+        <button mat-menu-item (click)="changeEstatePool(estatePool.UNSEEN)">Új ingatlanok</button>
+        <button mat-menu-item (click)="changeEstatePool(estatePool.SEEN)">Megnézett ingatlanok</button>
+      </mat-menu>
+    </mat-nav-list>
+    <mat-nav-list>
       <a mat-list-item [matMenuTriggerFor]="changeView">Nézet: {{ user.view === views.CARDS ? 'kompakt' : 'lista' }}</a>
       <mat-menu #changeView>
         <button mat-menu-item (click)="setCardsView()">Kompakt</button>

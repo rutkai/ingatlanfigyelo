@@ -8,6 +8,7 @@ export * from './model/filters/types/string.filter';
 export * from './model/filters/estate-attributes';
 export * from './model/filters/filters';
 export * from './model/estate';
+export * from './model/estate-pool';
 export * from './model/estate-sources';
 export * from './model/stats';
 export * from './model/user';
@@ -26,4 +27,5 @@ export * from './store/stats.store';
 export * from './store/user.store';
 export * from './store/websocket-events.store';
 
+export * from './types/estate-list';
 export * from './types/view';

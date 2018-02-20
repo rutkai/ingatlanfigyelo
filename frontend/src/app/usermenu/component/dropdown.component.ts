@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from "@angular/core";
-import {NotificationService, User, UserService, UserStore, View} from "../../common";
+import {EstatePool, EstatesStore, NotificationService, User, UserService, UserStore, View} from "../../common";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({
@@ -9,16 +9,22 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class DropdownComponent implements OnDestroy {
   public user: User;
+  public pool: EstatePool;
 
+  public estatePool = EstatePool;
   public views = View;
 
   private subscriptions: Subscription[] = [];
 
   constructor(private notificationService: NotificationService,
               private userStore: UserStore,
-              private userService: UserService) {
+              private userService: UserService,
+              private estatesStore: EstatesStore) {
     this.subscriptions.push(userStore.user$.subscribe((user: User) => {
       this.user = user;
+    }));
+    this.subscriptions.push(estatesStore.estatePool$.subscribe((pool: EstatePool) => {
+      this.pool = pool;
     }));
   }
 
@@ -46,5 +52,9 @@ export class DropdownComponent implements OnDestroy {
     if (this.user.view !== View.INLINE) {
       this.userService.changeView(View.INLINE);
     }
+  }
+
+  public changeEstatePool(pool: EstatePool): void {
+    this.estatesStore.setEstatePool(pool);
   }
 }

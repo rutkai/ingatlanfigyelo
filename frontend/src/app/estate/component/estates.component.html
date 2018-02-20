@@ -1,6 +1,6 @@
 <div class="estates-viewbox" #estatesViewbox>
   <div #estateContainer>
-    <button mat-button (click)="markAllSeen()" *ngIf="user && areUnseenEstates" class="mark-all-seen">
+    <button mat-button (click)="markAllSeen()" *ngIf="user && pool === estatePool.UNSEEN && estates.length" class="mark-all-seen">
       Mind megnézettnek jelöl
     </button>
 

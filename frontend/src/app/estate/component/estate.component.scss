@@ -5,6 +5,12 @@
     position: static;
   }
 
+  @media (max-width: 767px) {
+    .mobile-reverse {
+      flex-direction: column-reverse;
+    }
+  }
+
   h2 {
     margin: 1.2rem 1rem 0.8rem;
   }

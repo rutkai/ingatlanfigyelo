@@ -2,7 +2,7 @@ import {
   AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild
 } from '@angular/core';
 import {
-  Estate, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore, View
+  Estate, EstatePool, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore, View
 } from "../../common";
 import {Subscription} from "rxjs/Subscription";
 
@@ -19,10 +19,11 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   public estates: Estate[] = [];
   public estatesGrid: Estate[][] = [[]];
   public exhausted = true;
-  public areUnseenEstates = false;
+  public pool: EstatePool;
   public enableLoading = false;
 
   public views = View;
+  public estatePool = EstatePool;
 
   private loadingInProgress = false;
   private scrollCheckInterval: any;
@@ -47,8 +48,9 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.push(this.estatesStore.exhausted$.subscribe((exhausted: boolean) => {
       this.exhausted = exhausted;
     }));
-    this.subscriptions.push(this.estatesStore.unseenEstates$.subscribe((unseenEstates: Estate[]) => {
-      this.areUnseenEstates = !!unseenEstates.length;
+    this.subscriptions.push(this.estatesStore.estatePool$.subscribe((pool: EstatePool) => {
+      this.pool = pool;
+      this.loadInitialEstates();
     }));
     this.subscriptions.push(this.userStore.user$.subscribe((user: User) => {
       this.user = user;
@@ -80,13 +82,13 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   public checkScroll(): void {
     let containerHeight = this.estateContainer.nativeElement.clientHeight;
     let bottom = this.estatesViewbox.nativeElement.scrollTop + this.estatesViewbox.nativeElement.clientHeight;
-    if (!this.exhausted && containerHeight && bottom > containerHeight) {
+    if (!this.exhausted && containerHeight !== null && bottom > containerHeight) {
       this.loadMoreEstates();
     }
   }
 
   public loadMoreEstates() {
-    if (this.loadingInProgress || !this.enableLoading) {
+    if (this.loadingInProgress || !this.enableLoading || this.exhausted) {
       return;
     }
 
