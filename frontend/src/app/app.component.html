@@ -2,11 +2,11 @@
 <app-usermenu-dropdown *ngIf="showUsermenu"></app-usermenu-dropdown>
 <div class="container">
   <mat-sidenav-container>
-    <mat-sidenav #sidenavMenu class="sidenav-menu" [mode]="'side'" [position]="'start'">
+    <mat-sidenav #sidenavMenu class="sidenav-menu" [mode]="'side'" [position]="'start'" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end', 'menu')">
       <app-sidenav-menu (openFilters)="sidenavFilter.open()"></app-sidenav-menu>
     </mat-sidenav>
 
-    <mat-sidenav #sidenavFilter class="sidenav-filter" [mode]="'over'" [position]="'end'">
+    <mat-sidenav #sidenavFilter class="sidenav-filter" [mode]="'over'" [position]="'end'" (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end', 'filter')">
       <app-sidenav-filter></app-sidenav-filter>
     </mat-sidenav>
 
