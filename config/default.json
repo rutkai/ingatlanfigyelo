@@ -40,7 +40,7 @@
           "interval": {
             "milliseconds": 2000
           },
-          "maxPages": 20
+          "maxPages": 25
         }
       },
       {
