@@ -1,5 +1,6 @@
 const Raven = require('raven');
 const {URL} = require('url');
+const moment = require('moment');
 const worker = require('./worker/worker');
 const env = require('../env/env');
 
@@ -85,31 +86,24 @@ class Updater {
             profileData.squareMeterPrice = Math.round(profileData.price / profileData.size);
 
             let estate = await estateRepository.get({url});
+            let updated = false;
             if (estate) {
-                estate.version = estates.version;
-                Object.assign(estate, profileData);
+                updated = this.updateEstateByProfileData(estate, profileData);
             } else if (estate = await estateRepository.get({urls: {[this.provider.name]: url}})) {
-                // This is a duplicate estate, no update for duplicates - for now
+                updated = this.updateEstateByProfileData(estate, profileData);
             } else if (estate = await duplication.isDuplicate(profileData)) {
                 estate.urls[this.provider.name] = url;
-                if (estate.price > profileData.price) {
-                    estate.price = profileData.price;
-                    estate.source = this.provider.name;
-                    estate.url = url;
-                }
-                for (let attr of Object.keys(profileData)) {
-                    if (estate[attr] === null && profileData[attr] !== null) {
-                        estate[attr] = profileData[attr];
-                    }
-                }
+                this.updateEstateByProfileData(estate, profileData);
+                updated = true;
             } else {
                 profileData.urls = {
                     [this.provider.name]: url
                 };
                 estate = profileData;
+                updated = true;
             }
 
-            if (estate) {
+            if (estate && updated) {
                 estateRepository.save(estate);
             }
 
@@ -133,6 +127,31 @@ class Updater {
         }
     }
 
+    updateEstateByProfileData(estate, profileData) {
+        let updated = false;
+
+        if (estate.price > profileData.price) {
+            estate.price = profileData.price;
+            estate.source = this.provider.name;
+            estate.url = url;
+            updated = true;
+        }
+
+        if (!estate.images.length && profileData.images.length) {
+            estate.images = profileData.images;
+            updated = true;
+        }
+
+        for (let attr of Object.keys(profileData)) {
+            if (estate[attr] === null && profileData[attr] !== null) {
+                estate[attr] = profileData[attr];
+                updated = true;
+            }
+        }
+
+        return updated;
+    }
+
     normalizeUrl(str) {
         if (str.startsWith("http")) {
             return str;
@@ -154,16 +173,21 @@ class Updater {
         const normUrl = this.normalizeUrl(profile.url);
         let estate = await estateRepository.get({url: normUrl});
         if (estate) {
+            // Update estate older than 4 hours
+            if (moment().subtract(4, 'hours').isAfter(estate.created)) {
+                return true;
+            }
+
+            // Update estate every day once till 7 days, no updates after that
+            if (moment().subtract(7, 'days').isBefore(estate.created) && moment().subtract(1, 'day').isAfter(estate.updated)) {
+                return true;
+            }
+
             return estate.version !== estates.version;
         }
 
         estate = await estateRepository.get({urls: {[this.provider.name]: normUrl}});
-        if (estate) {
-            // This is a duplicate, no update for duplicates - for now
-            return false;
-        }
-
-        return true;
+        return !estate;
     }
 }
 
