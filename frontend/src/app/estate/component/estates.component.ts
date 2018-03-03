@@ -27,6 +27,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
 
   private loadingInProgress = false;
   private scrollCheckInterval: any;
+  private isDestroyed = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -65,6 +66,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
 
     clearInterval(this.scrollCheckInterval);
+    this.isDestroyed = true;
   }
 
   ngAfterViewInit(): void {
@@ -88,7 +90,7 @@ export class EstatesComponent implements AfterViewInit, OnDestroy {
   }
 
   public loadMoreEstates() {
-    if (this.loadingInProgress || !this.enableLoading || this.exhausted) {
+    if (this.loadingInProgress || !this.enableLoading || this.exhausted || this.isDestroyed) {
       return;
     }
 

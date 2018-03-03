@@ -58,7 +58,7 @@ export class EstatesStore {
 
   public fetchMore(): Promise<void> {
     if (!this.exhaustedData) {
-      return this.estatesRepository.getEstates(this.estatesData.length, this.estatePoolData)
+      return this.estatesRepository.getEstates(this.estatesInMatchingView(), this.estatePoolData)
         .then((estates: Estate[]) => {
           if (estates.length) {
             this.estatesData = this.estatesData.concat(estates);
@@ -97,5 +97,25 @@ export class EstatesStore {
 
     this.estatePoolData = EstatePool.UNSEEN;
     this.estatePool.next(this.estatePoolData);
+  }
+
+  private estatesInMatchingView(): number {
+    let start = 0;
+
+    for (const estate of this.estatesData) {
+      switch (this.estatePoolData) {
+        case EstatePool.FAVOURITE:
+          start += estate.favourite ? 1 : 0;
+          break;
+        case EstatePool.UNSEEN:
+          start += !estate.favourite && !estate.isSeen ? 1 : 0;
+          break;
+        case EstatePool.SEEN:
+          start += !estate.favourite && estate.isSeen ? 1 : 0;
+          break;
+      }
+    }
+
+    return start;
   }
 }

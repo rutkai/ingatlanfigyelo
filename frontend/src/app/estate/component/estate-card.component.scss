@@ -1,11 +1,3 @@
-.c-card.seen {
-  opacity: 0.6;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .title--card {
   font-size: 1.225rem;
   margin-bottom: 6px;
@@ -19,6 +11,20 @@
   font-size: .875rem;
   letter-spacing: .05rem;
   font-weight: 300;
+}
+
+.seen-icon {
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  right: 15px;
+  color: white;
+
+  background-color: rgba(34, 34, 34, 0.6);
+  //box-shadow: 1px -2px 4px 1px rgba(34, 34, 34, 0.6);
+  border-radius: 10px;
+
+  padding: 6px;
 }
 
 .c-card__header .container--image {

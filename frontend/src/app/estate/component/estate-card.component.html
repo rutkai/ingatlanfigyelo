@@ -1,4 +1,5 @@
-<div class="c-card hoverable u-flex u-justify-center" [class.seen]="estate.isSeen && !estate.favourite" [routerLink]="['estate', estate.id]">
+<div class="c-card hoverable u-flex u-justify-center" (click)="openEstate()">
+  <i class="material-icons seen-icon" (click)="toggleSeen($event)">{{ estate.isSeen ? 'visibility' : 'visibility_off' }}</i>
   <button class="c-button open-button"><img src="assets/images/search.svg" alt=""></button>
   <div class="c-card__header u-flex u-flex--column u-align--center">
     <div class="container--image">

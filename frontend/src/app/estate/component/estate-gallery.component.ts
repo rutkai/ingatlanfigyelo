@@ -64,7 +64,11 @@ export class EstateGalleryComponent implements OnInit {
         preview: !!this.images.length,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageInfinityMove: true,
-        previewInfinityMove: true
+        previewInfinityMove: true,
+        previewCloseOnEsc: true,
+        arrowPrevIcon: 'fa fa-arrow-circle-left fa-2x',
+        arrowNextIcon: 'fa fa-arrow-circle-right fa-2x',
+        lazyLoading: false
       },
       // max-width 500
       {
