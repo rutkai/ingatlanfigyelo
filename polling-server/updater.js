@@ -111,7 +111,7 @@ class Updater {
             } else {
                 this.onReady();
             }
-        } catch (err) {
+        } catch (error) {
             console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
             console.error(error);
             Raven.context(function () {
