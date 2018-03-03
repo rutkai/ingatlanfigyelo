@@ -45,16 +45,22 @@ class LocalWorker {
             });
     }
 
-    test() {
+    async test() {
         this.available = false;
-        return this.fetchContent("https://www.example.com/")
-            .then(response => {
-                this.available = !!response;
-            })
-            .catch(err => {
-                console.log('Worker is unavailable: ' + this.name());
-                Raven.captureException(err);
+
+        try {
+            const response = await this.fetchContent("https://www.example.com/");
+            this.available = !!response;
+        } catch (err) {
+            console.log('Worker is unavailable: ' + this.name());
+            Raven.captureException(err, {
+                level: 'error',
+                tags: {submodule: 'worker'},
+                extra: {
+                    workerName: this.name()
+                }
             });
+        }
     }
 
     isAvailable() {

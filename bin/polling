@@ -7,6 +7,11 @@ const pollingServer = require('../polling-server/server');
 
 Raven.config(config.get('sentry.polling')).install();
 
+// Unexpected errors
+process.on('unhandledRejection', error => {
+    Raven.captureException(error);
+});
+
 db.init()
     .then(() => pollingServer.init())
     .then(() => {

@@ -1,14 +1,11 @@
 const Raven = require('raven');
 const {URL} = require('url');
 const worker = require('./worker/worker');
-const fs = require('fs');
 const env = require('../env/env');
 
 const duplication = require('./duplication');
 const estates = require('../db/estate');
 const estateRepository = require('../repository/estate');
-
-const logPath = __dirname + '/../var/log/polling.log';
 
 class Updater {
     constructor(provider) {
@@ -16,57 +13,49 @@ class Updater {
         this.provider = provider;
         this.log = (entry) => {
             let data = '[' + new Date().toISOString() + '] [' + this.provider.name + ']: ' + entry + '\n';
-            fs.appendFile(logPath, data, err => {
-                if (err) {
-                    Raven.captureException(err);
-                }
-            });
+            console.log(data);
         };
     }
 
     update(onReady) {
         this.onReady = onReady;
         this.page = 1;
-        this.updateNextIndexPage(this.provider.indexPage);
+        return this.updateNextIndexPage(this.provider.indexPage);
     }
 
-    updateNextIndexPage(page) {
+    async updateNextIndexPage(page) {
         const normalizedPageUrl = this.normalizeUrl(page);
         this.log(`Reading index (page ${this.page}): ${normalizedPageUrl}`);
-        worker.fetchContent(normalizedPageUrl, this.provider)
-            .then(response => {
-                const listData = this.provider.parser.parseList(response);
-                setTimeout(() => {
-                    if (listData.nextList && env.isProd() && this.page < this.provider.maxPages) {
-                        this.page += 1;
-                        this.updateNextIndexPage(listData.nextList);
-                    } else {
-                        if (this.page >= this.provider.maxPages) {
-                            this.log('Max page limit reached!');
-                        }
-                        this.log(`Finished reading index on ${this.provider.name}`);
-                        this.dequeueEstate();
-                    }
-                }, this.provider.interval);
 
-                for (const profile of listData.profiles) {
-                    this.doUpdateEstate(profile)
-                        .then(update => {
-                            if (update) {
-                                this.estates.push(profile);
-                            }
-                        });
+        try {
+            const response = await worker.fetchContent(normalizedPageUrl, this.provider);
+            const listData = this.provider.parser.parseList(response);
+
+            setTimeout(() => {
+                if (listData.nextList && env.isProd() && this.page < this.provider.maxPages) {
+                    this.page += 1;
+                    return this.updateNextIndexPage(listData.nextList);
+                } else {
+                    if (this.page >= this.provider.maxPages) {
+                        this.log('Max page limit reached!');
+                    }
+                    this.log(`Finished reading index on ${this.provider.name}`);
+                    return this.dequeueEstate();
                 }
-            })
-            .catch(error => {
-                console.error(`Error during fetching/parsing index page on ${this.provider.name}, URL: ${normalizedPageUrl}`);
-                console.error(error);
-                Raven.captureException(error);
-                this.onReady(error);
-            });
+            }, this.provider.interval);
+
+            for (const profile of listData.profiles) {
+                if (await this.doUpdateEstate(profile)) {
+                    this.estates.push(profile);
+                }
+            }
+        } catch (error) {
+            Raven.captureException(error);
+            this.onReady(error);
+        }
     }
 
-    dequeueEstate() {
+    async dequeueEstate() {
         if (!this.estates.length) {
             this.onReady();
             return;
@@ -74,74 +63,74 @@ class Updater {
 
         const url = this.normalizeUrl(this.estates.pop().url);
         this.log('Reading profile: ' + url);
-        worker.fetchContent(url, this.provider)
-            .then(response => {
-                return this.provider.parser.parseProfile(response);
-            })
-            .then(async profileData => {
-                if (!this.isProfileDataValid(profileData)) {
-                    this.log('Invalid profile, cannot parse properly: ' + url);
-                    return null;
-                }
 
-                profileData.url = url;
-                profileData.source = this.provider.name;
-                profileData.squareMeterPrice = Math.round(profileData.price / profileData.size);
+        try {
+            const response = await worker.fetchContent(url, this.provider);
+            const profileData = await this.provider.parser.parseProfile(response);
 
-                let estate = await estateRepository.get({url});
-                if (estate) {
-                    estate.version = estates.version;
-                    Object.assign(estate, profileData);
-                    return estate;
-                }
-                if (estate = await estateRepository.get({urls: {[this.provider.name]: url}})) {
-                    // This is a duplicate estate, no update for duplicates - for now
-                    return estate;
-                }
-                if (estate = await duplication.isDuplicate(profileData)) {
-                    estate.urls[this.provider.name] = url;
-                    if (estate.price > profileData.price) {
-                        estate.price = profileData.price;
-                        estate.source = this.provider.name;
-                        estate.url = url;
+            if (!this.isProfileDataValid(profileData)) {
+                Raven.captureMessage('Invalid profile', {
+                    level: 'warning',
+                    tags: {submodule: 'updater'},
+                    extra: {
+                        url,
+                        profileData
                     }
-                    for (let attr of Object.keys(profileData)) {
-                        if (estate[attr] === null && profileData[attr] !== null) {
-                            estate[attr] = profileData[attr];
-                        }
-                    }
-                    return estate;
-                }
+                });
+                return;
+            }
 
+            profileData.url = url;
+            profileData.source = this.provider.name;
+            profileData.squareMeterPrice = Math.round(profileData.price / profileData.size);
+
+            let estate = await estateRepository.get({url});
+            if (estate) {
+                estate.version = estates.version;
+                Object.assign(estate, profileData);
+            } else if (estate = await estateRepository.get({urls: {[this.provider.name]: url}})) {
+                // This is a duplicate estate, no update for duplicates - for now
+            } else if (estate = await duplication.isDuplicate(profileData)) {
+                estate.urls[this.provider.name] = url;
+                if (estate.price > profileData.price) {
+                    estate.price = profileData.price;
+                    estate.source = this.provider.name;
+                    estate.url = url;
+                }
+                for (let attr of Object.keys(profileData)) {
+                    if (estate[attr] === null && profileData[attr] !== null) {
+                        estate[attr] = profileData[attr];
+                    }
+                }
+            } else {
                 profileData.urls = {
                     [this.provider.name]: url
                 };
-                return profileData;
-            })
-            .then(estate => {
-                if (estate) {
-                    estateRepository.save(estate);
-                }
+                estate = profileData;
+            }
 
-                if (this.estates.length) {
-                    setTimeout(() => {
-                        this.dequeueEstate();
-                    }, this.provider.interval);
-                } else {
-                    this.onReady();
-                }
-            })
-            .catch(error => {
-                console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
-                console.error(error);
-                Raven.context(function () {
-                    Raven.setContext({
-                        url
-                    });
-                    Raven.captureException(error);
+            if (estate) {
+                estateRepository.save(estate);
+            }
+
+            if (this.estates.length) {
+                setTimeout(() => {
+                    return this.dequeueEstate();
+                }, this.provider.interval);
+            } else {
+                this.onReady();
+            }
+        } catch (err) {
+            console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
+            console.error(error);
+            Raven.context(function () {
+                Raven.setContext({
+                    url
                 });
-                this.dequeueEstate();
+                Raven.captureException(error);
             });
+            return this.dequeueEstate();
+        }
     }
 
     normalizeUrl(str) {

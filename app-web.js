@@ -29,7 +29,6 @@ function getApp() {
         .then(async () => {
             const app = express();
 
-            Raven.config(config.get('sentry.web')).install();
             app.use(Raven.requestHandler());
 
             if (isDev()) {

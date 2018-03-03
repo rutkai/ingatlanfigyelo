@@ -1,4 +1,3 @@
-const fs = require('fs');
 const Raven = require('raven');
 
 const workerPool = require('./pool');
@@ -7,21 +6,35 @@ const rescheduleTime = 30000;
 const retryCount = 8;
 
 const queries = [];
-const logPath = __dirname + '/../../var/log/worker.log';
 
 exports.fetchContent = fetchContent;
-function fetchContent(url, provider) {
+
+async function fetchContent(url, provider) {
     const worker = workerPool.getWorker(provider);
 
     incrementRetryCount(url);
     if (isRetriesReached(url)) {
-        log(provider.name, 'Failed fetches limit reached with URL ' + url);
+        Raven.captureMessage('Too many failed fetches!', {
+            level: 'error',
+            tags: {submodule: 'worker'},
+            extra: {
+                url,
+                provider: provider.name
+            }
+        });
         return Promise.reject('Too many failed fetches!');
     }
 
     if (!worker) {
-        log(provider.name, 'No more workers');
-        console.log('No more workers! Rescheduling...');
+        Raven.captureMessage('No more workers! Rescheduling...', {
+            level: 'error',
+            tags: {submodule: 'worker'},
+            extra: {
+                url,
+                provider: provider.name
+            }
+        });
+
         return new Promise(resolve => {
             setTimeout(() => {
                 fetchContent(url)
@@ -30,18 +43,26 @@ function fetchContent(url, provider) {
         });
     }
 
-    return worker.fetchContent(url, provider)
-        .then(result => {
-            log(provider.name, 'Fetch success using worker ' + worker.name() + ', content: ' + result.substr(0, 40) + '[...]');
-            removeRetryCounter(url);
-            return result;
-        })
-        .catch(err => {
-            // Find a different worker for the job...
-            log(provider.name, 'Error during fetching using worker ' + worker.name() + ' from ' + url + ' :' + err.toString());
-            worker.test();
-            return fetchContent(url, provider);
+    try {
+        const result = await worker.fetchContent(url, provider);
+        removeRetryCounter(url);
+        return result;
+    } catch (err) {
+        Raven.captureException(err, {
+            level: 'warning',
+            tags: {submodule: 'worker'},
+            extra: {
+                url,
+                workerName: worker.name(),
+                provider: provider.name
+            }
         });
+
+        worker.test();
+
+        // Find a different worker for the job...
+        return fetchContent(url, provider);
+    }
 }
 
 
@@ -75,13 +96,4 @@ function isRetriesReached(url) {
     }
 
     return false;
-}
-
-function log(provider, entry) {
-    let data = '[' + new Date().toISOString() + '] [' + provider + ']: ' + entry + '\n';
-    fs.appendFile(logPath, data, err => {
-        if (err) {
-            Raven.captureException(err);
-        }
-    });
 }

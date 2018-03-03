@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 
+const config = require('config');
+const Raven = require('raven');
 const appWeb = require('../app-web');
 const debug = require('debug')('ingatlanfigyelo:web');
 const http = require('http');
@@ -14,6 +16,13 @@ const http = require('http');
 
 const port = normalizePort(process.env.PORT || '3000');
 let server;
+
+Raven.config(config.get('sentry.web')).install();
+
+// Unexpected errors
+process.on('unhandledRejection', error => {
+    Raven.captureException(error);
+});
 
 appWeb.getApp()
     .then(app => {
