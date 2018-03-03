@@ -2,6 +2,7 @@ const iconv = require('iconv-lite');
 const charset = require('charset');
 const got = require('got');
 const Raven = require('raven');
+const moment = require('moment');
 
 
 class LocalWorker {
@@ -47,6 +48,7 @@ class LocalWorker {
 
     async test() {
         this.available = false;
+        this.testing = true;
 
         try {
             const response = await this.fetchContent("https://www.example.com/");
@@ -61,9 +63,18 @@ class LocalWorker {
                 }
             });
         }
+
+        if (!this.available) {
+            this.tested = new Date();
+        }
+        this.testing = false;
     }
 
     isAvailable() {
+        if (!this.available && !this.testing && moment().subtract(8, 'hours').isAfter(this.tested)) {
+            this.test();
+        }
+
         return this.available;
     }
 
