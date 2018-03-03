@@ -86,24 +86,21 @@ class Updater {
             profileData.squareMeterPrice = Math.round(profileData.price / profileData.size);
 
             let estate = await estateRepository.get({url});
-            let updated = false;
             if (estate) {
-                updated = this.updateEstateByProfileData(estate, profileData);
+                this.updateEstateByProfileData(estate, profileData);
             } else if (estate = await estateRepository.get({urls: {[this.provider.name]: url}})) {
-                updated = this.updateEstateByProfileData(estate, profileData);
+                this.updateEstateByProfileData(estate, profileData);
             } else if (estate = await duplication.isDuplicate(profileData)) {
                 estate.urls[this.provider.name] = url;
                 this.updateEstateByProfileData(estate, profileData);
-                updated = true;
             } else {
                 profileData.urls = {
                     [this.provider.name]: url
                 };
                 estate = profileData;
-                updated = true;
             }
 
-            if (estate && updated) {
+            if (estate) {
                 estateRepository.save(estate);
             }
 
@@ -128,28 +125,21 @@ class Updater {
     }
 
     updateEstateByProfileData(estate, profileData) {
-        let updated = false;
-
         if (estate.price > profileData.price) {
             estate.price = profileData.price;
             estate.source = this.provider.name;
             estate.url = url;
-            updated = true;
         }
 
         if (!estate.images.length && profileData.images.length) {
             estate.images = profileData.images;
-            updated = true;
         }
 
         for (let attr of Object.keys(profileData)) {
             if (estate[attr] === null && profileData[attr] !== null) {
                 estate[attr] = profileData[attr];
-                updated = true;
             }
         }
-
-        return updated;
     }
 
     normalizeUrl(str) {
@@ -174,7 +164,7 @@ class Updater {
         let estate = await estateRepository.get({url: normUrl});
         if (estate) {
             // Update estate older than 4 hours
-            if (moment().subtract(4, 'hours').isAfter(estate.created)) {
+            if (moment(estate.created).isSame(estate.updated, 'hour') && moment().subtract(4, 'hours').isAfter(estate.created)) {
                 return true;
             }
 

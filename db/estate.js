@@ -54,13 +54,8 @@ function getMany(filter = {}) {
 exports.save = save;
 function save(record) {
     if (record.created) {
-        return checkVersionBump(record)
-            .then(wasBump => {
-                if (!wasBump) {
-                    record.updated = new Date();
-                }
-                return db.getCollection('estates').replaceOne({url: record.url}, record);
-            });
+        record.updated = new Date();
+        return db.getCollection('estates').replaceOne({url: record.url}, record);
     }
 
     record.created = new Date();
@@ -72,9 +67,4 @@ function save(record) {
 exports.has = has;
 function has(url) {
     return db.getCollection('estates').count({url});
-}
-
-
-function checkVersionBump(record) {
-    return db.getCollection('estates').count({_id: record._id, version: {"$ne": record.version}});
 }
