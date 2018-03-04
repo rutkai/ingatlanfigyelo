@@ -42,6 +42,12 @@ export class EstateMapComponent implements OnInit, OnDestroy {
 
   private loadMap() {
     this.loadAttempted = true;
+
+    if (!this.estate.address) {
+      this.error = true;
+      return;
+    }
+
     this.mapsLoader.load().then(() => {
       const geocoder = new google.maps.Geocoder();
       geocoder.geocode({
