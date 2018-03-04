@@ -13,6 +13,7 @@ function parseList(html) {
             url
         };
     });
+
     const pagingButtons = $(".resultspage__pagination .pagination__button");
     let nextList;
     if (pagingButtons.last().text() === 'Következő oldal') {

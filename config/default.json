@@ -94,6 +94,23 @@
           },
           "maxPages": 10
         }
+      },
+      {
+        "name": "Otthoncentrum",
+        "baseUrl": "https://oc.hu",
+        "parser": "oc.hu",
+        "scheduler": {
+          "interval": {
+            "minutes": 30
+          }
+        },
+        "parserOpts": {
+          "indexPage": "https://www.oc.hu/ingatlanok/lista/oldalszam:48/rendezes:relevance/felhasznalas:elado/hely-ertek:budapest/hely-id:budapest,",
+          "interval": {
+            "milliseconds": 2000
+          },
+          "maxPages": 10
+        }
       }
 //      {
 //        "name": "Ingatlannet",
