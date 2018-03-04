@@ -87,12 +87,12 @@ class Updater {
 
             let estate = await estateRepository.get({url});
             if (estate) {
-                this.updateEstateByProfileData(estate, profileData);
+                this.updateEstateByProfileData(estate, profileData, url);
             } else if (estate = await estateRepository.get({urls: {[this.provider.name]: url}})) {
-                this.updateEstateByProfileData(estate, profileData);
+                this.updateEstateByProfileData(estate, profileData, url);
             } else if (estate = await duplication.isDuplicate(profileData)) {
                 estate.urls[this.provider.name] = url;
-                this.updateEstateByProfileData(estate, profileData);
+                this.updateEstateByProfileData(estate, profileData, url);
             } else {
                 profileData.urls = {
                     [this.provider.name]: url
@@ -124,7 +124,7 @@ class Updater {
         }
     }
 
-    updateEstateByProfileData(estate, profileData) {
+    updateEstateByProfileData(estate, profileData, url) {
         if (estate.price > profileData.price) {
             estate.price = profileData.price;
             estate.source = this.provider.name;
