@@ -69,7 +69,7 @@ function parseProfile(html) {
     const descriptionHtml = striptags($('#real-estate-description').find('.description').html(), ['a', 'p', 'br', 'i', 'em', 'strong', 'ul', 'li']);
     const descriptionText = $('#real-estate-description').find('.description').text().trim();
 
-    let elevator = null, heating = null;
+    let elevator = null, heating = null, floor = null;
     $('.property-page ul.row li').each(function () {
         const $row = $(this);
         const label = $row.text().toLowerCase();
@@ -79,7 +79,7 @@ function parseProfile(html) {
         } else if (label.includes('fűtés')) {
             heating = label.replace(/fűtés:/i, '').trim();
         } else if (label.includes('emelet')) {
-            heating = parseInt(label.replace(/emelet:/i, '').trim());
+            floor = parseInt(label.replace(/emelet:/i, '').trim());
         }
     });
 
