@@ -6,10 +6,21 @@ exports.version = version;
 exports.checkIndices = checkIndices;
 async function checkIndices() {
     await db.getCollection('estates').createIndex({
+        url: 1
+    });
+    await db.getCollection('estates').createIndex({
+        urls: 1
+    });
+    await db.getCollection('estates').createIndex({
         updated: -1
     });
     await db.getCollection('estates').createIndex({
         created: -1
+    });
+    await db.getCollection('estates').createIndex({
+        district: 1,
+        size: 1,
+        updated: 1,
     });
 }
 
