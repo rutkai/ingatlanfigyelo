@@ -31,8 +31,17 @@ export class EstateCardComponent {
     this.router.navigate(['estate', this.estate.id]);
   }
 
-  public toggleSeen(event) {
+  public toggleSeenFavorite(event) {
     event.stopPropagation();
+
+    if (this.estate.favourite) {
+      this.estate.favourite = false;
+      this.estatesService.updateEstateFavourite(this.estate)
+        .catch(() => {
+          this.estate.favourite = true;
+          this.notificationService.showSnackbarNotification('Hiba mentés közben!');
+        });
+    }
 
     this.estate.isSeen = !this.estate.isSeen;
     this.estatesService.updateEstateSeen(this.estate)
