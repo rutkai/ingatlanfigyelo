@@ -68,7 +68,8 @@ export class EstateGalleryComponent implements OnInit {
         previewCloseOnEsc: true,
         arrowPrevIcon: 'fa fa-arrow-circle-left fa-2x',
         arrowNextIcon: 'fa fa-arrow-circle-right fa-2x',
-        lazyLoading: false
+        lazyLoading: false,
+        previewAnimation: false
       },
       // max-width 500
       {
