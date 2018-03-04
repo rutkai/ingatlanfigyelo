@@ -8,6 +8,12 @@ const duplication = require('./duplication');
 const estates = require('../db/estate');
 const estateRepository = require('../repository/estate');
 
+function logError(error) {
+    Raven.captureException(error, {
+        tags: {submodule: 'updater'}
+    });
+}
+
 class Updater {
     constructor(provider) {
         this.estates = [];
@@ -35,13 +41,15 @@ class Updater {
             setTimeout(() => {
                 if (listData.nextList && env.isProd() && this.page < this.provider.maxPages) {
                     this.page += 1;
-                    this.updateNextIndexPage(listData.nextList);
+                    this.updateNextIndexPage(listData.nextList)
+                        .catch(logError);
                 } else {
                     if (this.page >= this.provider.maxPages) {
                         this.log('Max page limit reached!');
                     }
                     this.log(`Finished reading index on ${this.provider.name}`);
-                    this.dequeueEstate();
+                    this.dequeueEstate()
+                        .catch(logError);
                 }
             }, this.provider.interval);
 
@@ -105,7 +113,8 @@ class Updater {
             }
 
             setTimeout(() => {
-                this.dequeueEstate();
+                this.dequeueEstate()
+                    .catch(logError);
             }, this.provider.interval);
         } catch (error) {
             console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
@@ -116,7 +125,8 @@ class Updater {
                 });
                 Raven.captureException(error);
             });
-            this.dequeueEstate();
+            this.dequeueEstate()
+                .catch(logError);
         }
     }
 
