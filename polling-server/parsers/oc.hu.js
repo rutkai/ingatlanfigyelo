@@ -78,6 +78,8 @@ function parseProfile(html) {
             elevator = label.includes('van');
         } else if (label.includes('fűtés')) {
             heating = label.replace(/fűtés:/i, '').trim();
+        } else if (label.includes('emelet')) {
+            heating = parseInt(label.replace(/emelet:/i, '').trim());
         }
     });
 
@@ -90,7 +92,7 @@ function parseProfile(html) {
             size,
             district,
             address,
-            floor: null,
+            floor,
             elevator,
             heating,
             balcony,
