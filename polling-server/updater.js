@@ -35,13 +35,13 @@ class Updater {
             setTimeout(() => {
                 if (listData.nextList && env.isProd() && this.page < this.provider.maxPages) {
                     this.page += 1;
-                    return this.updateNextIndexPage(listData.nextList);
+                    this.updateNextIndexPage(listData.nextList);
                 } else {
                     if (this.page >= this.provider.maxPages) {
                         this.log('Max page limit reached!');
                     }
                     this.log(`Finished reading index on ${this.provider.name}`);
-                    return this.dequeueEstate();
+                    this.dequeueEstate();
                 }
             }, this.provider.interval);
 
@@ -104,13 +104,9 @@ class Updater {
                 estateRepository.save(estate);
             }
 
-            if (this.estates.length) {
-                setTimeout(() => {
-                    return this.dequeueEstate();
-                }, this.provider.interval);
-            } else {
-                this.onReady();
-            }
+            setTimeout(() => {
+                this.dequeueEstate();
+            }, this.provider.interval);
         } catch (error) {
             console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
             console.error(error);
@@ -120,7 +116,7 @@ class Updater {
                 });
                 Raven.captureException(error);
             });
-            return this.dequeueEstate();
+            this.dequeueEstate();
         }
     }
 
