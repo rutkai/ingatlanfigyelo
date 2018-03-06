@@ -5,7 +5,7 @@
   <title>Ingatlanfigyelő</title>
   <base href="/">
 
-  <meta name="description" content="Új ingatlan értesítés perceken belül több ingatlankereső oldal kínálatából." />
+  <meta name="description" content="Új ingatlan értesítés perceken belül több ingatlankereső oldal kínálatából."/>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png">
@@ -28,19 +28,31 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 <body>
-  <app-root>
-    <div style="display: flex;height: 100%; width: 100%; justify-content: center; align-items: center;">
-      <img src="assets/logo.png" alt="Ingatlanfigyelő"/>
-    </div>
-  </app-root>
-  <script type="text/javascript">
-    window._urq = window._urq || [];
-    _urq.push(['initSite', 'e11c17a6-6c58-4a04-a426-34052f2d1569']);
-    (function() {
-      var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
-      ur.src = ('https:' == document.location.protocol ? 'https://cdn.userreport.com/userreport.js' : 'http://cdn.userreport.com/userreport.js');
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
-    })();
-  </script>
+<app-root>
+  <div style="display: flex;height: 100%; width: 100%; justify-content: center; align-items: center;">
+    <img src="assets/logo.png" alt="Ingatlanfigyelő"/>
+  </div>
+</app-root>
+<script type="text/javascript">
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+      // Registration was successful
+    }).catch(function (err) {
+      console.log('Unable to load service worker (precache)!');
+    });
+  }
+</script>
+<script type="text/javascript">
+  window._urq = window._urq || [];
+  _urq.push(['initSite', 'e11c17a6-6c58-4a04-a426-34052f2d1569']);
+  (function () {
+    var ur = document.createElement('script');
+    ur.type = 'text/javascript';
+    ur.async = true;
+    ur.src = ('https:' == document.location.protocol ? 'https://cdn.userreport.com/userreport.js' : 'http://cdn.userreport.com/userreport.js');
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ur, s);
+  })();
+</script>
 </body>
 </html>

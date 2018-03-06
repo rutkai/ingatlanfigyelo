@@ -6,11 +6,12 @@
     "ng": "ng",
     "start": "ng serve",
     "clean": "rm -r ../public/*",
-    "build": "ng build --output-path='../public'",
-    "build-prod": "ng build --output-path='../public' --prod --aot=true --build-optimizer=true",
+    "build": "ng build",
+    "build-prod": "ng build --prod --aot=true --build-optimizer=true && npm run precache",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "precache": "sw-precache --verbose --config=sw-precache-config.js"
   },
   "private": true,
   "dependencies": {
@@ -59,6 +60,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "^5.3.0",
+    "sw-precache": "^5.2.1",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
     "typescript": "~2.5.2"
