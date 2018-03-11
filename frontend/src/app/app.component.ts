@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {HeadUpdaterService} from "./common/service/head-updater.service";
-import {User, UserStore} from "./common";
+import {ServiceWorkerService, User, UserStore} from "./common";
 import {MatSidenav} from "@angular/material";
 
 @Component({
@@ -19,8 +19,10 @@ export class AppComponent implements AfterViewInit {
   private swipeTime?: number;
 
   constructor(private headUpdaterService: HeadUpdaterService,
+              serviceWorkerService: ServiceWorkerService,
               userStore: UserStore,
               private renderer: Renderer2) {
+    serviceWorkerService.register();
     userStore.user$.subscribe((user: User) => {
       if (!user) {
         this.showUsermenu = false;

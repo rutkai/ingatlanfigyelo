@@ -4,6 +4,9 @@ module.exports = {
     '../public/**/*.@(otf|woff|woff2)',
     '../public/**/*.@(jpg|png|svg)',
   ],
+  importScripts: [
+    'worker.js'
+  ],
   root: '../public',
   stripPrefix: '../public/',
   navigateFallback: '/index.html',

@@ -3,7 +3,8 @@
     "connectionStr": "mongodb://mongo:27017/ingatlanfigyelo"
   },
   "express": {
-    "session-secret": "very-secret-string"
+    "session-secret": "very-secret-string",
+    "vapid-private": "another-very-secret-key"
   },
   "polling": {
     "workers": [

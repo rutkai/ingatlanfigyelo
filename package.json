@@ -33,7 +33,8 @@
     "rss": "^1.2.2",
     "rxjs": "^5.5.6",
     "serve-favicon": "~2.4.5",
-    "striptags": "^3.1.1"
+    "striptags": "^3.1.1",
+    "web-push": "^3.3.0"
   },
   "devDependencies": {
     "cors": "^2.8.4"

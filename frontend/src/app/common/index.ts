@@ -20,6 +20,7 @@ export * from './service/notification.service';
 export * from './service/push-notification.service';
 export * from './service/user.service';
 export * from './service/storage.service';
+export * from './service/service-worker.service';
 
 export * from './store/estates.store';
 export * from './store/navigation.store';

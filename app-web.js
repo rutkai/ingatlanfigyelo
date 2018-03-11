@@ -17,6 +17,7 @@ const pushServer = require('./push-server/server');
 
 const userEndpoints = require('./routes/user');
 const filtersEndpoints = require('./routes/filters');
+const push = require('./routes/push');
 const rss = require('./routes/rss');
 const stats = require('./routes/stats');
 const estates = require('./routes/estates');
@@ -67,6 +68,11 @@ function getApp() {
                 delayAfter: 0,
                 max: 30,
             });
+            const pushLimiter = new RateLimit({
+                windowMs: 60000,
+                delayAfter: 0,
+                max: 20,
+            });
             const rssLimiter = new RateLimit({
                 windowMs: 60000,
                 delayAfter: 0,
@@ -91,6 +97,7 @@ function getApp() {
 
             app.use('/user', userLimiter, userEndpoints);
             app.use('/filters', filterLimiter, filtersEndpoints);
+            app.use('/push', pushLimiter, push);
             app.use('/rss', rssLimiter, rss);
             app.use('/stats', statsLimiter, stats);
             app.use('/estates', apiLimiter, estates);
@@ -106,7 +113,7 @@ exports.attachErrorHandlers = attachErrorHandlers;
 function attachErrorHandlers(app) {
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
-        console.error(req);
+        console.error('Not found: ' + req.url);
 
         const err = new Error('Not Found');
         err.status = 404;

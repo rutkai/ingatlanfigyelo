@@ -12,3 +12,12 @@
     text-overflow: ellipsis;
   }
 }
+
+.notifications-toggle {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  min-width: 230px;
+  padding: 0 16px;
+  margin-bottom: -6px;
+}

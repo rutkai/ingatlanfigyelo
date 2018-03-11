@@ -9,6 +9,7 @@
       "outDir": "../public",
       "assets": [
         "assets",
+        "worker.js",
         "favicon.ico"
       ],
       "index": "index.html",

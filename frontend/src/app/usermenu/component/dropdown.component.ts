@@ -1,5 +1,8 @@
 import {Component, OnDestroy} from "@angular/core";
-import {EstatePool, EstatesStore, NotificationService, User, UserService, UserStore, View} from "../../common";
+import {
+  EstatePool, EstatesStore, NotificationService, PushNotificationService, User, UserService, UserStore,
+  View
+} from "../../common";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({
@@ -17,6 +20,7 @@ export class DropdownComponent implements OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private notificationService: NotificationService,
+              public pushNotificationService: PushNotificationService,
               private userStore: UserStore,
               private userService: UserService,
               private estatesStore: EstatesStore) {
@@ -30,6 +34,21 @@ export class DropdownComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
+  }
+
+  public isPushNotificationsEnabled(): boolean {
+    return this.pushNotificationService.isEnabled();
+  }
+
+  public toggleNotifications(): void {
+    if (this.pushNotificationService.isEnabled()) {
+      this.pushNotificationService.disable();
+    } else {
+      this.pushNotificationService.enable()
+        .catch(() => {
+          this.notificationService.showSnackbarNotification('Engedélyezés sikertelen. Az értesítések le vannak tiltva a böngészőben.');
+        });
+    }
   }
 
   public logout(): void {
