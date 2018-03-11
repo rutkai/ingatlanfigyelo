@@ -86,6 +86,10 @@ class Updater {
                         profileData
                     }
                 });
+                setTimeout(() => {
+                    this.dequeueEstate()
+                        .catch(logError);
+                }, this.provider.interval);
                 return;
             }
 
