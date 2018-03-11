@@ -86,10 +86,7 @@ class Updater {
                         profileData
                     }
                 });
-                setTimeout(() => {
-                    this.dequeueEstate()
-                        .catch(logError);
-                }, this.provider.interval);
+                this.scheduleNextEstateUpdate();
                 return;
             }
 
@@ -116,10 +113,7 @@ class Updater {
                 estateRepository.save(estate);
             }
 
-            setTimeout(() => {
-                this.dequeueEstate()
-                    .catch(logError);
-            }, this.provider.interval);
+            this.scheduleNextEstateUpdate();
         } catch (error) {
             console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
             console.error(error);
@@ -129,9 +123,15 @@ class Updater {
                 });
                 Raven.captureException(error);
             });
+            this.scheduleNextEstateUpdate();
+        }
+    }
+
+    scheduleNextEstateUpdate() {
+        setTimeout(() => {
             this.dequeueEstate()
                 .catch(logError);
-        }
+        }, this.provider.interval);
     }
 
     updateEstateByProfileData(estate, profileData, url) {
