@@ -58,8 +58,6 @@ export class PushNotificationService {
             userVisibleOnly: true,
             applicationServerKey: this.getEncodedVapidKey()
           }).then((subscription: PushSubscription) => {
-            // TODO: remove
-            console.log(subscription);
             return this.pushNotificationRepository.subscribe(subscription);
           }).then(() => {
             this.hasSubscription = true;

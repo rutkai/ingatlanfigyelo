@@ -19,12 +19,18 @@ self.addEventListener('notificationclick', function (event) {
   // see if the current is open and if it is focus it
   // otherwise open new tab
   event.waitUntil(
-    self.clients.matchAll().then(function (clientList) {
+    self.clients.matchAll({
+      type: 'window'
+    }).then(function (clientList) {
       if (clientList.length > 0) {
-        return clientList[0].focus();
+        if ('focus' in clientList[0]) {
+          return clientList[0].focus();
+        }
       }
 
-      return self.clients.openWindow('/');
+      if (clients.openWindow) {
+        return clients.openWindow('/');
+      }
     })
   );
 });

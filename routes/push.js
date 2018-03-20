@@ -73,7 +73,7 @@ async function checkUpdates() {
     const subscriptions = await webpush.getAll();
 
     for (const subscription of subscriptions) {
-        const user = userRepository.getByUsername(subscription.username);
+        const user = await userRepository.getByUsername(subscription.username);
         const estates = await pushServer.getUpdatedEstateList(user);
         if (estates.length) {
             sendWebpush(subscription, estates);
