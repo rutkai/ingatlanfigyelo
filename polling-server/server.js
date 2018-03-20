@@ -6,30 +6,38 @@ const workerPool = require('./worker/pool');
 const parsers = require('./parsers/parser');
 const Updater = require('./updater').Updater;
 const estates = require('../db/estate');
+const estatesBlacklist = require('../db/estateBlacklist');
+
+const blacklistRepository = require('../repository/estateBlacklist');
+
+const BLACKLIST_CLEANUP_POLLING = 60 * 60 * 1000;   // 1 hour
 
 const MAX_PAGES_HARD_LIMIT = 1000;
 const polling = [];
 let isPolling = false;
 
 exports.init = init;
-function init() {
-    return estates.checkIndices()
-        .then(() => estates.migrate())
-        .then(() => workerPool.init())
-        .then(() => {
-            for (const provider of config.get('polling.providers')) {
-                polling.push({
-                    "name": provider.name,
-                    "baseUrl": provider.baseUrl,
-                    "parser": parsers.getParser(provider.parser),
-                    "workerTypes": provider.workerTypes,
-                    "indexPage": provider.parserOpts.indexPage,
-                    "maxPages": provider.parserOpts.maxPages || MAX_PAGES_HARD_LIMIT,
-                    "scheduler-interval": moment.duration(provider.scheduler.interval).asMilliseconds(),
-                    "interval": moment.duration(provider.parserOpts.interval).asMilliseconds()
-                });
-            }
+async function init() {
+    await estates.checkIndices();
+    await estates.migrate();
+    await workerPool.init();
+
+    await estatesBlacklist.checkIndices();
+    await estatesBlacklist.migrate();
+    scheduleBlacklistCleanup();
+
+    for (const provider of config.get('polling.providers')) {
+        polling.push({
+            "name": provider.name,
+            "baseUrl": provider.baseUrl,
+            "parser": parsers.getParser(provider.parser),
+            "workerTypes": provider.workerTypes,
+            "indexPage": provider.parserOpts.indexPage,
+            "maxPages": provider.parserOpts.maxPages || MAX_PAGES_HARD_LIMIT,
+            "scheduler-interval": moment.duration(provider.scheduler.interval).asMilliseconds(),
+            "interval": moment.duration(provider.parserOpts.interval).asMilliseconds()
         });
+    }
 }
 
 exports.start = start;
@@ -64,4 +72,13 @@ function createUpdater(provider) {
 
     setInterval(update, provider["scheduler-interval"]);
     update();
+}
+
+function scheduleBlacklistCleanup() {
+    const cleanup = () => {
+        blacklistRepository.cleanup();
+    };
+
+    setInterval(cleanup, BLACKLIST_CLEANUP_POLLING);
+    cleanup();
 }

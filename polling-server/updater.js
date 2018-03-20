@@ -7,6 +7,7 @@ const env = require('../env/env');
 const duplication = require('./duplication');
 const estates = require('../db/estate');
 const estateRepository = require('../repository/estate');
+const blacklistRepository = require('../repository/estateBlacklist');
 
 function logError(error) {
     Raven.captureException(error, {
@@ -78,6 +79,7 @@ class Updater {
             const profileData = await this.provider.parser.parseProfile(response);
 
             if (!this.isProfileDataValid(profileData)) {
+                await this.temporaryEstateBlacklist(url);
                 Raven.captureMessage('Invalid profile', {
                     level: 'warning',
                     tags: {submodule: 'updater'},
@@ -127,6 +129,10 @@ class Updater {
         }
     }
 
+    temporaryEstateBlacklist(url) {
+        return blacklistRepository.add(url);
+    }
+
     scheduleNextEstateUpdate() {
         setTimeout(() => {
             this.dequeueEstate()
@@ -169,8 +175,12 @@ class Updater {
     }
 
     async doUpdateEstate(profile) {
-        // No update for now
         const normUrl = this.normalizeUrl(profile.url);
+
+        if (await blacklistRepository.onBlacklist(normUrl)) {
+            return false;
+        }
+
         let estate = await estateRepository.get({url: normUrl});
         if (estate) {
             // Update estate older than 4 hours
