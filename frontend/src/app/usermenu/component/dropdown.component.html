@@ -24,6 +24,9 @@
         <button mat-menu-item (click)="setInlineView()">Lista</button>
       </mat-menu>
     </mat-nav-list>
+    <mat-slide-toggle class="notifications-toggle" [checked]="isPushNotificationsEnabled()" (change)="toggleNotifications()">
+      Értesítések {{ isPushNotificationsEnabled() ? 'bekapcsolva' : 'kikapcsolva' }}
+    </mat-slide-toggle>
     <mat-nav-list>
       <a mat-list-item (click)="logout()">Kijelentkezés</a>
     </mat-nav-list>

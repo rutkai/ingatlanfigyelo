@@ -6,9 +6,11 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../public",
       "assets": [
         "assets",
+        "worker.js",
+        "manifest.json",
         "favicon.ico"
       ],
       "index": "index.html",
