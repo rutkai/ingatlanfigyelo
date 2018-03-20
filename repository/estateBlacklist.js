@@ -6,7 +6,7 @@ const expiration = {hours: 12};
 exports.cleanup = cleanup;
 async function cleanup() {
     return estateBlacklist.remove({
-        created: { "$lt": moment.subtract(expiration) }
+        created: { "$lt": moment().subtract(expiration) }
     });
 }
 
