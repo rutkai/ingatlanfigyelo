@@ -3,7 +3,7 @@ import {WebsocketRepository} from "../repository/websocket.repository";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Estate} from "../model/estate";
 import {EstateParser} from "../parsers/estate.parser";
-import {PushNotificationService} from "../service/push-notification.service";
+import {DesktopPushNotificationService} from "../service/desktop-push-notification.service";
 
 interface NewEstatesData {
   id: string;
@@ -21,7 +21,7 @@ export class WebsocketEventsStore {
 
   constructor(private websocketRepository: WebsocketRepository,
               private estateParser: EstateParser,
-              private pushNotificationService: PushNotificationService) {
+              private desktopPushNotificationService: DesktopPushNotificationService) {
     this.websocketRepository.messages$.subscribe(data => {
       this.handleMessage(data.id, data);
     });
@@ -38,6 +38,6 @@ export class WebsocketEventsStore {
   private handleNewEstates(data: NewEstatesData) {
     const estates = this.estateParser.parseMany(data.estates);
     this.newEstates.next(estates);
-    this.pushNotificationService.show(data.estates.length + " új ingatlan jelent meg az Ingatlanfigyelőben!");
+    this.desktopPushNotificationService.show(data.estates.length + " új ingatlan jelent meg az Ingatlanfigyelőben!");
   }
 }

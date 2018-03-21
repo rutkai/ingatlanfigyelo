@@ -9,7 +9,8 @@ export class MobilePushNotificationService {
   private enabled = false;
   private hasSubscription?: boolean = null;
 
-  constructor(private pushNotificationRepository: PushNotificationRepository, private serviceWorkerService: ServiceWorkerService) {
+  constructor(private pushNotificationRepository: PushNotificationRepository,
+              private serviceWorkerService: ServiceWorkerService) {
   }
 
   public init(): void {

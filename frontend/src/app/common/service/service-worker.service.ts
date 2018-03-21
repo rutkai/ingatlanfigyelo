@@ -1,7 +1,12 @@
 import {Injectable} from "@angular/core";
+import {Observable} from "rxjs/Observable";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class ServiceWorkerService {
+  private message: BehaviorSubject<any> = new BehaviorSubject({});
+  public message$: Observable<any> = this.message.asObservable();
+
   private registration: ServiceWorkerRegistration;
   private registered = false;
 
@@ -11,6 +16,9 @@ export class ServiceWorkerService {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js').then((registration: ServiceWorkerRegistration) => {
         this.registration = registration;
+        registration.addEventListener('message', (event: any) => {
+          this.message.next(event.data);
+        });
         this.registrationFinished();
       }).catch(err => {
         this.registrationFinished();

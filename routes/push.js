@@ -40,7 +40,7 @@ router.post('/subscribe', async function (req, res) {
     };
 
     webpush.save(subscription);
-    res.status(200).send('subscribed');
+    res.status(200).send({});
 });
 
 router.post('/unsubscribe', async function (req, res) {
@@ -61,7 +61,7 @@ router.post('/unsubscribe', async function (req, res) {
     }
 
     webpush.remove(req.user.username);
-    res.status(200).send('unsubscribed');
+    res.status(200).send({});
 });
 
 module.exports = router;
@@ -85,6 +85,7 @@ function sendWebpush(subscription, estates) {
     const payload = JSON.stringify({
         title: 'Új ingatlan!',
         body: estates.length + ' új ingatlan került fel az ingatlanfigyelőbe',
+        estate: estates.length === 1 ? estates[0]._id : null,
         icon: '/assets/favicon/android-icon-192x192.png'
     });
 

@@ -1,7 +1,4 @@
 import {Injectable} from "@angular/core";
-import Push from "push.js";
-import {ServiceWorkerService} from "./service-worker.service";
-import {PushNotificationRepository} from "../repository/push-notification.repository";
 import {DesktopPushNotificationService} from "./desktop-push-notification.service";
 import {MobilePushNotificationService} from "./mobile-push-notification.service";
 import {MobileDetectService} from "./mobile-detect.service";
@@ -18,12 +15,6 @@ export class PushNotificationService {
       this.mobilePushNotificationService.init();
     } else {
       this.desktopPushNotificationService.init();
-    }
-  }
-
-  public show(body: string, title = "Új ingatlan!"): void {
-    if (!this.isMobile) {
-      this.desktopPushNotificationService.show(body, title);
     }
   }
 

@@ -7,6 +7,7 @@ import {Estate} from "../model/estate";
 import {WebsocketEventsStore} from "./websocket-events.store";
 import {EstatePool} from "../model/estate-pool";
 import {User} from "../model/user";
+import {ServiceWorkerService} from "../service/service-worker.service";
 
 @Injectable()
 export class EstatesStore {
@@ -29,10 +30,16 @@ export class EstatesStore {
 
   constructor(private estatesRepository: EstatesRepository,
               private websocketEventsStore: WebsocketEventsStore,
+              private serviceWorkerService: ServiceWorkerService,
               private userStore: UserStore) {
     this.websocketEventsStore.newEstates$.subscribe((estates: Estate[]) => {
       this.estatesData = estates.concat(this.estatesData);
       this.estates.next(this.estatesData);
+    });
+    this.serviceWorkerService.message$.subscribe((message: any) => {
+      if (message.command === 'update-estates') {
+        this.reset();
+      }
     });
     this.userStore.user$.subscribe(user => {
       if (this.user !== user) {
