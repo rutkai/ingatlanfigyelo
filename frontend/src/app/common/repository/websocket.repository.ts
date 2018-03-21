@@ -5,6 +5,7 @@ import {Subject} from "rxjs/Subject";
 import {Subscription} from "rxjs/Subscription";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {environment} from "../../../environments/environment";
+import {MobileDetectService} from "../service/mobile-detect.service";
 
 
 @Injectable()
@@ -19,7 +20,7 @@ export class WebsocketRepository {
 
   private connected = false;
 
-  constructor() {
+  constructor(private mobileDetectService: MobileDetectService) {
     this.inputStream = new Subject<string>();
     this.messages = new BehaviorSubject<any>({id:'ping'});
     this.messages$ = this.messages.asObservable();
@@ -27,7 +28,7 @@ export class WebsocketRepository {
   }
 
   private connect() {
-    if (this.connected) {
+    if (this.connected || this.mobileDetectService.isMobile()) {
       return;
     }
 

@@ -2,114 +2,54 @@ import {Injectable} from "@angular/core";
 import Push from "push.js";
 import {ServiceWorkerService} from "./service-worker.service";
 import {PushNotificationRepository} from "../repository/push-notification.repository";
+import {DesktopPushNotificationService} from "./desktop-push-notification.service";
+import {MobilePushNotificationService} from "./mobile-push-notification.service";
+import {MobileDetectService} from "./mobile-detect.service";
 
 @Injectable()
 export class PushNotificationService {
-  private readonly vapidPublicKey = 'BGd5YMex0aq9Twdm15nm0ZWw3NiyYC0a06lZ2SRNtrKkRKr4ME3OcpJIhFSfORoOy_uv5CDkHHw2goskztqVrYM';
+  private isMobile: boolean;
 
-  private enabled = false;
-  private hasSubscription?: boolean = null;
-
-  constructor(private pushNotificationRepository: PushNotificationRepository, private serviceWorkerService: ServiceWorkerService) {
-    this.serviceWorkerService.getRegistration()
-      .then((registration: ServiceWorkerRegistration) => {
-        if ('PushManager' in window && registration) {
-          return registration.pushManager.getSubscription();
-        }
-        return null;
-      })
-      .then((subscription?: PushSubscription) => {
-        this.hasSubscription = subscription !== null;
-
-        if (Push.Permission.get() === Push.Permission.GRANTED) {
-          this.enabled = this.hasSubscription !== false;
-        }
-      });
+  constructor(private desktopPushNotificationService: DesktopPushNotificationService,
+              private mobilePushNotificationService: MobilePushNotificationService,
+              private mobileDetectService: MobileDetectService) {
+    this.isMobile = this.mobileDetectService.isMobile();
+    if (this.isMobile) {
+      this.mobilePushNotificationService.init();
+    } else {
+      this.desktopPushNotificationService.init();
+    }
   }
 
   public show(body: string, title = "Új ingatlan!"): void {
-    if (!this.enabled || document.hasFocus() || Push.Permission.get() !== Push.Permission.GRANTED) {
-      return;
+    if (!this.isMobile) {
+      this.desktopPushNotificationService.show(body, title);
     }
+  }
 
-    Push.create(title, {
-      body,
-      icon: 'assets/logo.png',
-      onClick: function () {
-        window.focus();
-        this.close();
-      }
-    })
+  public isChangeable(): boolean {
+    return this.isMobile;
   }
 
   public isEnabled(): boolean {
-    return this.enabled;
+    if (this.isMobile) {
+      return this.mobilePushNotificationService.isEnabled();
+    } else {
+      return false;
+    }
   }
 
   public enable(): Promise<void> {
-    if ('PushManager' in window && !this.hasSubscription) {
-      this.serviceWorkerService.getRegistration()
-        .then((registration: ServiceWorkerRegistration) => {
-          if (!registration) {
-            return;
-          }
-
-          registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: this.getEncodedVapidKey()
-          }).then((subscription: PushSubscription) => {
-            return this.pushNotificationRepository.subscribe(subscription);
-          }).then(() => {
-            this.hasSubscription = true;
-          })
-            .catch(err => console.log(err));
-        });
-    }
-
-    switch (Push.Permission.get()) {
-      case Push.Permission.DEFAULT:
-        return Push.Permission.request()
-          .then(() => {
-            this.enabled = true;
-          });
-      case Push.Permission.GRANTED:
-        this.enabled = true;
-        return Promise.resolve();
-      case Push.Permission.DENIED:
-        return Promise.reject('Notifications are disabled');
+    if (this.isMobile) {
+      return this.mobilePushNotificationService.enable();
+    } else {
+      return Promise.reject('Not supported!');
     }
   }
 
   public disable(): void {
-    this.enabled = false;
-
-    if (this.hasSubscription) {
-      this.serviceWorkerService.getRegistration()
-        .then((registration: ServiceWorkerRegistration) => registration.pushManager.getSubscription())
-        .then((subscription: PushSubscription) => {
-          if (subscription) {
-            return this.pushNotificationRepository.unsubscribe(subscription.endpoint)
-              .then(() => {
-                this.hasSubscription = false;
-                return subscription.unsubscribe();
-              });
-          }
-        });
+    if (this.isMobile) {
+      this.mobilePushNotificationService.disable();
     }
-  }
-
-  private getEncodedVapidKey(): Uint8Array {
-    const padding = '='.repeat((4 - this.vapidPublicKey.length % 4) % 4);
-    const base64 = (this.vapidPublicKey + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
-
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
   }
 }

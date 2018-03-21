@@ -36,6 +36,10 @@ export class DropdownComponent implements OnDestroy {
     this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
+  public isPushNotificationsChangeable(): boolean {
+    return this.pushNotificationService.isChangeable();
+  }
+
   public isPushNotificationsEnabled(): boolean {
     return this.pushNotificationService.isEnabled();
   }

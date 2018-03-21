@@ -21,6 +21,9 @@ import {NavigationStore} from "./store/navigation.store";
 import {StorageService} from "./service/storage.service";
 import {ServiceWorkerService} from "./service/service-worker.service";
 import {PushNotificationRepository} from "./repository/push-notification.repository";
+import {MobileDetectService} from "./service/mobile-detect.service";
+import {MobilePushNotificationService} from "./service/mobile-push-notification.service";
+import {DesktopPushNotificationService} from "./service/desktop-push-notification.service";
 
 @NgModule({
   declarations: [
@@ -52,6 +55,9 @@ export class CommonModule {
         NotificationService,
         WebsocketRepository,
         WebsocketEventsStore,
+        MobileDetectService,
+        MobilePushNotificationService,
+        DesktopPushNotificationService,
         PushNotificationRepository,
         PushNotificationService,
         HeadUpdaterService,
