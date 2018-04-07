@@ -4,14 +4,14 @@ pipelines:
   branches:
     master:
       - step:
-        caches:
-          - node
-        script:
-          # Install AWS cli
-          - apt-get update && apt-get install -y python-dev
-          - curl -O https://bootstrap.pypa.io/get-pip.py
-          - python get-pip.py
-          - pip install awsebcli --upgrade
-          # Build and deploy frontend
-          - cd frontend && npm install && npm run build-prod && cd -
-          - .local/bin/aws s3 sync --delete public/ s3://ingatlanfigyelo
+          caches:
+            - node
+          script:
+            # Install AWS cli
+            - apt-get update && apt-get install -y python-dev
+            - curl -O https://bootstrap.pypa.io/get-pip.py
+            - python get-pip.py
+            - pip install awsebcli --upgrade
+            # Build and deploy frontend
+            - cd frontend && npm install && npm run build-prod && cd -
+            - .local/bin/aws s3 sync --delete public/ s3://ingatlanfigyelo
