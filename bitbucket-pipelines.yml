@@ -1,0 +1,16 @@
+image: node:8.11
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - node
+        script:
+          # Install AWS cli
+          - apt-get update && apt-get install -y python-dev
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip install awsebcli --upgrade
+          # Build and deploy frontend
+          - cd frontend && npm install && npm run build-prod && cd -
+          - aws s3 sync --delete public/ s3://ingatlanfigyelo
