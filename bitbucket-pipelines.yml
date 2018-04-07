@@ -14,4 +14,4 @@ pipelines:
             - pip install awsebcli --upgrade
             # Build and deploy frontend
             - cd frontend && npm install && npm run build-prod && cd -
-            - .local/bin/aws s3 sync --delete public/ s3://ingatlanfigyelo
+            - ~/.local/bin/aws s3 sync --delete public/ s3://ingatlanfigyelo
