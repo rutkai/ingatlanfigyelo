@@ -1,4 +1,5 @@
 const config = require('config');
+const moment = require('moment-timezone');
 const webPush = require('web-push');
 const express = require('express');
 const router = express.Router();
@@ -74,6 +75,18 @@ async function checkUpdates() {
 
     for (const subscription of subscriptions) {
         const user = await userRepository.getByUsername(subscription.username);
+
+        if (user.lastRefresh > moment().subtract(user.notificationFrequency, 'hours')) {
+            continue;
+        }
+
+        const now = moment.tz(Intl.DateTimeFormat().resolvedOptions().timeZone);
+        const dayAdd = user.notificationQuietHours.end.hours < user.notificationQuietHours.start.hours ? 1 : 0;
+        if (moment.tz(user.notificationQuietHours.start, user.notificationQuietHours.start.timezone).isBefore(now) &&
+            moment.tz(user.notificationQuietHours.end, user.notificationQuietHours.end.timezone).add({days: dayAdd}).isAfter(now)) {
+            continue;
+        }
+
         const estates = await pushServer.getUpdatedEstateList(user);
         if (estates.length) {
             sendWebpush(subscription, estates);

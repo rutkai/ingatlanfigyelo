@@ -16,18 +16,50 @@
         <button mat-menu-item (click)="changeEstatePool(estatePool.UNSEEN)">Új ingatlanok</button>
         <button mat-menu-item (click)="changeEstatePool(estatePool.SEEN)">Megnézett ingatlanok</button>
       </mat-menu>
-    </mat-nav-list>
-    <mat-nav-list>
       <a mat-list-item [matMenuTriggerFor]="changeView">Nézet: {{ user.view === views.CARDS ? 'kompakt' : 'lista' }}</a>
       <mat-menu #changeView>
         <button mat-menu-item (click)="setCardsView()">Kompakt</button>
         <button mat-menu-item (click)="setInlineView()">Lista</button>
       </mat-menu>
     </mat-nav-list>
-      <mat-slide-toggle *ngIf="isPushNotificationsChangeable()"
-        class="notifications-toggle" [checked]="isPushNotificationsEnabled()" (change)="toggleNotifications()">
-        Értesítések {{ isPushNotificationsEnabled() ? 'bekapcsolva' : 'kikapcsolva' }}
-      </mat-slide-toggle>
+
+    <mat-divider></mat-divider>
+    <mat-nav-list>
+      <a mat-list-item [matMenuTriggerFor]="notificationFrequency">
+        Maximum értesítések óránként: {{ user.notificationFrequency ? user.notificationFrequency : 'korlátlan' }}
+      </a>
+      <mat-menu #notificationFrequency>
+        <button mat-menu-item (click)="changeNotificationFrequency(0)">Korlátlan</button>
+        <button mat-menu-item (click)="changeNotificationFrequency(1)">óránként</button>
+        <button mat-menu-item (click)="changeNotificationFrequency(2)">2 óránként</button>
+        <button mat-menu-item (click)="changeNotificationFrequency(4)">4 óránként</button>
+        <button mat-menu-item (click)="changeNotificationFrequency(8)">8 óránként</button>
+        <button mat-menu-item (click)="changeNotificationFrequency(24)">naponta</button>
+      </mat-menu>
+      <mat-list-item class="quiet-time">
+        <p mat-line>Értesítések némítása</p>
+        <div mat-line>
+          <mat-form-field class="quiet-time-input">
+            <input matInput type="time" name="notification-quiet-start" required pattern="[0-9]{2}:[0-9]{2}"
+                   [(ngModel)]="this.quietTimeStart.time" (blur)="changeQuietTime()"/>
+          </mat-form-field>
+          és
+          <mat-form-field class="quiet-time-input">
+            <input matInput type="time" name="notification-quiet-end" required pattern="[0-9]{2}:[0-9]{2}"
+                   [(ngModel)]="this.quietTimeEnd.time" (blur)="changeQuietTime()"/>
+          </mat-form-field>
+          között
+        </div>
+      </mat-list-item>
+      <mat-list-item *ngIf="isPushNotificationsChangeable()">
+        <mat-slide-toggle class="notifications-toggle" [checked]="isPushNotificationsEnabled()"
+                          (change)="toggleNotifications()">
+          Értesítések {{ isPushNotificationsEnabled() ? 'bekapcsolva' : 'kikapcsolva' }}
+        </mat-slide-toggle>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-divider></mat-divider>
     <mat-nav-list>
       <a mat-list-item (click)="logout()">Kijelentkezés</a>
     </mat-nav-list>

@@ -24,6 +24,7 @@
     "got": "^8.0.2",
     "iconv-lite": "^0.4.19",
     "moment": "^2.20.1",
+    "moment-timezone": "^0.5.17",
     "mongodb": "^3.0.1",
     "morgan": "~1.9.0",
     "passport": "^0.4.0",

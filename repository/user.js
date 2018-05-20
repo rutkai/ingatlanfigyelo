@@ -13,6 +13,19 @@ function create(username, password) {
         readAllMark: null,
         unseenMarkedEstates: [],
         view: 'cards',
+        notificationFrequency: 1,
+        notificationQuietHours: {
+            start: {
+                hours: 22,
+                minutes: 0,
+                timezone: 'Europe/Budapest'
+            },
+            end: {
+                hours: 8,
+                minutes: 0,
+                timezone: 'Europe/Budapest'
+            }
+        },
         lastRefresh: new Date()
     });
 }
@@ -47,6 +60,18 @@ function updateFilters(user, filterGroups) {
 exports.updateView = updateView;
 function updateView(user, view) {
     user.view = view;
+    return users.save(user);
+}
+
+exports.updateNotificationFrequency = updateNotificationFrequency;
+function updateNotificationFrequency(user, frequency) {
+    user.notificationFrequency = frequency;
+    return users.save(user);
+}
+
+exports.updateNotificationQuietHours = updateNotificationQuietHours;
+function updateNotificationQuietHours(user, quietHours) {
+    user.notificationQuietHours = quietHours;
     return users.save(user);
 }
 

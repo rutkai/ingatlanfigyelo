@@ -4,6 +4,7 @@ import {Filters} from "../model/filters/filters";
 import {View} from "../types/view";
 import {User} from "../model/user";
 import {UserStore} from "../store/user.store";
+import {QuietHours} from "../types/quiet-hours";
 
 @Injectable()
 export class UserService {
@@ -28,6 +29,20 @@ export class UserService {
       .then(() => {
         this.user.view = view;
         this.userStore.updateUser(this.user);
+      });
+  }
+
+  public changeNotificationFrequency(frequency: number): Promise<void> {
+    return this.userRepository.changeNotificationFrequency(frequency)
+      .then(() => {
+        this.user.notificationFrequency = frequency;
+      });
+  }
+
+  public changeNotificationQuietTime(quietHours: QuietHours): Promise<void> {
+    return this.userRepository.changeNotificationQuietTime(quietHours)
+      .then(() => {
+        this.user.notificationQuietHours = quietHours;
       });
   }
 }

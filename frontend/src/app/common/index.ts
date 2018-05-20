@@ -29,4 +29,5 @@ export * from './store/user.store';
 export * from './store/websocket-events.store';
 
 export * from './types/estate-list';
+export * from './types/quiet-hours';
 export * from './types/view';

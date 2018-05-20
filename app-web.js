@@ -146,7 +146,7 @@ function getWss(app, server) {
             return;
         }
 
-        let timer = createRefreshTimer(ws, req.user);
+        let timer = createRefreshTimer(ws, req.user.username);
         ws.on('close', () => {
             clearInterval(timer);
         });
@@ -171,9 +171,11 @@ function createHeartbeatCheck(wss) {
     }, 3 * 60 * 1000);
 }
 
-function createRefreshTimer(ws, user) {
-    return setInterval(function () {
+const userRepository = require('./repository/user');
+function createRefreshTimer(ws, username) {
+    return setInterval(async function () {
         if (ws.isAlive) {
+            const user = await userRepository.getByUsername(username);
             pushServer.getUpdatedEstateList(user)
                 .then(estates => {
                     if (estates.length) {

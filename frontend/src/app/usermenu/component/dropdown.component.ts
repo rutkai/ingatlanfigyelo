@@ -4,6 +4,7 @@ import {
   View
 } from "../../common";
 import {Subscription} from "rxjs/Subscription";
+import {TimeHelper} from "../helpers/time-helper";
 
 @Component({
   selector: 'app-usermenu-dropdown',
@@ -17,6 +18,9 @@ export class DropdownComponent implements OnDestroy {
   public estatePool = EstatePool;
   public views = View;
 
+  public quietTimeStart: TimeHelper;
+  public quietTimeEnd: TimeHelper;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private notificationService: NotificationService,
@@ -26,6 +30,9 @@ export class DropdownComponent implements OnDestroy {
               private estatesStore: EstatesStore) {
     this.subscriptions.push(userStore.user$.subscribe((user: User) => {
       this.user = user;
+
+      this.quietTimeStart = new TimeHelper(user.notificationQuietHours.start);
+      this.quietTimeEnd = new TimeHelper(user.notificationQuietHours.end);
     }));
     this.subscriptions.push(estatesStore.estatePool$.subscribe((pool: EstatePool) => {
       this.pool = pool;
@@ -79,5 +86,26 @@ export class DropdownComponent implements OnDestroy {
 
   public changeEstatePool(pool: EstatePool): void {
     this.estatesStore.setEstatePool(pool);
+  }
+
+  public changeNotificationFrequency(frequency: number): void {
+    this.userService.changeNotificationFrequency(frequency);
+  }
+
+  public changeQuietTime(): void {
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    this.userService.changeNotificationQuietTime({
+      start: {
+        hours: this.quietTimeStart.hours,
+        minutes: this.quietTimeStart.minutes,
+        timezone
+      },
+      end: {
+        hours: this.quietTimeEnd.hours,
+        minutes: this.quietTimeEnd.minutes,
+        timezone
+      }
+    })
   }
 }

@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = '1.3.0';
+const version = '1.4.0';
 exports.version = version;
 
 exports.checkIndices = checkIndices;
@@ -28,10 +28,29 @@ async function migrate() {
         }
     }, {multi: true});
 
-    return db.getCollection('users').updateMany({version: '1.2.0'}, {
+    await db.getCollection('users').updateMany({version: '1.2.0'}, {
         $set: {
             view: 'cards',
             version: '1.3.0'
+        }
+    }, {multi: true});
+
+    return db.getCollection('users').updateMany({version: '1.3.0'}, {
+        $set: {
+            notificationFrequency: 1,
+            notificationQuietHours: {
+                start: {
+                    hours: 22,
+                    minutes: 0,
+                    timezone: 'Europe/Budapest'
+                },
+                end: {
+                    hours: 8,
+                    minutes: 0,
+                    timezone: 'Europe/Budapest'
+                }
+            },
+            version: '1.4.0'
         }
     }, {multi: true});
 }

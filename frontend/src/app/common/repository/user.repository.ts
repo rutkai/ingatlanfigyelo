@@ -6,6 +6,7 @@ import {Filter} from "../model/filters/types/filter";
 import {FilterFactory} from "../factory/filter.factory";
 import {environment} from "../../../environments/environment";
 import {View} from "../";
+import {QuietHours} from "../types/quiet-hours";
 
 @Injectable()
 export class UserRepository {
@@ -70,11 +71,29 @@ export class UserRepository {
       });
   }
 
+  public changeNotificationFrequency(frequency: number): Promise<void> {
+    const payload = {frequency};
+
+    return this.http.put(`//${environment.apiDomain}/user/notification-frequency`, payload, {withCredentials: true}).toPromise()
+      .then(() => {
+      });
+  }
+
+  public changeNotificationQuietTime(quietHours: QuietHours): Promise<void> {
+    const payload = {quietHours};
+
+    return this.http.put(`//${environment.apiDomain}/user/notification-quiet-time`, payload, {withCredentials: true}).toPromise()
+      .then(() => {
+      });
+  }
+
   private unserializeUser(userData: any): User {
     const user = new User();
     user.id = userData.id;
     user.username = userData.username;
     user.view = userData.view;
+    user.notificationFrequency = userData.notificationFrequency;
+    user.notificationQuietHours = userData.notificationQuietHours;
     user.filterGroups = userData.filterGroups ? this.unserializeFilterGroups(userData.filterGroups) : [];
     return user;
   }

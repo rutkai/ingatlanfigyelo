@@ -79,6 +79,52 @@ router.put('/view', async function (req, res) {
     res.json({});
 });
 
+router.put('/notification-frequency', async function (req, res) {
+    if (!req.isAuthenticated()) {
+        res.status(403).json({
+            error: 'Unauthorized!',
+            code: 403
+        });
+        return;
+    }
+
+    const frequency = req.body.frequency;
+    if (isNaN(frequency)) {
+        res.status(400).json({
+            error: 'Invalid data!',
+            code: 400
+        });
+        return;
+    }
+
+    await userRepository.updateNotificationFrequency(req.user, frequency);
+
+    res.json({});
+});
+
+router.put('/notification-quiet-time', async function (req, res) {
+    if (!req.isAuthenticated()) {
+        res.status(403).json({
+            error: 'Unauthorized!',
+            code: 403
+        });
+        return;
+    }
+
+    const quietHours = req.body.quietHours;
+    if (!isQuietHoursValid(quietHours)) {
+        res.status(400).json({
+            error: 'Invalid data!',
+            code: 400
+        });
+        return;
+    }
+
+    await userRepository.updateNotificationQuietHours(req.user, quietHours);
+
+    res.json({});
+});
+
 module.exports = router;
 
 
@@ -87,11 +133,37 @@ function isEmailAddress(string) {
     return re.test(string);
 }
 
+function isQuietHoursValid(quietHours) {
+    if (typeof quietHours !== 'object') {
+        return false;
+    }
+
+    if (typeof quietHours.start !== 'object' || typeof quietHours.end !== 'object') {
+        return false;
+    }
+
+    if (typeof quietHours.start.hours !== 'number' || typeof quietHours.start.minutes !== 'number' ||
+        typeof quietHours.end.hours !== 'number' || typeof quietHours.end.minutes !== 'number') {
+        return false;
+    }
+
+    try {
+        Intl.DateTimeFormat(undefined, {timeZone: quietHours.start.timezone});
+        Intl.DateTimeFormat(undefined, {timeZone: quietHours.end.timezone});
+    } catch (e) {
+        return false;
+    }
+
+    return true;
+}
+
 function getUserProfile(user) {
     return {
         id: user._id,
         username: user.username,
         view: user.view,
+        notificationFrequency: user.notificationFrequency,
+        notificationQuietHours: user.notificationQuietHours,
         filterGroups: user.filterGroups
     };
 }
