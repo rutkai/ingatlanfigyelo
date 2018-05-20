@@ -6,7 +6,10 @@ self.addEventListener('push', function (event) {
     event.waitUntil(
       self.registration.showNotification(notificationData.title, {
         body: notificationData.body,
-        icon: notificationData.icon
+        icon: notificationData.icon,
+        data: {
+          estate: notificationData.estate
+        }
       })
     );
   } catch (e) {
@@ -18,7 +21,7 @@ self.addEventListener('notificationclick', function (event) {
   let notificationData = {};
 
   try {
-    notificationData = event.data.json();
+    notificationData = event.notification;
   } catch (e) {
   }
 
@@ -33,8 +36,8 @@ self.addEventListener('notificationclick', function (event) {
           command: 'update-estates'
         });
 
-        if (notificationData.estate && 'navigate' in clientList[0]) {
-          return clientList[0].navigate('/estate/' + notificationData.estate)
+        if (notificationData.data.estate && 'navigate' in clientList[0]) {
+          return clientList[0].navigate('/estate/' + notificationData.data.estate)
             .then(client => {
               return client.focus();
             });
@@ -46,7 +49,7 @@ self.addEventListener('notificationclick', function (event) {
       }
 
       if (clients.openWindow) {
-        return clients.openWindow(notificationData.estate ? '/estate/' + notificationData.estate : '/');
+        return clients.openWindow(notificationData.data.estate ? '/estate/' + notificationData.data.estate : '/');
       }
     })
   );
