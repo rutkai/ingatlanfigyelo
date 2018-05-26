@@ -31,8 +31,10 @@ export class DropdownComponent implements OnDestroy {
     this.subscriptions.push(userStore.user$.subscribe((user: User) => {
       this.user = user;
 
-      this.quietTimeStart = new TimeHelper(user.notificationQuietHours.start);
-      this.quietTimeEnd = new TimeHelper(user.notificationQuietHours.end);
+      if (user) {
+        this.quietTimeStart = new TimeHelper(user.notificationQuietHours.start);
+        this.quietTimeEnd = new TimeHelper(user.notificationQuietHours.end);
+      }
     }));
     this.subscriptions.push(estatesStore.estatePool$.subscribe((pool: EstatePool) => {
       this.pool = pool;
