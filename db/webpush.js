@@ -1,7 +1,16 @@
 const db = require('./db');
 
-const version = '1.0.0';
+const version = 2;
 exports.version = version;
+
+exports.migrate = migrate;
+async function migrate() {
+    await db.getCollection('webpush').updateMany({version: '1.0.0'}, {
+        $set: {
+            version: 2
+        }
+    }, {multi: true});
+}
 
 exports.getAll = getAll;
 function getAll() {

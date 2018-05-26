@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = '1.3.0';
+const version = 4;
 exports.version = version;
 
 exports.checkIndices = checkIndices;
@@ -43,6 +43,11 @@ async function migrate() {
         $set: {
             material: null,
             version: '1.3.0'
+        }
+    }, {multi: true});
+    await db.getCollection('estates').updateMany({version: '1.3.0'}, {
+        $set: {
+            version: 4
         }
     }, {multi: true});
 }

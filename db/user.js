@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = '1.4.0';
+const version = 5;
 exports.version = version;
 
 exports.checkIndices = checkIndices;
@@ -35,7 +35,7 @@ async function migrate() {
         }
     }, {multi: true});
 
-    return db.getCollection('users').updateMany({version: '1.3.0'}, {
+    await db.getCollection('users').updateMany({version: '1.3.0'}, {
         $set: {
             notificationFrequency: 1,
             notificationQuietHours: {
@@ -51,6 +51,12 @@ async function migrate() {
                 }
             },
             version: '1.4.0'
+        }
+    }, {multi: true});
+
+    await db.getCollection('users').updateMany({version: '1.4.0'}, {
+        $set: {
+            version: 5
         }
     }, {multi: true});
 }

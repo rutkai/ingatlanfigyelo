@@ -12,6 +12,7 @@ const config = require('config');
 const Raven = require('raven');
 
 const db = require('./db/db');
+const webpush = require('./db/webpush');
 const passportAuth = require('./auth/init');
 const pushServer = require('./push-server/server');
 
@@ -27,6 +28,9 @@ const estate = require('./routes/estate');
 exports.getApp = getApp;
 function getApp() {
     return db.init()
+        .then(async () => {
+            await webpush.migrate();
+        })
         .then(async () => {
             const app = express();
 
