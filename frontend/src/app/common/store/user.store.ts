@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {UserRepository} from "../repository/user.repository";
-import {Observable} from "rxjs/Observable";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Observable} from "rxjs/internal/Observable";
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 import {User} from "../model/user";
 
 @Injectable()

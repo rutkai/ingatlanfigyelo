@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Stats, StatsStore} from "../../common";
-import {Subscription} from "rxjs/Subscription";
+import {Subscription} from "rxjs/internal/Subscription";
 
 @Component({
   selector: 'app-about',

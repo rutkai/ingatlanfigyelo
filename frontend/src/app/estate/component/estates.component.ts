@@ -4,7 +4,7 @@ import {
 import {
   Estate, EstatePool, EstatesService, EstatesStore, NavigationStore, NotificationService, User, UserStore, View
 } from "../../common";
-import {Subscription} from "rxjs/Subscription";
+import {Subscription} from "rxjs/internal/Subscription";
 
 @Component({
   selector: 'app-estates',

@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core'
-import {Observable} from 'rxjs/Observable'
-import 'rxjs/add/operator/share'
-import {Subject} from "rxjs/Subject";
-import {Subscription} from "rxjs/Subscription";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Subject} from "rxjs/internal/Subject";
+import {Subscription} from "rxjs/internal/Subscription";
+import {BehaviorSubject} from "rxjs/internal/BehaviorSubject";
 import {environment} from "../../../environments/environment";
 import {MobileDetectService} from "../service/mobile-detect.service";
+import {Observable} from "rxjs/internal/Observable";
 
 
 @Injectable()

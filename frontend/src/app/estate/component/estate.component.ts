@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import {Estate, EstatesService, NotificationService, User, UserStore} from "../../common";
-import {Subscription} from "rxjs/Subscription";
+import {Subscription} from "rxjs/internal/Subscription";
 
 @Component({
   selector: 'app-estate',
