@@ -14,8 +14,12 @@
       <mat-error *ngIf="password2.invalid && password2.hasError('required')">Jelszó megerősítés megadása kötelező!</mat-error>
       <mat-error *ngIf="password2.invalid && password2.hasError('match')">Jelszó megerősítés nem azonos a jelszóval!</mat-error>
     </mat-form-field>
+    <mat-checkbox [formControl]="terms">Elfogadom a <a routerLink="/about/terms-and-conditions" target="_blank">felhasználási feltételeket</a> és az<br/>
+      <a routerLink="/about/privacy-policy" target="_blank">adatvédelmi nyilatkozatot</a>.</mat-checkbox>
+    <mat-error *ngIf="terms.invalid && !terms.pristine">A feltételek elfogadása köztelező!</mat-error>
   </form>
-  <button mat-button mat-raised-button color="primary" [disabled]="username.invalid || password.invalid || password2.invalid" (click)="register()">
+  <button mat-button mat-raised-button color="primary" (click)="register()"
+          [disabled]="username.invalid || password.invalid || password2.invalid || terms.invalid">
     Regisztráció
   </button>
   <h3 class="existinguser">Meglévő felhasználó?</h3>

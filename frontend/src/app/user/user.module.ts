@@ -4,7 +4,7 @@ import {Routing} from "./user.routing";
 import {LoginComponent} from "./component/login.component";
 import {RegisterComponent} from "./component/register.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule, MatInputModule} from "@angular/material";
+import {MatButtonModule, MatCheckboxModule, MatInputModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -17,6 +17,7 @@ import {MatButtonModule, MatInputModule} from "@angular/material";
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatCheckboxModule,
     MatButtonModule,
   ],
   bootstrap: []
