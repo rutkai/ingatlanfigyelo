@@ -1,5 +1,5 @@
 <div class="c-card hoverable u-flex u-justify-center" (click)="openEstate()">
-  <i class="material-icons seen-icon" (click)="toggleSeenFavorite($event)">
+  <i *ngIf="user" class="material-icons seen-icon" (click)="toggleSeenFavorite($event)">
     {{ estate.favourite ? 'favorite' : estate.isSeen ? 'visibility' : 'visibility_off' }}
   </i>
   <button class="c-button open-button"><img src="assets/images/search.svg" alt=""></button>

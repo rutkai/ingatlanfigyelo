@@ -1,22 +1,34 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {Estate, EstatesService, NotificationService} from "../../common";
+import {Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
+import {Estate, EstatesService, NotificationService, User, UserStore} from "../../common";
 import {Router} from "@angular/router";
+import {Subscription} from "rxjs/internal/Subscription";
 
 @Component({
   selector: 'app-estate-card',
   templateUrl: './estate-card.component.html',
   styleUrls: ['./estate-card.component.scss']
 })
-export class EstateCardComponent {
+export class EstateCardComponent implements OnDestroy {
   @Input() public estate: Estate;
 
   @ViewChild('estateCardContent') estateCardContent: ElementRef;
 
+  public user: User;
   public imgError = false;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
               private estatesService: EstatesService,
+              userStore: UserStore,
               private notificationService: NotificationService) {
+    this.subscriptions.push(userStore.user$.subscribe(user => {
+      this.user = user;
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
   }
 
   public get coverImg() {
