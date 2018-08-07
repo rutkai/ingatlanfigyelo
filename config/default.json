@@ -42,7 +42,7 @@
           "interval": {
             "milliseconds": 2000
           },
-          "maxPages": 25
+          "maxPages": 40
         }
       },
       {
@@ -59,7 +59,7 @@
           "interval": {
             "milliseconds": 3000
           },
-          "maxPages": 10
+          "maxPages": 15
         }
       },
       {
@@ -76,7 +76,7 @@
           "interval": {
             "milliseconds": 3000
           },
-          "maxPages": 10
+          "maxPages": 15
         }
       },
       {
@@ -94,7 +94,7 @@
           "interval": {
             "milliseconds": 2000
           },
-          "maxPages": 10
+          "maxPages": 20
         }
       },
       {
@@ -111,7 +111,7 @@
           "interval": {
             "milliseconds": 2000
           },
-          "maxPages": 10
+          "maxPages": 20
         }
       }
 //      {
