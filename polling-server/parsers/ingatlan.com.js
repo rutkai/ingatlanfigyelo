@@ -36,13 +36,25 @@ function parseProfile(html) {
     const rooms = parseInt(roomsData);
     const halfrooms = roomsData.includes('fél') ? parseInt(/\d+\W*fél/i.exec(roomsData)[0]) : 0;
     const size = parseInt($(".listing .parameter-area-size .parameter-value").text());
-    const district = parseInt($(".listing .listing-header h1").text());
+    const addressLine = $(".listing .listing-header h1").text();
+
+    let district = null;
+    let city = 'Budapest';
+    let region = 'Budapest';
+    if (addressLine.includes('. kerület')) {
+        district = parseInt(addressLine);
+    } else {
+        const breadcrumbs = $('#map-breadcrumb .map-link');
+        region = breadcrumbs.eq(0).text().replace('megye', '').trim();
+        city = breadcrumbs.eq(1).text().trim();
+    }
+
     const descriptionHtml = striptags($('.details .long-description').html(), ['a', 'p', 'br', 'i', 'em', 'strong', 'ul', 'li']);
     const descriptionText = $('.details .long-description').text().trim();
     const material = listBasedMatcher.extractMaterial($('.listing-subtype').text().trim());
     let address = getAddress(html);
     if (!address) {
-        address = $(".listing .listing-header h1").text().replace(`${district}. kerület,`, '').trim();
+        address = addressLine.replace(`${district}. kerület,`, '').trim();
     }
     let floor = null;
     let elevator = null;
@@ -98,7 +110,9 @@ function parseProfile(html) {
             balcony,
             descriptionHtml,
             descriptionText,
-            material
+            material,
+            city,
+            region
         });
     });
 }

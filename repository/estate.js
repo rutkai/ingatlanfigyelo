@@ -12,14 +12,12 @@ function get(filter) {
 }
 
 exports.getPossibleDuplicates = getPossibleDuplicates;
-function getPossibleDuplicates(district, size) {
-    return estates.getMany({
-        district,
-        size,
+function getPossibleDuplicates(filter) {
+    return estates.getMany(Object.assign({}, filter, {
         updated: {
             "$gte": moment().subtract(1, 'week').toDate()
         }
-    }).toArray();
+    })).toArray();
 }
 
 exports.lastCount = lastCount;
@@ -34,4 +32,19 @@ function lastCount(unit, amount = 1) {
 exports.save = save;
 function save(estate) {
     return estates.save(estate);
+}
+
+exports.getPossibleDistricts = getPossibleDistricts;
+function getPossibleDistricts() {
+    return estates.getFieldValues('district');
+}
+
+exports.getPossibleCities= getPossibleCities;
+function getPossibleCities() {
+    return estates.getFieldValues('city');
+}
+
+exports.getPossibleRegions= getPossibleRegions;
+function getPossibleRegions() {
+    return estates.getFieldValues('region');
 }

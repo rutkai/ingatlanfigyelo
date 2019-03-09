@@ -3,6 +3,7 @@ const toArabic = require('roman-numerals').toArabic;
 const got = require('got');
 const striptags = require('striptags');
 const listBasedMatcher = require('./helpers/list-based-matcher');
+const cityRegionMapper = require('./helpers/city-region-mapper');
 
 exports.parseList = parseList;
 function parseList(html) {
@@ -28,6 +29,8 @@ function parseProfile(html) {
     const $ = cheerio.load(html);
 
     const price = parseInt($(".container .prop-price").data('price'));
+    let region = 'Budapest';
+    let city = 'Budapest';
     let district = null;
     let address = null;
     let rooms = null;
@@ -46,7 +49,12 @@ function parseProfile(html) {
     $locationDataList.each(function (index) {
         const $link = $(this);
 
-        if ($link.text().includes('Kerület')) {
+        if (index === 0) {
+            return;
+        } else if (index === 1) {
+            city = $link.text().trim();
+            region = cityRegionMapper.getRegion(city);
+        } else if ($link.text().includes('Kerület')) {
             district = toArabic($link.text().substring(0, $link.text().indexOf('.')));
         } else if (index === locationDataListLength - 1) {
             address = $link.text();
@@ -115,7 +123,9 @@ function parseProfile(html) {
                 balcony,
                 descriptionHtml,
                 descriptionText,
-                material
+                material,
+                city,
+                region
             };
         });
 }

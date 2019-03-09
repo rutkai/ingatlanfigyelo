@@ -11,6 +11,7 @@ const passport = require('passport');
 const config = require('config');
 const Raven = require('raven');
 
+const envUtils = require('./utils/env');
 const db = require('./db/db');
 const webpush = require('./db/webpush');
 const passportAuth = require('./auth/init');
@@ -36,7 +37,7 @@ function getApp() {
 
             app.use(Raven.requestHandler());
 
-            if (isDev()) {
+            if (envUtils.isDev()) {
                 app.use(logger('dev'));
                 app.use(require('cors')({
                     origin: true,
@@ -46,7 +47,7 @@ function getApp() {
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded({extended: false}));
             app.use(cookieParser());
-            if (isDev()) {
+            if (envUtils.isDev()) {
                 app.use(express.static(path.join(__dirname, 'public')));
             }
 
@@ -191,8 +192,4 @@ function createRefreshTimer(ws, username) {
                 });
         }
     }, 60000);
-}
-
-function isDev() {
-    return process.env.NODE_ENV !== 'production';
 }

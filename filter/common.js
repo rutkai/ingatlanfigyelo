@@ -26,6 +26,8 @@ exports.isMultiselectField = isMultiselectField;
 function isMultiselectField(field) {
     const multiselectFields = [
         "district",
+        "city",
+        "region",
         "source"
     ];
 

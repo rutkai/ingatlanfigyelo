@@ -17,6 +17,8 @@ function docToResponse(doc, user) {
         size: doc.size,
         squareMeterPrice: doc.squareMeterPrice,
         district: doc.district,
+        city: doc.city,
+        region: doc.region,
         address: doc.address,
         floor: doc.floor,
         elevator: doc.elevator,

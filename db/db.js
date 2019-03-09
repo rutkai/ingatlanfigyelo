@@ -5,7 +5,7 @@ let client, db;
 
 exports.init = init;
 function init() {
-    return MongoClient.connect(config.get('db.connectionStr'))
+    return MongoClient.connect(config.get('db.connectionStr'), { useNewUrlParser: true })
         .then(mongoclient => {
             client = mongoclient;
             db = client.db(config.get('db.collection'));

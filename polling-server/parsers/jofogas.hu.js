@@ -43,8 +43,18 @@ function parseProfile(html) {
     const halfrooms = halfroomElement.length > 0 ? parseInt(halfroomElement.text().match(/[0-9]+/)[0]) : null;
     const sizeMatcher = $('.rePAP-size .reParamValue').text().match(/[0-9]+/);
     const size = sizeMatcher ? parseInt(sizeMatcher[0]) : null;
-    const district = toArabic($('.rePAddress .reParamValue').text().replace('.', '').trim());
     const address = $('.vi_map_line .street').text().trim();
+    let city = 'Budapest';
+    let region = 'Budapest';
+    let district = null;
+
+    if ($('.vi_map_line').text().includes('Budapest')) {
+        district = toArabic($('.rePAddress .reParamValue').text().replace('.', '').trim());
+    } else {
+        city = $('.rePAddress .reParamValue').text().trim();
+        region = $('.vi_map_line a').eq(0).text().trim();
+    }
+
     const floorMatcher = $('.rePCAP-floor .reParamValue').text().match(/[0-9]+/);
     const floor = floorMatcher ? parseInt(floorMatcher[0]) : null;
     const elevator = $('.rePCAP-elevator .reParamValue').text().trim() !== 'Nincs';
@@ -69,7 +79,9 @@ function parseProfile(html) {
             balcony,
             descriptionHtml,
             descriptionText,
-            material
+            material,
+            city,
+            region
         });
     });
 }

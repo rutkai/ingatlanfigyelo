@@ -57,6 +57,8 @@ function isAllowedField(field) {
     const fields = [
         "balcony",
         "district",
+        "city",
+        "region",
         "elevator",
         "floor",
         "heating",
