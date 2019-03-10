@@ -18,8 +18,15 @@ async function checkIndices() {
         created: -1
     });
     await db.getCollection('estates').createIndex({
+        city: 1,
         district: 1,
         size: 1,
+        updated: 1,
+    });
+    await db.getCollection('estates').createIndex({
+        city: 1,
+        district: 1,
+        price: 1,
         updated: 1,
     });
 }
@@ -50,6 +57,13 @@ async function migrate() {
             version: 4
         }
     }, {multi: true});
+    await db.getCollection('estates').updateMany({version: 4}, {
+        $set: {
+            city: 'Budapest',
+            region: 'Budapest',
+            version: 5
+        }
+    }, {multi: true});
 }
 
 exports.get = get;
@@ -59,7 +73,7 @@ function get(filter = {}) {
 
 exports.count = count;
 function count(filter = {}) {
-    return db.getCollection('estates').count(filter);
+    return db.getCollection('estates').countDocuments(filter);
 }
 
 exports.getMany = getMany;
@@ -83,4 +97,9 @@ function save(record) {
 exports.has = has;
 function has(url) {
     return db.getCollection('estates').count({url});
+}
+
+exports.getFieldValues = getFieldValues;
+function getFieldValues(field) {
+    return db.getCollection('estates').distinct(field, {[field]: {"$ne": null}});
 }

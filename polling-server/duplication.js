@@ -8,7 +8,7 @@ const logPath = __dirname + '/../var/log/duplication.log';
 
 exports.isDuplicate = isDuplicate;
 async function isDuplicate(profileData) {
-    let candidates = await estateRepository.getPossibleDuplicates(profileData.district, profileData.size);
+    let candidates = await estateRepository.getPossibleDuplicates(createFilterFromProfileData(profileData));
 
     for (const estate of candidates) {
         if (isDuplicateOf(estate, profileData)) {
@@ -62,6 +62,22 @@ function isDuplicateOf(a, b) {
     return confidence >= CONFIDENCE_THRESHOLD;
 }
 
+
+function createFilterFromProfileData(profileData) {
+    let filter = {
+        city: profileData.city,
+        size: profileData.size
+    };
+
+    if (profileData.district) {
+        filter['district'] = profileData.district;
+    }
+    if (profileData.region) {
+        filter['region'] = profileData.region;
+    }
+
+    return filter;
+}
 
 function log(id, duplicateProvider) {
     let data = '[' + new Date().toISOString() + ']: Duplication found with ' + id + ' - duplicate provider: ' + duplicateProvider + '\n';

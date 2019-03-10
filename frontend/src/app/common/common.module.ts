@@ -24,6 +24,13 @@ import {PushNotificationRepository} from "./repository/push-notification.reposit
 import {MobileDetectService} from "./service/mobile-detect.service";
 import {MobilePushNotificationService} from "./service/mobile-push-notification.service";
 import {DesktopPushNotificationService} from "./service/desktop-push-notification.service";
+import {FilterFactory} from "./factory/filter.factory";
+import {CitiesRepository} from "./repository/cities.repository";
+import {CitiesStore} from "./store/cities.store";
+import {DistrictsRepository} from "./repository/districts.repository";
+import {DistrictsStore} from "./store/districts.store";
+import {RegionsRepository} from "./repository/regions.repository";
+import {RegionsStore} from "./store/regions.store";
 
 @NgModule({
   declarations: [
@@ -43,6 +50,7 @@ export class CommonModule {
     return {
       ngModule: CommonModule,
       providers: [
+        FilterFactory,
         EstatesRepository,
         EstatesStore,
         EstatesService,
@@ -51,6 +59,12 @@ export class CommonModule {
         UserService,
         StatsRepository,
         StatsStore,
+        CitiesRepository,
+        CitiesStore,
+        DistrictsRepository,
+        DistrictsStore,
+        RegionsRepository,
+        RegionsStore,
         EstateParser,
         NotificationService,
         WebsocketRepository,

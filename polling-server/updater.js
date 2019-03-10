@@ -2,7 +2,7 @@ const Raven = require('raven');
 const {URL} = require('url');
 const moment = require('moment');
 const worker = require('./worker/worker');
-const env = require('../env/env');
+const envUtils = require('../utils/env');
 
 const duplication = require('./duplication');
 const estates = require('../db/estate');
@@ -40,7 +40,7 @@ class Updater {
             const listData = this.provider.parser.parseList(response);
 
             setTimeout(() => {
-                if (listData.nextList && env.isProd() && this.page < this.provider.maxPages) {
+                if (listData.nextList && envUtils.isProd() && this.page < this.provider.maxPages) {
                     this.page += 1;
                     this.updateNextIndexPage(listData.nextList)
                         .catch(logError);
@@ -168,7 +168,8 @@ class Updater {
     }
 
     isProfileDataValid(profileData) {
-        return profileData.district &&
+        return profileData.city &&
+            (profileData.region || profileData.district) &&
             profileData.size &&
             profileData.rooms &&
             profileData.price;

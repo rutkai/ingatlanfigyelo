@@ -1,4 +1,4 @@
-version: "2"
+version: "3.1"
 services:
   web:
     build: .
@@ -10,3 +10,5 @@ services:
     image: mongo
     volumes:
       - ./var/db/:/data/db
+  redis:
+    image: redis

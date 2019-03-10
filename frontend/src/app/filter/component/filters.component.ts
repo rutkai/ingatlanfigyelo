@@ -14,12 +14,12 @@ export class FiltersComponent {
   public attributes: string[];
   public selected = EstateAttributes.PRICE;
 
-  constructor() {
+  constructor(private filterFactory: FilterFactory) {
     this.attributes = Object.keys(EstateAttributes).map(key => EstateAttributes[key]);
   }
 
   public addFilter() {
-    const filter = FilterFactory.createFilterFor(this.selected);
+    const filter = this.filterFactory.createFilterFor(this.selected);
     this.filters.addFilter(filter);
     this.change.emit(this.filters);
   }

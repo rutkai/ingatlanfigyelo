@@ -9,6 +9,10 @@ export class EstateAttributeDisplayPipe implements PipeTransform {
         return 'Ár';
       case EstateAttributes.BALCONY:
         return 'Erkély';
+      case EstateAttributes.CITY:
+        return 'Város';
+      case EstateAttributes.REGION:
+        return 'Régió/Megye';
       case EstateAttributes.DISTRICT:
         return 'Kerület';
       case EstateAttributes.ELEVATOR:

@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:10
 
 WORKDIR /srv
 
@@ -6,7 +6,6 @@ ENV NODE_ENV=production
 
 COPY . /srv
 RUN cd /srv; npm install
-RUN cd /srv/frontend; npm install; npm build-prod
 
 EXPOSE 3000
 CMD ["npm", "start"]

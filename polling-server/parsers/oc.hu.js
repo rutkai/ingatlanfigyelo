@@ -2,6 +2,7 @@ const cheerio = require('cheerio');
 const toArabic = require('roman-numerals').toArabic;
 const striptags = require('striptags');
 const listBasedMatcher = require('./helpers/list-based-matcher');
+const cityRegionMapper = require('./helpers/city-region-mapper');
 const config = require('config');
 
 let indexPage;
@@ -63,6 +64,7 @@ function parseProfile(html) {
     });
 
     const addressBlock = $('h1 .estate-town').text().trim();
+    const city = $('h1 .estate-city').text().trim();
     const district = toArabic(addressBlock.substring(0, addressBlock.indexOf('.')));
     const address = addressBlock.substring(addressBlock.indexOf(',') + 1).trim();
 
@@ -98,7 +100,9 @@ function parseProfile(html) {
             balcony,
             descriptionHtml,
             descriptionText,
-            material
+            material,
+            city,
+            region: cityRegionMapper.getRegion(city)
         });
     });
 }
