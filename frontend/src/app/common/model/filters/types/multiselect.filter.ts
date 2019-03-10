@@ -1,13 +1,16 @@
 import {Filter} from "./filter";
 import {EstateAttributes} from "../estate-attributes";
+import {Observable} from "rxjs";
 
 export class MultiselectFilter extends Filter {
   public availableList: any[];
   public selected: any[] = [];
 
-  constructor(field: EstateAttributes, availableList: any[]) {
+  constructor(field: EstateAttributes, items: Observable<any[]>) {
     super(field);
-    this.availableList = availableList;
+    items.subscribe((items: any[]) => {
+      this.availableList = items;
+    });
   }
 
   public unserialize(data: any) {

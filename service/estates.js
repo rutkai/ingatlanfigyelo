@@ -50,27 +50,27 @@ exports.getUnseenNonFavouriteEstates = getUnseenNonFavouriteEstates;
 function getUnseenNonFavouriteEstates(user, start, RESULT_LIMIT) {
     const filter = filterSerializer.toMongoFilter(user.filterGroups);
     const unseenQuery = {
-        "$or": [
+        "$and": [
             {
-                "_id": {
-                    "$nin": user.favouriteEstates.map(ObjectId),
-                    "$in": user.unseenMarkedEstates.map(ObjectId),
-                }
-            },
-            {
-                "$and": [
+                "$or": [
+                    {
+                        "_id": {
+                            "$nin": user.favouriteEstates.map(ObjectId),
+                            "$in": user.unseenMarkedEstates.map(ObjectId),
+                        }
+                    },
                     {
                         "_id": {
                             "$nin": user.favouriteEstates.map(ObjectId).concat(user.seenEstates.map(ObjectId)),
                         }
-                    },
-                    filter
+                    }
                 ]
-            }
+            },
+            filter
         ]
     };
     if (user.readAllMark) {
-        unseenQuery["$or"][1]["$and"][0]["updated"] = {
+        unseenQuery["$and"][0]["$or"][1]["updated"] = {
             "$gte": user.readAllMark
         };
     }

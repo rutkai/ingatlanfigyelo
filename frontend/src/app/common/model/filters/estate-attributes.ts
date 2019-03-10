@@ -1,6 +1,8 @@
 export enum EstateAttributes {
-  BALCONY = "balcony",
   DISTRICT = "district",
+  CITY = "city",
+  REGION = "region",
+  BALCONY = "balcony",
   ELEVATOR = "elevator",
   FLOOR = "floor",
   HEATING = "heating",

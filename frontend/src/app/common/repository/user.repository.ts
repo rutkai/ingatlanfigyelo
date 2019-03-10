@@ -10,7 +10,7 @@ import {QuietHours} from "../types/quiet-hours";
 
 @Injectable()
 export class UserRepository {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private filterFactory: FilterFactory) {
   }
 
   public getProfile(): Promise<User> {
@@ -102,7 +102,7 @@ export class UserRepository {
     return filterGroups.map((filters: any): Filters => {
       const filtersObj = new Filters();
       filtersObj.filters = filters.map((filterData: any): Filter => {
-        const filter = FilterFactory.createFilterFor(filterData.field);
+        const filter = this.filterFactory.createFilterFor(filterData.field);
         filter.unserialize(filterData);
         return filter;
       });
