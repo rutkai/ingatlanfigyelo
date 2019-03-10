@@ -101,5 +101,5 @@ function has(url) {
 
 exports.getFieldValues = getFieldValues;
 function getFieldValues(field) {
-    return db.getCollection('estates').distinct(field, {[field]: {"$ne": null}});
+    return db.getCollection('estates').distinct(field, {[field]: {"$nin": [null, NaN]}});
 }
