@@ -7,8 +7,7 @@ export class DesktopPushNotificationService {
 
   public init(): void {
     if (Push.Permission.get() === Push.Permission.DEFAULT) {
-      Push.Permission.request()
-        .catch(() => {});
+      Push.Permission.request();
     }
   }
 
