@@ -51,6 +51,12 @@ function resetLastRefresh(user) {
     return users.save(user);
 }
 
+exports.setPassword = setPassword;
+function setPassword(user, password) {
+    user.passwordHash = calculatePasswordHash(password);
+    return users.save(user);
+}
+
 exports.updateFilters = updateFilters;
 function updateFilters(user, filterGroups) {
     user.filterGroups = filterGroups;

@@ -28,12 +28,14 @@
     "moment-timezone": "^0.5.23",
     "mongodb": "^3.1.13",
     "morgan": "^1.9.1",
+    "nodemailer": "^5.1.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "raven": "^2.6.4",
     "roman-numerals": "^0.3.2",
     "rss": "^1.2.2",
     "striptags": "^3.1.1",
+    "twig": "^1.13.2",
     "web-push": "^3.3.3"
   },
   "devDependencies": {

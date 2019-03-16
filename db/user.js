@@ -81,5 +81,5 @@ function save(record) {
 
 exports.has = has;
 function has(username) {
-    return db.getCollection('users').count({username});
+    return db.getCollection('users').countDocuments({username});
 }

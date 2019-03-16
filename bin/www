@@ -21,6 +21,7 @@ Raven.config(config.get('sentry.web')).install();
 
 // Unexpected errors
 process.on('unhandledRejection', error => {
+    console.log(error);
     Raven.captureException(error);
 });
 

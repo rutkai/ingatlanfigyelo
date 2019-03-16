@@ -5,10 +5,14 @@ import {LoginComponent} from "./component/login.component";
 import {RegisterComponent} from "./component/register.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule, MatCheckboxModule, MatInputModule} from "@angular/material";
+import {ForgottenPasswordComponent} from "./component/forgotten-password.component";
+import {ResetPasswordComponent} from "./component/reset-password.component";
 
 @NgModule({
   declarations: [
     LoginComponent,
+    ForgottenPasswordComponent,
+    ResetPasswordComponent,
     RegisterComponent
   ],
   imports: [

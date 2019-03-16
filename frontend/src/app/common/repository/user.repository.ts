@@ -36,6 +36,28 @@ export class UserRepository {
       });
   }
 
+  public sendForgottenPassword(username: string): Promise<void> {
+    const payload = {
+      username
+    };
+
+    return this.http.post(`${environment.apiScheme}://${environment.apiDomain}/user/password-recovery`, payload, {withCredentials: true}).toPromise()
+      .then(() => {
+      });
+  }
+
+  public resetPassword(id: string, password: string, token: string): Promise<void> {
+    const payload = {
+      id,
+      password,
+      token
+    };
+
+    return this.http.put(`${environment.apiScheme}://${environment.apiDomain}/user/password-reset`, payload, {withCredentials: true}).toPromise()
+      .then(() => {
+      });
+  }
+
   public register(username: string, password: string): Promise<void> {
     const payload = {
       username,

@@ -1,7 +1,11 @@
 const express = require('express');
 const passport = require('passport');
+const ObjectId = require('mongodb').ObjectId;
 const router = express.Router();
 
+const tokenUtils = require('../utils/token');
+const cache = require('../cache/cache');
+const email = require('../email/email');
 const userRepository = require('../repository/user');
 
 router.get('/profile', function (req, res) {
@@ -26,6 +30,90 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
 
 router.get('/logout', function (req, res) {
     req.logout();
+    res.json({});
+});
+
+router.post('/password-recovery', async function (req, res) {
+    if (!req.body.username) {
+        res.status(400).json({
+            error: 'Invalid data!',
+            code: 400
+        });
+        return;
+    }
+
+    const cleanedUsername = req.body.username.replace(/\W/g, '');
+    if (!cleanedUsername) {
+        res.status(400).json({
+            error: 'Invalid data!',
+            code: 400
+        });
+        return;
+    }
+
+    const user = await userRepository.getByUsername(req.body.username);
+    if (!user) {
+        res.status(404).json({
+            error: 'Username not found!',
+            code: 404
+        });
+        return;
+    }
+
+    if (await cache.get(`password-recovery-lock-${cleanedUsername}`)) {
+        res.status(429).json({
+            error: 'Too many requests!',
+            code: 429
+        });
+        return;
+    }
+    cache.set(`password-recovery-lock-${cleanedUsername}`, true, 120);
+
+    const token = tokenUtils.generate(req.body.username);
+    cache.set(`password-recovery-token-${user._id}`, token, 7200);
+    email.sendEmail('password-recovery', req.body.username, 'Ingatlanfigyelő elfelejtett jelszó', {id: user._id, token})
+        .then(() => {
+            res.json({});
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                error: 'Error during email sending!',
+                code: 500
+            });
+        });
+});
+
+router.put('/password-reset', async function (req, res) {
+    if (!req.body.token || !req.body.id || !req.body.password) {
+        res.status(400).json({
+            error: 'Invalid data!',
+            code: 400
+        });
+        return;
+    }
+
+    const token = await cache.get(`password-recovery-token-${req.body.id}`);
+    if (token !== req.body.token) {
+        res.status(400).json({
+            error: 'Invalid token!',
+            code: 400
+        });
+        return;
+    }
+
+    const user = await userRepository.get({_id: ObjectId(req.body.id)});
+    if (!user) {
+        res.status(400).json({
+            error: 'Invalid token!',
+            code: 400
+        });
+        return;
+    }
+
+    await userRepository.setPassword(user, req.body.password);
+    cache.del(`password-recovery-token-${req.body.id}`);
+
     res.json({});
 });
 

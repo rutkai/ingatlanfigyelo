@@ -16,6 +16,14 @@ export class UserService {
     });
   }
 
+  public sendPasswordRecovery(username: string): Promise<void> {
+    return this.userRepository.sendForgottenPassword(username);
+  }
+
+  public resetPassword(id: string, password: string, token: string): Promise<void> {
+    return this.userRepository.resetPassword(id, password, token);
+  }
+
   public register(username: string, password: string): Promise<void> {
     return this.userRepository.register(username, password);
   }

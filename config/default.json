@@ -1,4 +1,7 @@
 {
+  "application": {
+    "baseUrl": "http://localhost:3000/#"
+  },
   "db": {
     "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo",
     "collection": "ingatlanfigyelo"
@@ -7,6 +10,20 @@
     "host": "127.0.0.1",
     "port": 6379,
     "db": 0
+  },
+  "email": {
+    "transport": {
+      "host": "smtp.mailtrap.io",
+      "port": 465,
+      "secure": false,
+      "auth": {
+        "user": "",
+        "pass": ""
+      }
+    },
+    "options": {
+      "from": "Ingatlanfigyelő <noreply@ingatlanfigyelo.eu>"
+    }
   },
   "sentry": {
     "web": "https://acdca2b5ed9c42599b12cf10cd149420:9c80fc7fc6f9448ca219762e528d1cbc@sentry.io/250273",

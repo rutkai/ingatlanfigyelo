@@ -96,7 +96,7 @@ function save(record) {
 
 exports.has = has;
 function has(url) {
-    return db.getCollection('estates').count({url});
+    return db.getCollection('estates').countDocuments({url});
 }
 
 exports.getFieldValues = getFieldValues;
