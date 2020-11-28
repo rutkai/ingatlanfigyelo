@@ -7,7 +7,6 @@
 const config = require('config');
 const Raven = require('raven');
 const appWeb = require('../app-web');
-const debug = require('debug')('ingatlanfigyelo:web');
 const http = require('http');
 
 /**
@@ -100,5 +99,5 @@ function onListening() {
     const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('Listening on ' + bind);
+    console.log('Listening on ' + bind);
 }

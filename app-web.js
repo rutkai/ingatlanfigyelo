@@ -65,38 +65,30 @@ function getApp() {
 
             const userLimiter = new RateLimit({
                 windowMs: 120000,
-                delayAfter: 0,
-                max: 20,
+                max: 30,
             });
             const filterLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 0,
-                max: 30,
+                max: 50,
             });
             const pushLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 0,
-                max: 20,
+                max: 30,
             });
             const rssLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 0,
-                max: 10,
+                max: 20,
             });
             const statsLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 0,
-                max: 10,
+                max: 20,
             });
             const apiLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 18,
-                delayMs: 3000,
                 max: 0,
             });
             const estateLimiter = new RateLimit({
                 windowMs: 60000,
-                delayAfter: 0,
                 max: 100,
             });
 
