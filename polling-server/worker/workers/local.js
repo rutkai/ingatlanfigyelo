@@ -27,15 +27,15 @@ class LocalWorker {
     fetchContent(url, provider) {
         this._lastUsed[provider] = new Date();
 
-        const options = Object.assign({}, this.config.options, {encoding: null});
-        return got(url, options)
+        const options = Object.assign({}, this.config.options);
+        return got(url, options).buffer()
             .then(response => {
-                let encoding = charset(response.headers, response.body, 4096) || 'utf8';
+                let encoding = charset(response.headers, response, 4096) || 'utf8';
                 if (!iconv.encodingExists(encoding)) {
                     Raven.captureMessage(`Unknown character encoding ${encoding} while reading ${url}`);
                     encoding = 'utf8';
                 }
-                return iconv.decode(response.body, encoding ? encoding : 'utf8');
+                return iconv.decode(response, encoding ? encoding : 'utf8');
             })
             .catch(error => {
                 if (error instanceof got.HTTPError) {

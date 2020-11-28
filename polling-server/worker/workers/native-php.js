@@ -16,7 +16,7 @@ class NativePhpWorker extends LocalWorker {
         };
         return got(this.config.endpoint, {body, json: true})
             .then(response => {
-                return response.body.data;
+                return response.body;
             });
     }
 }

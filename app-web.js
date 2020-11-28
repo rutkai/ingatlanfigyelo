@@ -54,7 +54,8 @@ function getApp() {
             await passportAuth.init();
             app.use(session({
                 store: new MongoStore({
-                    db: db.getConnection()
+                    client: db.getClient(),
+                    dbName: db.getCollectionName(),
                 }),
                 secret: config.get('express.session-secret'),
                 resave: false,

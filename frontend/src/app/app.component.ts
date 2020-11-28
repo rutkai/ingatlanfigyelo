@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {HeadUpdaterService} from "./common/service/head-updater.service";
 import {ServiceWorkerService, User, UserStore} from "./common";
-import {MatSidenav} from "@angular/material";
+import {MatSidenav} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-root',

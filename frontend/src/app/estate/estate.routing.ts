@@ -8,4 +8,4 @@ const routes: Routes = [
   { path: 'estate/:id', component: SingleEstateComponent },
 ];
 
-export const Routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const Routing: ModuleWithProviders<RouterModule> = RouterModule.forChild(routes);

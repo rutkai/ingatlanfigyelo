@@ -4,7 +4,9 @@ import {Routing} from "./user.routing";
 import {LoginComponent} from "./component/login.component";
 import {RegisterComponent} from "./component/register.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule, MatCheckboxModule, MatInputModule} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatInputModule} from "@angular/material/input";
 import {ForgottenPasswordComponent} from "./component/forgotten-password.component";
 import {ResetPasswordComponent} from "./component/reset-password.component";
 

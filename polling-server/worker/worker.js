@@ -37,7 +37,7 @@ async function fetchContent(url, provider) {
 
         return new Promise(resolve => {
             setTimeout(() => {
-                fetchContent(url)
+                fetchContent(url, provider)
                     .then(resolve);
             }, rescheduleTime);
         });

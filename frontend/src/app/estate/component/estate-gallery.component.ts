@@ -1,5 +1,5 @@
 import {Component, HostListener, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {NgxGalleryAnimation, NgxGalleryComponent, NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery";
+import {NgxGalleryAnimation, NgxGalleryComponent, NgxGalleryImage, NgxGalleryOptions} from "ngx-gallery-9";
 
 enum KeyCodes {
   ESCAPE = 27,

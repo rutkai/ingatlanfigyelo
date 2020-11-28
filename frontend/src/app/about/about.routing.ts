@@ -10,4 +10,4 @@ const routes: Routes = [
   { path: 'terms-and-conditions', component: TermsComponent }
 ];
 
-export const Routing: ModuleWithProviders = RouterModule.forChild(routes);
+export const Routing: ModuleWithProviders<RouterModule> = RouterModule.forChild(routes);

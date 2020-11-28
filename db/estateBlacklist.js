@@ -40,5 +40,5 @@ function has(url) {
 
 exports.remove = remove;
 function remove(filter) {
-    return db.getCollection('estateBlacklist').remove(filter);
+    return db.getCollection('estateBlacklist').removeMany(filter);
 }

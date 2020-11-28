@@ -1,10 +1,17 @@
 import {NgModule} from '@angular/core';
 import {CommonModule as NgCommonModule} from '@angular/common';
 
-import {
-  MatButtonModule, MatCardModule, MatExpansionModule, MatIconModule, MatInputModule,
-  MatProgressSpinnerModule, MatSelectModule, MatSidenavModule, MatSlideToggleModule, MatSnackBarModule, MatTooltipModule
-} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatIconModule} from "@angular/material/icon";
+import {MatInputModule} from "@angular/material/input";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSelectModule} from "@angular/material/select";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatTooltipModule} from "@angular/material/tooltip";
 import {SidenavFilterComponent} from "./component/sidenav/sidenav-filter.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {FiltersComponent} from "./component/filters.component";

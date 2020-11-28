@@ -46,7 +46,7 @@ import {RegionsStore} from "./store/regions.store";
   ],
 })
 export class CommonModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<any> {
     return {
       ngModule: CommonModule,
       providers: [
@@ -82,7 +82,7 @@ export class CommonModule {
     };
   }
 
-  static forChild(): ModuleWithProviders {
+  static forChild(): ModuleWithProviders<any> {
     return {
       ngModule: CommonModule
     };

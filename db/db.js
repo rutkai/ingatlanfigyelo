@@ -3,21 +3,12 @@ const MongoClient = require('mongodb').MongoClient;
 
 let client, db;
 
-exports.init = init;
-function init() {
-    return MongoClient.connect(config.get('db.connectionStr'), { useNewUrlParser: true })
-        .then(mongoclient => {
-            client = mongoclient;
-            db = client.db(config.get('db.collection'));
-        });
+exports.init = async function () {
+    client = await MongoClient.connect(config.get('db.connectionStr'), { useNewUrlParser: true, useUnifiedTopology: true });
+    db = client.db(config.get('db.database'));
 }
 
-exports.getConnection = getConnection;
-function getConnection() {
-    return db;
-}
+exports.getClient = () => client;
+exports.getCollectionName = () => config.get('db.database');
 
-exports.getCollection = getCollection;
-function getCollection(name) {
-    return db.collection(name);
-}
+exports.getCollection = name => db.collection(name);

@@ -21,7 +21,7 @@ class AzureFunctionWorker extends LocalWorker {
 
         return got(this.config.endpoint, options)
             .then(response => {
-                return response.body.data;
+                return response.body;
             });
     }
 }

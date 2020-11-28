@@ -3,11 +3,13 @@ import {CommonModule as NgCommonModule} from '@angular/common';
 
 import {HttpClientModule} from "@angular/common/http";
 import {EstateComponent} from "./component/estate.component";
-import {
-  MatButtonModule, MatIconModule, MatProgressBarModule, MatSnackBarModule, MatTooltipModule
-} from "@angular/material";
+import {MatButtonModule} from "@angular/material/button";
+import {MatIconModule} from "@angular/material/icon";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatDividerModule} from '@angular/material/divider';
-import {NgxGalleryModule} from "ngx-gallery";
+import {NgxGalleryModule} from "ngx-gallery-9";
 import {EstateMapComponent} from "./component/estate-map.component";
 import {AgmCoreModule} from '@agm/core';
 import {environment} from "../../environments/environment";
