@@ -34,7 +34,7 @@ function parseProfile(html) {
         return $(this).attr('data-gallery-biggest-url');
     }).toArray();
 
-    const price = parseInt($('.' + extractPriceSecret($('.price2-section').html()) + ' .price2-value').text().replace(/ /g, ''));
+    const price = parseInt($('.price-section .price-value').text().replace(/ /g, ''));
 
     const roomsMatcher = $('.rePCAP-rooms .reParamValue').text().match(/[0-9]+/);
     const rooms = roomsMatcher ? parseInt(roomsMatcher[0]) : null;
@@ -87,7 +87,7 @@ function parseProfile(html) {
 }
 
 function extractPriceSecret(html) {
-    const res = html.match(/\.([a-z0-9]{41})\{display:inline-block;\}/);
+    const res = html.match(/\.([a-z0-9]{41})\{display:inline-block;}/);
     return res ? res[1] : null;
 }
 

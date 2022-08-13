@@ -1,4 +1,4 @@
-const Raven = require('raven');
+const Sentry = require("@sentry/node");
 const {URL} = require('url');
 const moment = require('moment');
 const worker = require('./worker/worker');
@@ -10,7 +10,7 @@ const estateRepository = require('../repository/estate');
 const blacklistRepository = require('../repository/estateBlacklist');
 
 function logError(error) {
-    Raven.captureException(error, {
+    Sentry.captureException(error, {
         tags: {submodule: 'updater'}
     });
 }
@@ -60,7 +60,7 @@ class Updater {
                 }
             }
         } catch (error) {
-            Raven.captureException(error);
+            Sentry.captureException(error);
             this.onReady(error);
         }
     }
@@ -80,7 +80,7 @@ class Updater {
 
             if (!this.isProfileDataValid(profileData)) {
                 await this.temporaryEstateBlacklist(url);
-                Raven.captureMessage('Invalid profile', {
+                Sentry.captureMessage('Invalid profile', {
                     level: 'warning',
                     tags: {submodule: 'updater'},
                     extra: {
@@ -119,11 +119,10 @@ class Updater {
         } catch (error) {
             console.error(`Error during fetching/parsing estate on ${this.provider.name}, URL: ${url}`);
             console.error(error);
-            Raven.context(function () {
-                Raven.setContext({
+            Sentry.captureException(error, {
+                extra: {
                     url
-                });
-                Raven.captureException(error);
+                }
             });
             this.scheduleNextEstateUpdate();
         }

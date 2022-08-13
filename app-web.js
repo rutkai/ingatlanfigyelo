@@ -5,11 +5,12 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const RateLimit = require('express-rate-limit');
-const MongoStore = require('connect-mongo')(session);
+const rateLimit = require('express-rate-limit');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const config = require('config');
-const Raven = require('raven');
+const Sentry = require("@sentry/node");
+const Tracing = require("@sentry/tracing");
 
 const envUtils = require('./utils/env');
 const db = require('./db/db');
@@ -35,7 +36,17 @@ function getApp() {
         .then(async () => {
             const app = express();
 
-            app.use(Raven.requestHandler());
+            Sentry.init({
+                dsn: config.get('sentry.polling'),
+                integrations: [
+                    new Sentry.Integrations.Http({ tracing: true }),
+                    new Tracing.Integrations.Express({ app }),
+                ],
+                tracesSampleRate: 1.0
+            });
+
+            app.use(Sentry.Handlers.requestHandler());
+            app.use(Sentry.Handlers.tracingHandler());
 
             if (envUtils.isDev()) {
                 app.use(logger('dev'));
@@ -53,7 +64,7 @@ function getApp() {
 
             await passportAuth.init();
             app.use(session({
-                store: new MongoStore({
+                store: MongoStore.create({
                     client: db.getClient(),
                     dbName: db.getCollectionName(),
                 }),
@@ -64,31 +75,31 @@ function getApp() {
             app.use(passport.initialize());
             app.use(passport.session());
 
-            const userLimiter = new RateLimit({
+            const userLimiter = rateLimit({
                 windowMs: 120000,
                 max: 30,
             });
-            const filterLimiter = new RateLimit({
+            const filterLimiter = rateLimit({
                 windowMs: 60000,
                 max: 50,
             });
-            const pushLimiter = new RateLimit({
+            const pushLimiter = rateLimit({
                 windowMs: 60000,
                 max: 30,
             });
-            const rssLimiter = new RateLimit({
+            const rssLimiter = rateLimit({
                 windowMs: 60000,
                 max: 20,
             });
-            const statsLimiter = new RateLimit({
+            const statsLimiter = rateLimit({
                 windowMs: 60000,
                 max: 20,
             });
-            const apiLimiter = new RateLimit({
+            const apiLimiter = rateLimit({
                 windowMs: 60000,
                 max: 0,
             });
-            const estateLimiter = new RateLimit({
+            const estateLimiter = rateLimit({
                 windowMs: 60000,
                 max: 100,
             });
@@ -101,7 +112,7 @@ function getApp() {
             app.use('/estates', apiLimiter, estates);
             app.use('/estate', estateLimiter, estate);
 
-            app.use(Raven.errorHandler());
+            app.use(Sentry.Handlers.errorHandler());
 
             return app;
         });

@@ -1,4 +1,4 @@
-const Raven = require('raven');
+const Sentry = require("@sentry/node");
 
 const workerPool = require('./pool');
 
@@ -14,7 +14,7 @@ async function fetchContent(url, provider) {
 
     incrementRetryCount(url);
     if (isRetriesReached(url)) {
-        Raven.captureMessage('Too many failed fetches!', {
+        Sentry.captureMessage('Too many failed fetches!', {
             level: 'error',
             tags: {submodule: 'worker'},
             extra: {
@@ -26,7 +26,7 @@ async function fetchContent(url, provider) {
     }
 
     if (!worker) {
-        Raven.captureMessage('No more workers! Rescheduling...', {
+        Sentry.captureMessage('No more workers! Rescheduling...', {
             level: 'error',
             tags: {submodule: 'worker'},
             extra: {
@@ -48,7 +48,7 @@ async function fetchContent(url, provider) {
         removeRetryCounter(url);
         return result;
     } catch (err) {
-        Raven.captureException(err, {
+        Sentry.captureException(err, {
             level: 'warning',
             tags: {submodule: 'worker'},
             extra: {

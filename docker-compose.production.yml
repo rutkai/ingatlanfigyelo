@@ -1,0 +1,8 @@
+version: "3.1"
+services:
+  web:
+    environment:
+      NODE_ENV: production
+    volumes:
+      - ./config:/srv/config
+      - ./var:/srv/var

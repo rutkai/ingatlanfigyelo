@@ -1,7 +1,7 @@
 const iconv = require('iconv-lite');
 const charset = require('charset');
 const got = require('got');
-const Raven = require('raven');
+const Sentry = require("@sentry/node");
 const moment = require('moment');
 
 
@@ -32,7 +32,7 @@ class LocalWorker {
             .then(response => {
                 let encoding = charset(response.headers, response, 4096) || 'utf8';
                 if (!iconv.encodingExists(encoding)) {
-                    Raven.captureMessage(`Unknown character encoding ${encoding} while reading ${url}`);
+                    Sentry.captureMessage(`Unknown character encoding ${encoding} while reading ${url}`);
                     encoding = 'utf8';
                 }
                 return iconv.decode(response, encoding ? encoding : 'utf8');
@@ -55,7 +55,7 @@ class LocalWorker {
             this.available = !!response;
         } catch (err) {
             console.log('Worker is unavailable: ' + this.name());
-            Raven.captureException(err, {
+            Sentry.captureException(err, {
                 level: 'error',
                 tags: {submodule: 'worker'},
                 extra: {

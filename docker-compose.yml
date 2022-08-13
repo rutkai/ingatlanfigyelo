@@ -4,8 +4,6 @@ services:
     build: .
     depends_on:
       - mongo
-    volumes:
-      - ./:/srv
   mongo:
     image: mongo
     volumes:

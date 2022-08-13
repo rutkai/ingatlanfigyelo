@@ -1,3 +1,4 @@
-node_modules
-npm-debug.log
-var
+/node_modules
+/frontend
+/npm-debug.log
+/var

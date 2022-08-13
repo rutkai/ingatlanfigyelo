@@ -1,4 +1,4 @@
-image: node:10
+image: node:16
 
 pipelines:
   branches:
@@ -8,10 +8,9 @@ pipelines:
             - node
           script:
             # Install AWS cli
-            - apt-get update && apt-get install -y python-dev
-            - curl -O https://bootstrap.pypa.io/get-pip.py
-            - python get-pip.py
-            - pip install awscli --upgrade
+            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            - unzip awscliv2.zip
+            - ./aws/install
             # Build and deploy frontend
             - cd frontend && npm install && npm run build-prod && cd -
             - aws s3 sync --delete public/ s3://ingatlanfigyelo

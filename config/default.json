@@ -26,8 +26,8 @@
     }
   },
   "sentry": {
-    "web": "https://acdca2b5ed9c42599b12cf10cd149420:9c80fc7fc6f9448ca219762e528d1cbc@sentry.io/250273",
-    "polling": "https://3cd42c47f14e4ca8b66c6651d3e6ff85:3506327fa6e4467289be0b4267b225ae@sentry.io/250276"
+    "web": "https://acdca2b5ed9c42599b12cf10cd149420@o113657.ingest.sentry.io/250273",
+    "polling": "https://3cd42c47f14e4ca8b66c6651d3e6ff85@o113657.ingest.sentry.io/250276"
   },
   "express": {
     "session-secret": "development-secret",

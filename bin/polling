@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 
 const config = require('config');
-const Raven = require('raven');
+const Sentry = require("@sentry/node");
 const db = require('../db/db');
 const pollingServer = require('../polling-server/server');
 
-Raven.config(config.get('sentry.polling')).install();
+Sentry.init({
+    dsn: config.get('sentry.polling'),
+    tracesSampleRate: 1.0
+});
 
 // Unexpected errors
 process.on('unhandledRejection', error => {
-    Raven.captureException(error);
+    Sentry.captureException(error);
 });
 
 db.init()
@@ -18,5 +21,5 @@ db.init()
         pollingServer.start();
     })
     .catch(e => {
-        Raven.captureException(e);
+        Sentry.captureException(e);
     });
