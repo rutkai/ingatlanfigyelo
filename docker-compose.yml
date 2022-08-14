@@ -15,7 +15,7 @@ services:
       - mongo
       - redis
   mongo:
-    image: mongo:5.0
+    image: mongo:4.4
     volumes:
       - ./var/db/:/data/db
   redis:
