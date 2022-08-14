@@ -3,6 +3,9 @@ services:
   web:
     volumes:
       - ./:/srv
+  polling:
+    volumes:
+      - ./:/srv
   mongo:
     ports:
       - 27017:27017

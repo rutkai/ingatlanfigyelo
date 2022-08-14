@@ -2,11 +2,21 @@ version: "3.1"
 services:
   web:
     build: .
+    command: ["npm", "run", "start-web"]
     depends_on:
       - mongo
+      - redis
+    ports:
+      - 3000:3000
+  polling:
+    build: .
+    command: ["npm", "run", "start-polling"]
+    depends_on:
+      - mongo
+      - redis
   mongo:
-    image: mongo
+    image: mongo:5.0
     volumes:
       - ./var/db/:/data/db
   redis:
-    image: redis
+    image: redis:7.0
