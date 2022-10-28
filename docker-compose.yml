@@ -8,15 +8,19 @@ services:
       - redis
     ports:
       - 3000:3000
+    restart: unless-stopped
   polling:
     build: .
     command: ["npm", "run", "start-polling"]
     depends_on:
       - mongo
       - redis
+    restart: unless-stopped
   mongo:
     image: mongo:4.4
     volumes:
       - ./var/db/:/data/db
+    restart: unless-stopped
   redis:
     image: redis:7.0
+    restart: unless-stopped
