@@ -1,20 +1,19 @@
 {
   "application": {
-    "baseUrl": "http://localhost:3000/#"
+    "baseUrl": "https://ingatlanfigyelo.eu"
   },
   "db": {
-    "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo",
-    "database": "ingatlanfigyelo"
+    "connectionStr": "mongodb://mongo:27017/ingatlanfigyelo"
   },
   "redis": {
-    "host": "127.0.0.1",
+    "host": "redis",
     "port": 6379,
     "db": 0
   },
   "email": {
     "transport": {
-      "host": "smtp.mailtrap.io",
-      "port": 465,
+      "host": "localhost",
+      "port": 25,
       "secure": false,
       "auth": {
         "user": "",
@@ -25,17 +24,9 @@
       "from": "Ingatlanfigyelő <noreply@ingatlanfigyelo.eu>"
     }
   },
-  "sentry": {
-    "web": "https://acdca2b5ed9c42599b12cf10cd149420@o113657.ingest.sentry.io/250273",
-    "polling": "https://3cd42c47f14e4ca8b66c6651d3e6ff85@o113657.ingest.sentry.io/250276"
-  },
   "express": {
-    "session-secret": "development-secret",
-    "vapid-public": "BGd5YMex0aq9Twdm15nm0ZWw3NiyYC0a06lZ2SRNtrKkRKr4ME3OcpJIhFSfORoOy_uv5CDkHHw2goskztqVrYM",
-    "vapid-private": "",
-    "authentication": {
-      "rounds": 10
-    }
+    "session-secret": "very-secret-string",
+    "vapid-private": "another-very-secret-key"
   },
   "polling": {
     "workers": [
@@ -47,6 +38,28 @@
             "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3250.0 Iron Safari/537.36"
           }
         }
+      },
+
+      {
+        "type": "aws-lambda",
+        "region": "oregon",
+        "performance": "auto",
+        "endpoint": "https://aws-lambda-endpoint",
+        "apikey": "asdasd"
+      },
+
+      {
+        "type": "azure-function",
+        "region": "central-us",
+        "performance": "auto",
+        "endpoint": "https://azure-endpoint"
+      },
+
+      {
+        "type": "native-php",
+        "performance": "auto",
+        "endpoint": "http://example.com/worker.php",
+        "token": "random-token"
       }
     ],
     "providers": [
@@ -136,54 +149,6 @@
           "maxPages": 20
         }
       }
-//      {
-//        "name": "Ingatlannet",
-//        "baseUrl": "https://www.ingatlannet.hu",
-//        "parser": "ingatlannet.hu",
-//        "scheduler": {
-//          "interval": {
-//            "hours": 21
-//          }
-//        },
-//        "parserOpts": {
-//          "indexPage": "https://www.ingatlannet.hu/elad%C3%B3/lak%C3%A1s/Budapest",
-//          "interval": {
-//            "milliseconds": 500
-//          }
-//        }
-//      },
-//      {
-//        "name": "Ingatlanbazar",
-//        "baseUrl": "https://www.ingatlanbazar.hu",
-//        "parser": "ingatlanbazar.hu",
-//        "scheduler": {
-//          "interval": {
-//            "hours": 21
-//          }
-//        },
-//        "parserOpts": {
-//          "indexPage": "https://www.ingatlanbazar.hu/ingatlan-Elado?page=1",
-//          "interval": {
-//            "milliseconds": 500
-//          }
-//        }
-//      },
-//      {
-//        "name": "Ingatlanok",
-//        "baseUrl": "https://ingatlanok.hu",
-//        "parser": "ingatlanok.hu",
-//        "scheduler": {
-//          "interval": {
-//            "hours": 21
-//          }
-//        },
-//        "parserOpts": {
-//          "indexPage": "https://ingatlanok.hu/elado/lakas/budapest",
-//          "interval": {
-//            "milliseconds": 500
-//          }
-//        }
-//      }
     ]
   }
 }

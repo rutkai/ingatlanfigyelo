@@ -1,0 +1,8 @@
+### Application
+/config/production.json
+
+/var/*
+/var/db/*
+!/var/db/.gitkeep
+/var/log/*
+!/var/log/.gitkeep

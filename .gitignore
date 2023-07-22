@@ -113,13 +113,5 @@ typings/
 /.idea
 
 ### Application
-/config/production.json
-
 /public/*
 !/public/.gitkeep
-
-/var/*
-/var/db/*
-!/var/db/.gitkeep
-/var/log/*
-!/var/log/.gitkeep

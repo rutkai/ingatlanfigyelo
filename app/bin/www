@@ -6,7 +6,7 @@
 
 const config = require('config');
 const Sentry = require("@sentry/node");
-const appWeb = require('../app-web');
+const appWeb = require('../src/app-web');
 const http = require('http');
 
 /**

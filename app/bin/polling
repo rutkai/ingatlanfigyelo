@@ -2,8 +2,7 @@
 
 const config = require('config');
 const Sentry = require("@sentry/node");
-const db = require('../db/db');
-const pollingServer = require('../polling-server/server');
+const pollingServer = require('../src/polling-server/server');
 
 Sentry.init({
     dsn: config.get('sentry.polling'),
@@ -15,8 +14,7 @@ process.on('unhandledRejection', error => {
     Sentry.captureException(error);
 });
 
-db.init()
-    .then(() => pollingServer.init())
+pollingServer.init()
     .then(() => {
         pollingServer.start();
     })

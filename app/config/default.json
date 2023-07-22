@@ -1,0 +1,72 @@
+{
+  "application": {
+    "baseUrl": "http://localhost:3000/#"
+  },
+  "db": {
+    "connectionStr": "mongodb://localhost:27017/ingatlanfigyelo",
+    "database": "ingatlanfigyelo"
+  },
+  "redis": {
+    "host": "127.0.0.1",
+    "port": 6379,
+    "db": 0
+  },
+  "email": {
+    "transport": {
+      "host": "smtp.mailtrap.io",
+      "port": 465,
+      "secure": false,
+      "auth": {
+        "user": "",
+        "pass": ""
+      }
+    },
+    "options": {
+      "from": "Ingatlanfigyelő <noreply@ingatlanfigyelo.eu>"
+    }
+  },
+  "sentry": {
+    "web": "https://acdca2b5ed9c42599b12cf10cd149420@o113657.ingest.sentry.io/250273",
+    "polling": "https://3cd42c47f14e4ca8b66c6651d3e6ff85@o113657.ingest.sentry.io/250276"
+  },
+  "express": {
+    "session-secret": "development-secret",
+    "vapid-public": "BGd5YMex0aq9Twdm15nm0ZWw3NiyYC0a06lZ2SRNtrKkRKr4ME3OcpJIhFSfORoOy_uv5CDkHHw2goskztqVrYM",
+    "vapid-private": "",
+    "authentication": {
+      "rounds": 10
+    }
+  },
+  "polling": {
+    "workers": [
+      {
+        "type": "local",
+        "performance": "auto",
+        "options": {
+          "headers": {
+            "user-agent": "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3250.0 Iron Safari/537.36"
+          }
+        }
+      }
+    ],
+    "providers": [
+      {
+        "name": "Otthontérkép",
+        "baseUrl": "https://otthonterkep.hu",
+        "parser": "otthonterkep.hu",
+        "scheduler": {
+          "interval": {
+            "minutes": 30
+          }
+        },
+        "parserOpts": {
+          "indexPage": "https://otthonterkep.hu/elad%C3%B3-lak%C3%A1s/Budapest?ex=1&sort=td",
+          "interval": {
+            "milliseconds": 3000
+          },
+          "maxPages": 1
+        }
+      }
+    ]
+  }
+}

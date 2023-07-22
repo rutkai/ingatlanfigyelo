@@ -1,6 +1,7 @@
 const config = require('config');
 const moment = require('moment');
 
+const db = require('../db/db');
 const workerPool = require('./worker/pool');
 
 const parsers = require('./parsers/parser');
@@ -18,6 +19,7 @@ let isPolling = false;
 
 exports.init = init;
 async function init() {
+    await db.init();
     await estates.checkIndices();
     await estates.migrate();
     await workerPool.init();
