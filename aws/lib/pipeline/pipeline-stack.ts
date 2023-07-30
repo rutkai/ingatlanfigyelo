@@ -17,6 +17,7 @@ export class PipelineStack extends cdk.Stack {
           connectionArn: Secret.fromSecretNameV2(this, 'GitHubConnectionArn', 'pipeline/codestar-arn').secretValue.unsafeUnwrap(),
         }),
         commands: ['cd aws', 'npm ci', 'npm run build', 'npx cdk synth --all'],
+        primaryOutputDirectory: 'aws/cdk.out',
       }),
     });
 
