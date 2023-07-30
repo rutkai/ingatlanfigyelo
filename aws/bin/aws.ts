@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import {InfraStack} from '../lib/infra/infra-stack';
-import {PipelineStack} from "../lib/pipeline/pipeline-stack";
-import {SharedInfraStack} from "../lib/shared-infra/shared-infra-stack";
+import {InfraStack} from '../infra/infra-stack';
+import {PipelineStack} from "../pipeline/pipeline-stack";
+import {SharedInfraStack} from "../shared-infra/shared-infra-stack";
 
 const app = new cdk.App();
 
