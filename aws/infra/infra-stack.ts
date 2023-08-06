@@ -13,5 +13,7 @@ export class InfraStack extends cdk.Stack {
     // const queue = new sqs.Queue(this, 'AwsQueue', {
     //   visibilityTimeout: cdk.Duration.seconds(300)
     // });
+
+    cdk.Tags.of(this).add('project', 'ingatlanfigyelo-infra');
   }
 }

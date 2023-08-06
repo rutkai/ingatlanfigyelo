@@ -4,7 +4,6 @@ import {CodePipeline, CodePipelineSource, ShellStep} from "aws-cdk-lib/pipelines
 import {SharedInfraStage} from "../shared-infra/shared-infra-stage";
 import {InfraStage} from "../infra/infra-stage";
 import {Secret} from "aws-cdk-lib/aws-secretsmanager";
-import {SecretValue} from "aws-cdk-lib";
 
 export class PipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -33,5 +32,7 @@ export class PipelineStack extends cdk.Stack {
         region: process.env.CDK_DEFAULT_REGION,
       },
     }));
+
+    cdk.Tags.of(this).add('project', 'ingatlanfigyelo-pipeline');
   }
 }

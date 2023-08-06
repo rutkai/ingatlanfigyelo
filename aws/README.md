@@ -1,10 +1,16 @@
-# Welcome to your CDK TypeScript project
+# Ingatlanfigyelo CDK infrastructure for AWS
 
-This is a blank project for CDK development with TypeScript.
+## Stacks
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+This project is composed of 3 stacks:
+
+1. Pipeline stack: contains the pipeline definition which updates the application stack
+2. Shared infra stack: contains the shared infrastructure resources (e.g. VPC, S3 buckets, etc.)
+3. Infra stack: contains the application infrastructure resources (e.g. ECS cluster, ECS service, etc.)
 
 ## Useful commands
+
+The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 * `npm run build`   compile typescript to js
 * `npm run watch`   watch for changes and compile
