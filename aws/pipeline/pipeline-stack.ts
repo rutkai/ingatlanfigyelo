@@ -18,6 +18,20 @@ export class PipelineStack extends cdk.Stack {
         commands: ['cd aws', 'npm ci', 'npm run build', 'npx cdk synth --all'],
         primaryOutputDirectory: 'aws/cdk.out',
       }),
+      synthCodeBuildDefaults: {
+        rolePolicy: [
+          // @see https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html#context-lookups
+          new cdk.aws_iam.PolicyStatement({
+            actions: ['sts:AssumeRole'],
+            resources: ["*"],
+            conditions: {
+              StringEquals: {
+                'iam:ResourceTag/aws-cdk:bootstrap-role': 'lookup',
+              },
+            },
+          }),
+        ],
+      },
     });
 
     pipeline.addStage(new SharedInfraStage(this, 'SharedInfra', {
