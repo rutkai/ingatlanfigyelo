@@ -8,7 +8,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "prepare-account-id": "cp cdk.context.json.dist cdk.context.json && sed -i \"s/%ACCOUNT_ID%/$CDK_DEFAULT_ACCOUNT/g\" cdk.context.json"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
