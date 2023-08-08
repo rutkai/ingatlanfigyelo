@@ -9,8 +9,9 @@ export class DeployPipeline extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    const pipeline = new CodePipeline(this, 'Pipeline', {
-      pipelineName: 'IngatlanfigyeloPipeline',
+    const pipeline = new CodePipeline(this, 'IngatlanfigyeloInfraPipeline', {
+      pipelineName: 'IngatlanfigyeloInfraPipeline',
+      crossAccountKeys: false,
       synth: new ShellStep('Synth', {
         input: CodePipelineSource.connection('rutkai/ingatlanfigyelo', 'master', {
           connectionArn: Secret.fromSecretNameV2(this, 'GitHubConnectionArn', 'pipeline/codestar-arn').secretValue.unsafeUnwrap(),
