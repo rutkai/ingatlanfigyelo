@@ -1,34 +1,34 @@
 import {Construct} from 'constructs';
 import {Secret} from "aws-cdk-lib/aws-secretsmanager";
-import * as ecr from 'aws-cdk-lib/aws-ecr';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as codepipeline from "aws-cdk-lib/aws-codepipeline";
 import * as codepipeline_actions from "aws-cdk-lib/aws-codepipeline-actions";
 import * as codebuild from "aws-cdk-lib/aws-codebuild";
 
-export class AppPipeline extends Construct {
-  constructor(scope: Construct, id: string, ecrRepo: ecr.Repository) {
+export class FrontendPipeline extends Construct {
+  constructor(scope: Construct, id: string, artifactBucket: s3.Bucket) {
     super(scope, id);
 
-    const dockerBuildProject = new codebuild.PipelineProject(this, 'AppBuildProject', {
-      projectName: 'ingatlanfigyelo-app-docker-build',
+    const frontendBuildProject = new codebuild.PipelineProject(this, 'FrontendBuildProject', {
+      projectName: 'ingatlanfigyelo-frontend-build',
       environment: {
         buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
-        privileged: true,
       },
       buildSpec: codebuild.BuildSpec.fromObject({
         version: '0.2',
         phases: {
           build: {
             commands: [
-              `docker build -t ${ecrRepo.repositoryUri}:latest app/`,
-              `aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin ${ecrRepo.repositoryUri}`,
-              `docker push ${ecrRepo.repositoryUri}:latest`,
+              "cd frontend && npm ci && npm run build-prod && cd -",
+              "export ARTIFACT_NAME=\"ingatlanfigyelo-frontend-$CODEBUILD_SOURCE_BRANCH-$CODEBUILD_BUILD_NUMBER-$(date +\"%Y-%m-%d_%H-%M-%S\").tar.gz\"",
+              "tar czvf $ARTIFACT_NAME -C public/ .",
+              `aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/master/`,
             ],
           }
         }
       })
     });
-    ecrRepo.grantPullPush(dockerBuildProject);
+    artifactBucket.grantReadWrite(frontendBuildProject);
 
     const sourceOutput = new codepipeline.Artifact();
     const sourceAction = new codepipeline_actions.CodeStarConnectionsSourceAction({
@@ -41,21 +41,21 @@ export class AppPipeline extends Construct {
     });
 
     const buildAction = new codepipeline_actions.CodeBuildAction({
-      actionName: 'BuildAndPushDockerImage',
-      project: dockerBuildProject,
+      actionName: 'BuildAndStoreFrontend',
+      project: frontendBuildProject,
       input: sourceOutput,
       outputs: [new codepipeline.Artifact()],
     });
 
-    const pipeline = new codepipeline.Pipeline(this, 'AppPipeline', {
-      pipelineName: 'IngatlanfigyeloAppPipeline',
+    const pipeline = new codepipeline.Pipeline(this, 'FrontendPipeline', {
+      pipelineName: 'IngatlanfigyeloFrontendPipeline',
       stages: [
         {
           stageName: 'Source',
           actions: [sourceAction],
         },
         {
-          stageName: 'BuildAndPush',
+          stageName: 'BuildAndStore',
           actions: [buildAction],
         }
       ]
