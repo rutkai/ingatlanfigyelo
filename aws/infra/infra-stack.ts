@@ -1,7 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import {Construct} from 'constructs';
-
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import {FrontendRepository} from './lib/frontend-repository';
 
 export class InfraStack extends cdk.Stack {
   public static readonly STACK_NAME = 'ingatlanfigyelo-infra';
@@ -12,12 +11,7 @@ export class InfraStack extends cdk.Stack {
       stackName: InfraStack.STACK_NAME,
     });
 
-    // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'AwsQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const frontendRepo = new FrontendRepository(this, 'ingatlanfigyelo-frontendrepo');
 
     cdk.Tags.of(this).add('project', InfraStack.STACK_NAME);
   }

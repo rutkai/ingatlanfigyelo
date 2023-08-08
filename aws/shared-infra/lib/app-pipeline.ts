@@ -11,6 +11,9 @@ export class AppPipeline extends Construct {
 
     const dockerBuildProject = new codebuild.PipelineProject(this, 'AppBuildProject', {
       projectName: 'ingatlanfigyelo-app-docker-build',
+      environment: {
+        privileged: true,
+      },
       buildSpec: codebuild.BuildSpec.fromObject({
         version: '0.2',
         phases: {
@@ -37,7 +40,7 @@ export class AppPipeline extends Construct {
     });
 
     const buildAction = new codepipeline_actions.CodeBuildAction({
-      actionName: 'BuildDockerImage',
+      actionName: 'BuildAndPushDockerImage',
       project: dockerBuildProject,
       input: sourceOutput,
       outputs: [new codepipeline.Artifact()],
