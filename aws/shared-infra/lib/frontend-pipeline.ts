@@ -21,10 +21,10 @@ export class FrontendPipeline extends Construct {
           build: {
             commands: [
               "docker run --rm -v $(pwd):/app node:16 bash -c 'cd /app/frontend && npm ci && npm run build-prod'",
-              "export ARTIFACT_NAME=\"ingatlanfigyelo-frontend-master-$CODEBUILD_BUILD_NUMBER-$(date +\"%Y-%m-%d_%H-%M-%S\").tar.gz\"",
-              "tar czvf $ARTIFACT_NAME -C public/ .",
+              "export ARTIFACT_NAME=\"ingatlanfigyelo-frontend-master-$CODEBUILD_BUILD_NUMBER-$(date +\"%Y-%m-%d_%H-%M-%S\").zip\"",
+              "cd public && zip -r ../$ARTIFACT_NAME . && cd -",
               `aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/master/`,
-              `aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/ingatlanfigyelo-frontend-master-latest.tar.gz`,
+              `aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/ingatlanfigyelo-frontend-master-latest.zip`,
             ],
           }
         }
