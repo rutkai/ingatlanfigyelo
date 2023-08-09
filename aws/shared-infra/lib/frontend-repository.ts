@@ -10,6 +10,7 @@ export class FrontendRepository extends Construct {
 
     this.frontendRepo = new s3.Bucket(this, 'FrontendRepository', {
       bucketName: 'ingatlanfigyelo-frontend-artifacts',
+      versioned: true,
     });
 
     new cdk.CfnOutput(this, 'frontend-bucket-name', {
