@@ -13,13 +13,14 @@ export class FrontendPipeline extends Construct {
       projectName: 'ingatlanfigyelo-frontend-build',
       environment: {
         buildImage: codebuild.LinuxBuildImage.STANDARD_7_0,
+        privileged: true,
       },
       buildSpec: codebuild.BuildSpec.fromObject({
         version: '0.2',
         phases: {
           build: {
             commands: [
-              "cd frontend && npm ci && npm run build-prod && cd -",
+              "docker run --rm -v $(pwd):/app node:16 bash -c 'cd /app/frontend && npm ci && npm run build-prod'",
               "export ARTIFACT_NAME=\"ingatlanfigyelo-frontend-$CODEBUILD_SOURCE_BRANCH-$CODEBUILD_BUILD_NUMBER-$(date +\"%Y-%m-%d_%H-%M-%S\").tar.gz\"",
               "tar czvf $ARTIFACT_NAME -C public/ .",
               `aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/master/`,
