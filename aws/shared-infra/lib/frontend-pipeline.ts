@@ -24,7 +24,7 @@ export class FrontendPipeline extends Construct {
               "export ARTIFACT_NAME=\"ingatlanfigyelo-frontend-$CODEBUILD_SOURCE_BRANCH-$CODEBUILD_BUILD_NUMBER-$(date +\"%Y-%m-%d_%H-%M-%S\").tar.gz\"",
               "tar czvf $ARTIFACT_NAME -C public/ .",
               `aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/$CODEBUILD_SOURCE_BRANCH/`,
-              `if [ "$CODEBUILD_SOURCE_BRANCH" == "master" ]; then aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/latest-master.tar.gz; fi`,
+              `if [ "$CODEBUILD_SOURCE_BRANCH" == "master" ]; then aws s3 cp $ARTIFACT_NAME s3://${artifactBucket.bucketName}/ingatlanfigyelo-frontend-master-latest.tar.gz; fi`,
             ],
           }
         }
