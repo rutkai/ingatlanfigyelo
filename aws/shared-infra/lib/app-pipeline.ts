@@ -48,7 +48,7 @@ export class AppPipeline extends Construct {
     });
 
     const pipeline = new codepipeline.Pipeline(this, 'AppPipeline', {
-      pipelineName: 'IngatlanfigyeloAppPipeline',
+      pipelineName: 'IngatlanfigyeloAppBuildPipeline',
       stages: [
         {
           stageName: 'Source',
