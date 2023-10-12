@@ -23,15 +23,31 @@ export class FilterComponent {
     return this.filter instanceof BooleanFilter;
   }
 
+  public getFilterAsBooleanFilter(): BooleanFilter {
+    return this.filter as BooleanFilter;
+  }
+
   public isIntervalFilter(): boolean {
     return this.filter instanceof IntervalFilter;
+  }
+
+  public getFilterAsIntervalFilter(): IntervalFilter {
+    return this.filter as IntervalFilter;
   }
 
   public isMultiselectFilter(): boolean {
     return this.filter instanceof MultiselectFilter;
   }
 
+  public getFilterAsMultiselectFilter(): MultiselectFilter {
+    return this.filter as MultiselectFilter;
+  }
+
   public isStringFilter(): boolean {
     return this.filter instanceof StringFilter;
+  }
+
+  public getFilterAsStringFilter(): StringFilter {
+    return this.filter as StringFilter;
   }
 }

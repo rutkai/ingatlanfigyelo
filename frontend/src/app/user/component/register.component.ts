@@ -12,7 +12,7 @@ export class RegisterComponent {
   public username = new FormControl('', [Validators.required, Validators.email]);
   public password = new FormControl('', [Validators.required]);
   public password2: FormControl;
-  public terms;
+  public terms: FormControl;
 
   constructor(private userService: UserService,
               private notificationService: NotificationService,

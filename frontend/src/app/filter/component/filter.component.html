@@ -5,7 +5,7 @@
 <button mat-icon-button color="secondary" (click)="removeFilter()" matTooltip="Szűrő törlése">
   <mat-icon aria-label="Remove">remove</mat-icon>
 </button>
-<app-filter-boolean *ngIf="isBooleanFilter()" [filter]="filter" (change)="changed()" class="filter-type"></app-filter-boolean>
-<app-filter-interval *ngIf="isIntervalFilter()" [filter]="filter" (change)="changed()" class="filter-type"></app-filter-interval>
-<app-filter-multiselect *ngIf="isMultiselectFilter()" [filter]="filter" (change)="changed()" class="filter-type"></app-filter-multiselect>
-<app-filter-string *ngIf="isStringFilter()" [filter]="filter" (change)="changed()" class="filter-type"></app-filter-string>
+<app-filter-boolean *ngIf="isBooleanFilter()" [filter]="getFilterAsBooleanFilter()" (change)="changed()" class="filter-type"></app-filter-boolean>
+<app-filter-interval *ngIf="isIntervalFilter()" [filter]="getFilterAsIntervalFilter()" (change)="changed()" class="filter-type"></app-filter-interval>
+<app-filter-multiselect *ngIf="isMultiselectFilter()" [filter]="getFilterAsMultiselectFilter()" (change)="changed()" class="filter-type"></app-filter-multiselect>
+<app-filter-string *ngIf="isStringFilter()" [filter]="getFilterAsStringFilter()" (change)="changed()" class="filter-type"></app-filter-string>
