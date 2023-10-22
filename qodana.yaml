@@ -13,8 +13,8 @@ profile:
 #  - name: <SomeEnabledInspectionId>
 
 #Disable inspections
-#exclude:
-#  - name: <SomeDisabledInspectionId>
+exclude:
+  - name: JSNonASCIINames
 #    paths:
 #      - <path/where/not/run/inspection>
 
