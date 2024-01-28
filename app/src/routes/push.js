@@ -8,11 +8,21 @@ const webpush = require('../db/webpush');
 const userRepository = require('../repository/user');
 const pushServer = require('../push-server/server');
 
-webPush.setVapidDetails(
-    'mailto:contact@rutkai.hu',
-    config.get('express.vapid-public'),
-    config.get('express.vapid-private') || process.env.VAPID_PRIVATE_KEY,
-);
+const isDev = require('../utils/env').isDev;
+if (isDev()) {
+    const vapidKeys = webPush.generateVAPIDKeys();
+    webPush.setVapidDetails(
+        'mailto:ingatlanfigyelo@localhost',
+        vapidKeys.publicKey,
+        vapidKeys.privateKey,
+    );
+} else {
+    webPush.setVapidDetails(
+        'mailto:contact@rutkai.hu',
+        config.get('express.vapid-public'),
+        config.get('express.vapid-private') || process.env.VAPID_PRIVATE_KEY,
+    );
+}
 
 router.post('/subscribe', async function (req, res) {
     if (!req.isAuthenticated()) {

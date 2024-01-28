@@ -3,6 +3,7 @@ services:
   web:
     volumes:
       - ./:/srv
+      - ../public:/srv/public
   polling:
     volumes:
       - ./:/srv

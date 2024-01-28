@@ -1,0 +1,10 @@
+{
+  "db": {
+    "connectionStr": "mongodb://mongo:27017/ingatlanfigyelo"
+  },
+  "redis": {
+    "host": "redis",
+    "port": 6379,
+    "db": 0
+  }
+}

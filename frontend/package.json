@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0",
     "clean": "rm -r ../public/*",
     "build": "ng build",
     "build-prod": "ng build --prod --aot=true --build-optimizer=true && npm run precache",

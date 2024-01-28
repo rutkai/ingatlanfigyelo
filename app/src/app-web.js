@@ -53,13 +53,13 @@ function getApp() {
                 app.use(require('cors')({
                     origin: true,
                     credentials: true
-                }))
+                }));
             }
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded({extended: false}));
             app.use(cookieParser());
             if (envUtils.isDev()) {
-                app.use(express.static(path.join(__dirname, 'public')));
+                app.use(express.static(path.join(__dirname, '..', 'public')));
             }
 
             await passportAuth.init();

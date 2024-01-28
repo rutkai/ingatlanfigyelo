@@ -1,6 +1,6 @@
 const db = require('./db');
 
-const version = 4;
+const version = 5;
 exports.version = version;
 
 exports.checkIndices = checkIndices;

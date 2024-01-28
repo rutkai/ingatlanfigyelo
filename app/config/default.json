@@ -31,7 +31,7 @@
   },
   "express": {
     "session-secret": "development-secret",
-    "vapid-public": "BGd5YMex0aq9Twdm15nm0ZWw3NiyYC0a06lZ2SRNtrKkRKr4ME3OcpJIhFSfORoOy_uv5CDkHHw2goskztqVrYM",
+    "vapid-public": "",
     "vapid-private": "",
     "authentication": {
       "rounds": 10
