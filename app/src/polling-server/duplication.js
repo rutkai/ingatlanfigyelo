@@ -1,10 +1,8 @@
-const fs = require('fs');
 const levenshtein = require('fast-levenshtein');
 
 const estateRepository = require('../repository/estate');
 
 const CONFIDENCE_THRESHOLD = 100;
-const logPath = __dirname + '/../var/log/duplication.log';
 
 exports.isDuplicate = isDuplicate;
 async function isDuplicate(profileData) {
@@ -12,7 +10,7 @@ async function isDuplicate(profileData) {
 
     for (const estate of candidates) {
         if (isDuplicateOf(estate, profileData)) {
-            log(estate._id, profileData.source);
+            console.log('[' + new Date().toISOString() + ']: Duplication found with ' + estate._id + ' - duplicate provider: ' + profileData.source);
             return estate;
         }
     }
@@ -77,9 +75,4 @@ function createFilterFromProfileData(profileData) {
     }
 
     return filter;
-}
-
-function log(id, duplicateProvider) {
-    let data = '[' + new Date().toISOString() + ']: Duplication found with ' + id + ' - duplicate provider: ' + duplicateProvider + '\n';
-    fs.appendFile(logPath, data, () => {});
 }

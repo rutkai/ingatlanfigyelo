@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 let client, db;
 
 exports.init = async function () {
-    client = await MongoClient.connect(config.get('db.connectionStr'), { useNewUrlParser: true, useUnifiedTopology: true });
+    client = await MongoClient.connect(config.get('db.connectionStr'));
     db = client.db(config.get('db.database'));
 }
 

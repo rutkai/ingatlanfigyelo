@@ -5,10 +5,8 @@ services:
       NODE_ENV: production
     volumes:
       - ./config:/srv/config:ro
-      - ./var:/srv/var
   polling:
     environment:
       NODE_ENV: production
     volumes:
       - ./config:/srv/config:ro
-      - ./var:/srv/var

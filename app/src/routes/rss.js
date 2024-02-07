@@ -14,7 +14,7 @@ router.get('/:user((\\w+|\\d+)+)?', async function (req, res) {
 
     if (req.params.user) {
         try {
-            user = await userRepository.get({_id: ObjectId(req.params.user)});
+            user = await userRepository.get({_id: new ObjectId(req.params.user)});
         } catch (e) {
         }
     } else {

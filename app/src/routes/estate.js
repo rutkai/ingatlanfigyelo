@@ -11,7 +11,7 @@ router.get('/:estate((\\w+|\\d+)+)', async function (req, res) {
 
     let estate;
     try {
-        estate = await estateRepository.get({_id: ObjectId(id)});
+        estate = await estateRepository.get({_id: new ObjectId(id)});
     } catch (e) {
     }
 
@@ -36,7 +36,7 @@ router.put('/:estate((\\w+|\\d+)+)', async function (req, res) {
 
     let estate;
     try {
-        estate = await estateRepository.get({_id: ObjectId(id)});
+        estate = await estateRepository.get({_id: new ObjectId(id)});
     } catch (e) {
     }
 

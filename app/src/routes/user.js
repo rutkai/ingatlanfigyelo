@@ -102,7 +102,7 @@ router.put('/password-reset', async function (req, res) {
         return;
     }
 
-    const user = await userRepository.get({_id: ObjectId(req.body.id)});
+    const user = await userRepository.get({_id: new ObjectId(req.body.id)});
     if (!user) {
         res.status(400).json({
             error: 'Invalid token!',

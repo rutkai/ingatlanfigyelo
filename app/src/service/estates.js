@@ -8,7 +8,7 @@ exports.getFavouriteEstates = getFavouriteEstates;
 function getFavouriteEstates(user, start, RESULT_LIMIT) {
     const favouriteQuery = {
         "_id": {
-            "$in": user.favouriteEstates.map(ObjectId)
+            "$in": user.favouriteEstates.map(oid => new ObjectId(oid))
         }
     };
     return estateRepository.getEstates(favouriteQuery, start, RESULT_LIMIT);
@@ -18,8 +18,8 @@ exports.getSeenEstates = getSeenEstates;
 function getSeenEstates(user, start, RESULT_LIMIT) {
     let seenQuery = {
         "_id": {
-            "$in": user.seenEstates.map(ObjectId),
-            "$nin": user.favouriteEstates.map(ObjectId)
+            "$in": user.seenEstates.map(oid => new ObjectId(oid)),
+            "$nin": user.favouriteEstates.map(oid => new ObjectId(oid))
         }
     };
     if (user.readAllMark) {
@@ -31,7 +31,7 @@ function getSeenEstates(user, start, RESULT_LIMIT) {
                     "$and": [
                         {
                             "_id": {
-                                "$nin": user.favouriteEstates.map(ObjectId).concat(user.unseenMarkedEstates.map(ObjectId))
+                                "$nin": user.favouriteEstates.map(oid => new ObjectId(oid)).concat(user.unseenMarkedEstates.map(ObjectId))
                             },
                             "updated": {
                                 "$lt": user.readAllMark
@@ -55,13 +55,13 @@ function getUnseenNonFavouriteEstates(user, start, RESULT_LIMIT) {
                 "$or": [
                     {
                         "_id": {
-                            "$nin": user.favouriteEstates.map(ObjectId),
-                            "$in": user.unseenMarkedEstates.map(ObjectId),
+                            "$nin": user.favouriteEstates.map(oid => new ObjectId(oid)),
+                            "$in": user.unseenMarkedEstates.map(oid => new ObjectId(oid)),
                         }
                     },
                     {
                         "_id": {
-                            "$nin": user.favouriteEstates.map(ObjectId).concat(user.seenEstates.map(ObjectId)),
+                            "$nin": user.favouriteEstates.map(oid => new ObjectId(oid)).concat(user.seenEstates.map(oid => new ObjectId(oid))),
                         }
                     }
                 ]
