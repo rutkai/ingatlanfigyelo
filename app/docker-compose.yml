@@ -1,7 +1,7 @@
 version: "3.1"
 services:
   web:
-    build: .
+    image: rutkai/ingatlanfigyelo
     command: ["npm", "run", "start-web"]
     depends_on:
       - mongo
@@ -10,7 +10,7 @@ services:
       - 3000:3000
     restart: unless-stopped
   polling:
-    build: .
+    image: rutkai/ingatlanfigyelo
     command: ["npm", "run", "start-polling"]
     depends_on:
       - mongo
@@ -22,5 +22,5 @@ services:
       - ./var/db/:/data/db
     restart: unless-stopped
   redis:
-    image: redis:7.0
+    image: redis:7
     restart: unless-stopped
