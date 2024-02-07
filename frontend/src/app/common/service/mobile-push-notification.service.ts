@@ -67,6 +67,7 @@ export class MobilePushNotificationService {
                 return subscription.unsubscribe();
               });
           }
+          return null;
         });
     }
   }

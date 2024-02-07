@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {Subject} from "rxjs/internal/Subject";
 import {Subscription} from "rxjs/internal/Subscription";
-import {debounceTime} from "rxjs/internal/operators";
+import {debounceTime} from "rxjs";
 import {EstatesStore, User, UserService, UserStore} from "../../../common";
 
 @Component({

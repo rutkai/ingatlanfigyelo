@@ -19,9 +19,9 @@ import {environment} from "../environments/environment";
 import {UsermenuModule} from "./usermenu/usermenu.module";
 
 const routes: Routes = [
-  { path: '', loadChildren: './estate/estate.module#EstateModule' },
-  { path: 'user', loadChildren: './user/user.module#UserModule' },
-  { path: 'about', loadChildren: './about/about.module#AboutModule' },
+  { path: '', loadChildren: () => import('./estate/estate.module').then(m => m.EstateModule)},
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+  { path: 'about', loadChildren: () => import('./about/about.module').then(m => m.AboutModule) },
 ];
 
 @NgModule({
