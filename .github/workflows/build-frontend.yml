@@ -1,0 +1,28 @@
+name: Build app docker image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+        working-directory: frontend
+      - name: Build
+        run: npm run build-prod
+        working-directory: frontend
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingatlanfigyelo-frontend
+          path: public/
+          if-no-files-found: error
