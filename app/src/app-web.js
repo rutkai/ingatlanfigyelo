@@ -175,7 +175,7 @@ function createHeartbeatCheck(wss) {
             }
 
             ws.isAlive = false;
-            ws.ping('', false, true);
+            ws.ping();
         });
     }, 3 * 60 * 1000);
 }
