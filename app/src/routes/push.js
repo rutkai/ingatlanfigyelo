@@ -99,7 +99,10 @@ async function checkUpdates() {
 
         const estates = await pushServer.getUpdatedEstateList(user);
         if (estates.length) {
-            sendWebpush(subscription, estates);
+            sendWebpush(subscription, estates)
+                .catch(() => {
+                    webpush.remove(subscription.username);
+                });
         }
     }
 }
@@ -116,7 +119,7 @@ function sendWebpush(subscription, estates) {
         TTL: 3600 // 1h
     };
 
-    webPush.sendNotification(
+    return webPush.sendNotification(
         subscription,
         payload,
         options
